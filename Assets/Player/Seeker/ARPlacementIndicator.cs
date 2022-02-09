@@ -9,6 +9,7 @@ public class ARPlacementIndicator : MonoBehaviour
 
     public GameObject levelToSpawn;
     public GameObject placementIdicator;
+    public Camera cam;
     //could be Private
     public GameObject[] gameObjectsToSpawnInLevel;
 
@@ -26,7 +27,7 @@ public class ARPlacementIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(spawnedGameObject == null && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             PlaceGameObject();
         }
@@ -49,7 +50,7 @@ public class ARPlacementIndicator : MonoBehaviour
 
     private void UpdatePlacementPosition()
     {
-        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.3f));
+        var screenCenter = cam.ViewportToScreenPoint(new Vector3(0.5f, 0.3f));
         var hits = new List<ARRaycastHit>();
         aRRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
