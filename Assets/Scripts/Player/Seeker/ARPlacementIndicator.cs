@@ -19,7 +19,7 @@ public class ARPlacementIndicator : MonoBehaviour
     private bool isLevelPlaced = false;
     private bool isPlacementValid = false;
 
-    void Start()
+    void Awake()
     {
         aRRaycastManager = FindObjectOfType<ARRaycastManager>();
     }
