@@ -1,31 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class HiderPlayerController : MonoBehaviour
+public class HiderPlayerController : MonoBehaviourPun
 {
-
-    public Transform groundCheck;
-    public CharacterController characterController;
+    [SerializeField]
+    private Transform groundCheck;
+    [SerializeField]
+    private CharacterController characterController;
     [Header("PlayerMovement")]
-    public float movementSpeed = 0.4f;
-    public float jumpHeight = 0.2f;
+    [SerializeField]
+    private float movementSpeed = 0.4f;
+    [SerializeField]
+    private float jumpHeight = 0.2f;
     [Header("Physics")]
-    public float gravity = -3.905f;
-    public float groundCheckDistance = 0.4f;
-    public LayerMask groundLayer;
+    [SerializeField]
+    private float gravity = -3.905f;
+    [SerializeField]
+    private float groundCheckDistance = 0.4f;
+    [SerializeField]
+    private LayerMask groundLayer;
+    [SerializeField]
+    private Camera myCam;
+    [SerializeField]
+    private GameResolver gameResolver;
 
     private Vector3 velocity;
     private bool isHiderOnGround = true;
 
+    /// <summary>
+    /// Interact
+    /// Use Items
+    /// </summary>
+
+    private void Start()
+    {
+        if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
+        {
+            myCam.gameObject.SetActive(true);
+        }
+    }
     void HandelPlayerMovement()
     {
-        if (SystemInfo.deviceType == DeviceType.Desktop)
+        if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
         {
-            isHiderOnGround = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundLayer);
-
-            if (isHiderOnGround && velocity.y < 0) velocity.y = -2f;
-
+            //Get inputvalues
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
@@ -33,20 +53,39 @@ public class HiderPlayerController : MonoBehaviour
 
             characterController.Move(moveDirection * movementSpeed * Time.deltaTime);
 
-            if (isHiderOnGround && Input.GetButtonDown("Jump"))
-            {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                isHiderOnGround = false;
-            }
-
-            velocity.y += gravity * Time.deltaTime;
+            HandleGravity(velocity);
 
             characterController.Move(velocity * Time.deltaTime);
+        }
+    }
+
+    void HandleGravity(Vector3 currentVelocity)
+    {
+        isHiderOnGround = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundLayer);
+
+        if (isHiderOnGround && velocity.y < 0) velocity.y = -2f;
+
+        PerformJump();
+
+        velocity.y += gravity * Time.deltaTime;
+    }
+
+    void PerformJump()
+    {
+        if (isHiderOnGround && Input.GetButtonDown("Jump"))
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            isHiderOnGround = false;
         }
     }
 
     void Update()
     {
         HandelPlayerMovement();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        throw new System.NotImplementedException();
     }
 }

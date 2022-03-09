@@ -19,6 +19,5 @@ public class DeactivateCameraAR : MonoBehaviour
             usedCamera.enabled = false;
             isDeactive = true;
         }
-   
     }
 }
