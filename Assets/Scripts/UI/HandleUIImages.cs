@@ -9,7 +9,7 @@ namespace StealthARLibrary
     {
         [SerializeField] BuildableObjectList buildableObjectList;
 
-        private void Awake()
+        private void Start()
         {
             Transform buildingButtons = transform.Find("BuildButtons");
             buildingButtons.gameObject.SetActive(false);
@@ -37,7 +37,6 @@ namespace StealthARLibrary
 
         private void AddSpritesToImages(Transform button, BuildableObjectSO building )
         {
-            
             Image image = button.GetChild(1).GetComponent<Image>();
             BuildButton buildButtonScript = button.GetComponent<BuildButton>();
             buildButtonScript.ObjectToSpawn = building;

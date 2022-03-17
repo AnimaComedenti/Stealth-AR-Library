@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 934305550}
   - component: {fileID: -1128356301770861147}
   - component: {fileID: -1062334754798808950}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1992395841121069272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0279, z: 0.00852}
-  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 5335450727522664125}
   - {fileID: 2986733792055116811}
@@ -52,7 +52,7 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0
-  m_SkinWidth: 0.01
+  m_SkinWidth: 1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &934305550
@@ -69,10 +69,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 6052799484981301846}
   characterController: {fileID: 934305549}
-  movementSpeed: 0.8
-  jumpHeight: 0.2
-  gravity: -3.905
-  groundCheckDistance: 0.02
+  movementSpeed: 8
+  jumpHeight: 11
+  gravity: -9.81
+  groundCheckDistance: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 7010818799395704483}
   - component: {fileID: 3119446454620856571}
   - component: {fileID: 7278382697025990933}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HiderCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 5335450727522664125}
   - component: {fileID: 6472454031406047487}
   - component: {fileID: 5814363596669269888}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6052799484981301846}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 2448414227375096457}
   - component: {fileID: 3825848318829266859}
   - component: {fileID: 7910946335500543037}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &543226590682544134
 Transform:
@@ -107,12 +107,12 @@ GameObject:
   - component: {fileID: 883841428782483004}
   - component: {fileID: 7435447801822495431}
   - component: {fileID: 2429153945693261768}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3004428174260872790
 Transform:
@@ -122,8 +122,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621495033724525808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: -0.46, z: 0}
-  m_LocalScale: {x: 0.5, y: 8, z: 1}
+  m_LocalPosition: {x: -2.26103, y: 1.84542, z: 0}
+  m_LocalScale: {x: 0.37417933, y: 3.3891034, z: 1}
   m_Children: []
   m_Father: {fileID: 6560087167108000413}
   m_RootOrder: 4
@@ -199,12 +199,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5961711616628904746}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5961711616628904746
 Transform:
@@ -236,12 +236,12 @@ GameObject:
   - component: {fileID: 8913955909438959209}
   - component: {fileID: 3674148022472590200}
   - component: {fileID: 3285753359612939705}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8373423721473189370
 Transform:
@@ -333,7 +333,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7488040311789518455
 Transform:
@@ -365,7 +365,7 @@ GameObject:
   m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6560087167108000413
 Transform:
@@ -376,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 7531032446152815330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5695046080390290159}
   - {fileID: 5961711616628904746}
@@ -420,12 +420,12 @@ GameObject:
   - component: {fileID: 2864497128572909570}
   - component: {fileID: 786108392407057739}
   - component: {fileID: 6801967320522880027}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8212705025682981639
 Transform:
@@ -520,7 +520,7 @@ GameObject:
   m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5695046080390290159
 Transform:
@@ -611,12 +611,12 @@ GameObject:
   - component: {fileID: 2639984836817505037}
   - component: {fileID: 3942379855950171728}
   - component: {fileID: 6912564487626571925}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1093918510008235551
 Transform:
@@ -706,12 +706,12 @@ GameObject:
   - component: {fileID: 3969087030386643152}
   - component: {fileID: 7936470313878543624}
   - component: {fileID: 1918219025639569753}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &535133613438035928
 Transform:
@@ -804,6 +804,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 82861021528717462, guid: 2c5fb15bfb383f6488de4ba5e8d17e2e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4134309683824142697, guid: 2c5fb15bfb383f6488de4ba5e8d17e2e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -814,7 +818,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4134309683824142697, guid: 2c5fb15bfb383f6488de4ba5e8d17e2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.654
+      value: 1.762
       objectReference: {fileID: 0}
     - target: {fileID: 4134309683824142697, guid: 2c5fb15bfb383f6488de4ba5e8d17e2e, type: 3}
       propertyPath: m_LocalPosition.z

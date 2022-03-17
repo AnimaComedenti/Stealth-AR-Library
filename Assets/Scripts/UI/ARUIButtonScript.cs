@@ -10,35 +10,22 @@ namespace StealthARLibrary
         [SerializeField] private GameObject combatButtons;
         [SerializeField] private GameObject buildButtons;
 
-        void Start()
+        void Awake()
         {
-            buildButtons.SetActive(true);
-            combatButtons.SetActive(false);
+            if (SystemInfo.deviceType != DeviceType.Handheld) gameObject.SetActive(false);
         }
+
         public void ToggelCombatMenu()
         {
-            if (combatButtons.activeSelf)
-            {
-                combatButtons.SetActive(false);
-            }
-            else
-            {
-                combatButtons.SetActive(true);
-                buildButtons.SetActive(false);
-            }
+           combatButtons.SetActive(true);
+           buildButtons.SetActive(false);
         }
 
         public void ToggelBuildMenu()
         {
-            if (buildButtons.activeSelf)
-            {
-                buildButtons.SetActive(false);
-            }
-            else
-            {
-                buildButtons.SetActive(true);
-                combatButtons.SetActive(false);
-            }
+
+            buildButtons.SetActive(true);
+            combatButtons.SetActive(false);
         }
 
         public void DisconnectOnClick()

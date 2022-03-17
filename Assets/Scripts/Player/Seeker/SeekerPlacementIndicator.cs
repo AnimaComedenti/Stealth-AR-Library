@@ -12,39 +12,74 @@ namespace StealthARLibrary
     public class SeekerPlacementIndicator : MonoBehaviourPun
     {
 
-        [SerializeField] private GameObject placementIdicator;
-        [SerializeField] private Camera cam;
+        private static SeekerPlacementIndicator _instance = null;
+
+        public static SeekerPlacementIndicator Instance
+        {
+            get { return _instance; }
+        }
+        
         [SerializeField] private int levelLayerInt = 3;
         [SerializeField] private string levelTag = "Level";
 
+        private GameObject _player;
+        private GameObject placementIdicator;
         private Pose placementPosition;
+        private Camera cam;
+
         private ARRaycastManager aRRaycastManager;
         private bool isPlacementValid = false;
         private bool isLevelPlaced = false;
         private bool hasHitLevel = false;
-        private GameObject childCursorObject;
+        private PhotonView networkView;
+
+        public Camera Cam
+        {
+            get { return cam; }
+            set { cam = value; }
+        }
+        public GameObject Indicator
+        {
+            get { return placementIdicator; }
+            set { placementIdicator = value; }
+        }
+
 
         void Awake()
         {
-            if (photonView.IsMine)
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+            } 
+
+            if (photonView.IsMine && SystemInfo.deviceType == DeviceType.Handheld)
             {
                 aRRaycastManager = FindObjectOfType<ARRaycastManager>();
+                networkView = NetworkManager.Instance.photonView;
             }
         }
 
         private void Start()
         {
             Input.simulateMouseWithTouches = true;
-            childCursorObject = placementIdicator.transform.GetChild(0).gameObject;
+            //childCursorObject = placementIdicator.transform.GetChild(0).gameObject; --> Transform Arrow to gamobjectSize
             GameObject level = GameObject.FindGameObjectWithTag(levelTag);
 
             //Only spawn if level exists
-            if (level != null) isLevelPlaced = true;
+            if (level != null)
+            {
+                isLevelPlaced = true;
+            }
         }
 
         // Update is called once per frame
         public virtual void FixedUpdate()
         {
+            if (cam == null && placementIdicator == null) return;
             if (photonView.IsMine)
             {
                 if (!isLevelPlaced) UpdateLevelCursorPosition();
@@ -53,7 +88,6 @@ namespace StealthARLibrary
             }
         }
 
-        //Überarbeiten für BuildSystem
         private void UpdatePlacementIndicator()
         {
             if (isPlacementValid)
@@ -81,7 +115,6 @@ namespace StealthARLibrary
         }
         private void UpdateBuildingCursorPosition()
         {
-
             if (IsPointerOverUIObject()) return;
             if (Input.touchCount > 0)
             {
@@ -125,14 +158,17 @@ namespace StealthARLibrary
 
        public void SpawnObject(BuildableObjectSO obj)
         {
+            GameObject obcjToSpawn;
             if (isPlacementValid && obj.prefab.CompareTag(levelTag) && !isLevelPlaced)
             {
-                PhotonNetwork.Instantiate(obj.prefab.gameObject.name, placementPosition.position, Quaternion.identity);
+                obcjToSpawn = PhotonNetwork.Instantiate(obj.prefab.gameObject.name, placementPosition.position, Quaternion.identity);
+                networkView.RPC("AttachParentOnSpawn",RpcTarget.AllBuffered, obcjToSpawn.GetComponent<PhotonView>().ViewID);
                 isLevelPlaced = true;
             }
             else if (isPlacementValid && hasHitLevel)
             {
-                PhotonNetwork.Instantiate(obj.prefab.gameObject.name, placementPosition.position, Quaternion.identity);
+                obcjToSpawn = PhotonNetwork.Instantiate(obj.prefab.gameObject.name, placementPosition.position, Quaternion.identity);
+                networkView.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, obcjToSpawn.GetComponent<PhotonView>().ViewID);
             }
         }
 
