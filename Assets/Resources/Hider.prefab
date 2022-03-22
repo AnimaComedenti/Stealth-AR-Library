@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1992395841121069272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0279, z: 0.00852}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 5335450727522664125}
   - {fileID: 2986733792055116811}
@@ -69,10 +69,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 6052799484981301846}
   characterController: {fileID: 934305549}
-  movementSpeed: 8
-  jumpHeight: 11
+  movementSpeed: 2
+  jumpHeight: 4
   gravity: -9.81
-  groundCheckDistance: 1
+  groundCheckDistance: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

@@ -11,7 +11,7 @@ namespace StealthARLibrary
 
         private void Start()
         {
-            Transform buildingButtons = transform.Find("BuildButtons");
+            Transform buildingButtons = transform.Find("InteractionButtons").Find("BuildButtons");
             buildingButtons.gameObject.SetActive(false);
 
             BuildableObjectSO level = buildableObjectList.levelprefab;
@@ -20,9 +20,9 @@ namespace StealthARLibrary
             int buildingIndex = 0;
             foreach (Transform button in buildingButtons)
             {
-                if(childIndex != 0)
+                if (childIndex != 0)
                 {
-                    if (buildingIndex > buildableObjectList.objectList.Count-1) return;
+                    if (buildingIndex > buildableObjectList.objectList.Count - 1) return;
                     BuildableObjectSO build = buildableObjectList.objectList[buildingIndex];
                     AddSpritesToImages(button, build);
                     buildingIndex++;
@@ -32,10 +32,11 @@ namespace StealthARLibrary
                     AddSpritesToImages(button, level);
                 }
                 childIndex++;
-            }   
+            }
+            buildingButtons.gameObject.SetActive(true);
         }
 
-        private void AddSpritesToImages(Transform button, BuildableObjectSO building )
+        private void AddSpritesToImages(Transform button, BuildableObjectSO building)
         {
             Image image = button.GetChild(1).GetComponent<Image>();
             BuildButton buildButtonScript = button.GetComponent<BuildButton>();

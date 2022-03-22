@@ -15,7 +15,7 @@ MonoBehaviour:
   levelprefab: {fileID: 11400000, guid: 8412016f8ad195c4da783dbe9637d46f, type: 2}
   objectList:
   - {fileID: 11400000, guid: f003167335f88004cbcd0688f69600f9, type: 2}
-  - {fileID: 11400000, guid: f003167335f88004cbcd0688f69600f9, type: 2}
+  - {fileID: 11400000, guid: 78a99b33dbfb1fa49b7fcc7116523db4, type: 2}
   - {fileID: 11400000, guid: f003167335f88004cbcd0688f69600f9, type: 2}
   - {fileID: 11400000, guid: f003167335f88004cbcd0688f69600f9, type: 2}
   - {fileID: 11400000, guid: f003167335f88004cbcd0688f69600f9, type: 2}

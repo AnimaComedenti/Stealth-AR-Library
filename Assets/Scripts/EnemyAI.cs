@@ -7,7 +7,7 @@ using BehaviorTree;
 public class EnemyAI : MonoBehaviour
 {   
     [Header("WalkingPath")]
-    [SerializeField] private Transform[] movePositions;
+    [SerializeField] private List<Pose> movePositions;
     [Header("Base Stats")]
     [SerializeField] private float startinghealth;
     [SerializeField] private float speedToRotate;
@@ -18,7 +18,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float viewDistance;
     [SerializeField] private Light flashLigth;
     [SerializeField] private int playerLayer;
-
 
     private GameObject _player;
     private Vector3 _lastSeenPlayerPosition;
@@ -93,6 +92,16 @@ public class EnemyAI : MonoBehaviour
     {
         get { return _currentHealth; }
         set { _currentHealth = Mathf.Clamp(value, 0, startinghealth); }
+    }
+
+    public Pose addDefaultMovePositionsEntry
+    {
+        set { movePositions.Add(value); }
+    }
+    public List<Pose> DefaultMovePositions
+    {
+        get { return movePositions; }
+        set { movePositions = value; }
     }
     public float GetShootingRange { get { return shootingRange; } }
     public float GetChasingRange { get { return viewDistance; } }

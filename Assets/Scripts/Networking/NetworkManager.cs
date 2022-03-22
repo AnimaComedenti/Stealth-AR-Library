@@ -59,20 +59,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        SpawnSeeker();
+       // SpawnSeeker();
     }
 
     private void SpawnSeeker()
     {
-        GameObject seeker;
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            seeker = PhotonNetwork.Instantiate(seekerPrefab.name, Vector3.zero, Quaternion.identity,0);
+            GameObject seeker = PhotonNetwork.Instantiate(seekerPrefab.name, Vector3.zero, Quaternion.identity);
             pv.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, seeker.GetComponent<PhotonView>().ViewID);
             Camera cam = seeker.GetComponentInChildren<Camera>();
-            arSessionOrigin.camera = cam;
             SeekerPlacementIndicator.Instance.Cam = cam;
-            SeekerPlacementIndicator.Instance.Indicator = seeker.transform.GetChild(0).gameObject;
+            GameObject indicator = seeker.transform.GetChild(0).gameObject;
+            indicator.SetActive(false);
+            SeekerPlacementIndicator.Instance.Indicator = indicator;
         }
     }
 
@@ -141,6 +141,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Attach"); 
         GameObject objectToSpawn = PhotonNetwork.GetPhotonView(viewID).gameObject;
         objectToSpawn.transform.parent = parent;
+
+        //arSessionOrigin.MakeContentAppearAt(objectToSpawn.transform, objectToSpawn.transform.position, objectToSpawn.transform.rotation);
+        
     }
 
     public PhotonView photonView

@@ -9,8 +9,8 @@ namespace BehaviorTree
     public class MoveToDestinationNode : Node
     {
         private NavMeshAgent agent;
-        private Transform[] destinationPoints;
-        private Transform currentDestination;
+        private List<Pose> destinationPoints;
+        private Pose currentDestination;
         private float rotatingSpeed;
         private int counter = 0;
         private float maxTime = 6;
@@ -20,7 +20,7 @@ namespace BehaviorTree
 
         private RotatingNode rotate;
 
-        public MoveToDestinationNode(NavMeshAgent agent, Transform[] destinationPoints, float rotatingSpeed)
+        public MoveToDestinationNode(NavMeshAgent agent, List<Pose> destinationPoints, float rotatingSpeed)
         {
             this.agent = agent;
             this.destinationPoints = destinationPoints;
@@ -58,13 +58,13 @@ namespace BehaviorTree
         private void SetDestinationPoint()
         {
 
-            if (destinationPoints.Length == 1) return;
-            foreach(Transform destination in destinationPoints)
+            if (destinationPoints.Count == 1) return;
+            foreach(Pose destination in destinationPoints)
             {
                 if(destination == currentDestination)
                 {
                     counter++;
-                    if (counter > destinationPoints.Length-1) counter = 0;
+                    if (counter > destinationPoints.Count-1) counter = 0;
                 }
             }
  

@@ -6,6 +6,7 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using Utils;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 
 namespace StealthARLibrary
 {
@@ -21,13 +22,17 @@ namespace StealthARLibrary
         
         [SerializeField] private int levelLayerInt = 3;
         [SerializeField] private string levelTag = "Level";
+        [SerializeField] private ARRaycastManager aRRaycastManager;
+        [SerializeField] private ARSessionOrigin origin;
+
+
+        private Pose placementPosition;
+        private NavMeshSurface levelMash;
+        private Camera cam;
+        private GameObject placementIdicator;
 
         private GameObject _player;
-        private GameObject placementIdicator;
-        private Pose placementPosition;
-        private Camera cam;
 
-        private ARRaycastManager aRRaycastManager;
         private bool isPlacementValid = false;
         private bool isLevelPlaced = false;
         private bool hasHitLevel = false;
@@ -42,6 +47,10 @@ namespace StealthARLibrary
         {
             get { return placementIdicator; }
             set { placementIdicator = value; }
+        }
+        public Pose getPlacementPosition
+        {
+            get { return placementPosition; }
         }
 
 
@@ -58,28 +67,14 @@ namespace StealthARLibrary
 
             if (photonView.IsMine && SystemInfo.deviceType == DeviceType.Handheld)
             {
-                aRRaycastManager = FindObjectOfType<ARRaycastManager>();
                 networkView = NetworkManager.Instance.photonView;
             }
         }
 
-        private void Start()
-        {
-            Input.simulateMouseWithTouches = true;
-            //childCursorObject = placementIdicator.transform.GetChild(0).gameObject; --> Transform Arrow to gamobjectSize
-            GameObject level = GameObject.FindGameObjectWithTag(levelTag);
-
-            //Only spawn if level exists
-            if (level != null)
-            {
-                isLevelPlaced = true;
-            }
-        }
-
-        // Update is called once per frame
         public virtual void FixedUpdate()
         {
-            if (cam == null && placementIdicator == null) return;
+            if (cam == null || placementIdicator == null) return;
+            Debug.Log(cam.transform.position);
             if (photonView.IsMine)
             {
                 if (!isLevelPlaced) UpdateLevelCursorPosition();
@@ -115,7 +110,7 @@ namespace StealthARLibrary
         }
         private void UpdateBuildingCursorPosition()
         {
-            if (IsPointerOverUIObject()) return;
+            //if (IsPointerOverUIObject()) return;
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
@@ -133,7 +128,6 @@ namespace StealthARLibrary
                             if (hit.transform.gameObject.layer == levelLayerInt)
                             {
                                 Pose newPosition = new Pose(hit.point, Quaternion.identity);
-                                //isTouchedBefore = placementPosition == newPosition ? true : false;
                                 placementPosition = newPosition;
                                 isPlacementValid = true;
                                 hasHitLevel = true;
@@ -156,21 +150,28 @@ namespace StealthARLibrary
             }
         }
 
-       public void SpawnObject(BuildableObjectSO obj)
+       public void SpawnObject(GameObject obj)
         {
             GameObject obcjToSpawn;
-            if (isPlacementValid && obj.prefab.CompareTag(levelTag) && !isLevelPlaced)
+            if (isPlacementValid && obj.CompareTag(levelTag) && !isLevelPlaced)
             {
-                obcjToSpawn = PhotonNetwork.Instantiate(obj.prefab.gameObject.name, placementPosition.position, Quaternion.identity);
-                networkView.RPC("AttachParentOnSpawn",RpcTarget.AllBuffered, obcjToSpawn.GetComponent<PhotonView>().ViewID);
+                levelMash = obj.GetComponent<NavMeshSurface>();
+                obcjToSpawn = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, Quaternion.identity);
+                networkView.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, obcjToSpawn.GetComponent<PhotonView>().ViewID);
+                //origin.MakeContentAppearAt(obcjToSpawn.transform,new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z-10));
                 isLevelPlaced = true;
             }
             else if (isPlacementValid && hasHitLevel)
             {
-                obcjToSpawn = PhotonNetwork.Instantiate(obj.prefab.gameObject.name, placementPosition.position, Quaternion.identity);
+                obcjToSpawn = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, Quaternion.identity);
                 networkView.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, obcjToSpawn.GetComponent<PhotonView>().ViewID);
+                NavMeshSurface meshFromObject;
+                meshFromObject = obj.GetComponent<NavMeshSurface>();
+                if (meshFromObject != null) meshFromObject.BuildNavMesh();
             }
+            if(isLevelPlaced) levelMash.BuildNavMesh();
         }
+
 
         private bool IsPointerOverUIObject()
         {

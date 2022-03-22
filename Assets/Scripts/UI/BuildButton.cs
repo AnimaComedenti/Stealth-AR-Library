@@ -8,6 +8,8 @@ namespace StealthARLibrary
     public class BuildButton : MonoBehaviour
     {
         //TODO: Deactivate Touch on Ui click
+        [SerializeField] private string enemyTag = "Enemy";
+
         public BuildableObjectSO ObjectToSpawn
         {
             set { _objectToBuild = value; }
@@ -15,15 +17,30 @@ namespace StealthARLibrary
         }
 
         private BuildableObjectSO _objectToBuild;
+        private ARUIButtonScript buildButtons;
+        
+
+        private void Start()
+        {
+            buildButtons = FindObjectOfType<ARUIButtonScript>();
+            
+        }
 
         public void BuildOnClick()
         {
-            if (_objectToBuild == null)
+            if (_objectToBuild == null) return;
+
+            if (_objectToBuild.prefab.gameObject.CompareTag(enemyTag))
             {
-                Debug.LogError("SpawnableObject is Null");
-                return;
+                /*AiBuildButtons[] aiBuild = buildButtons.getARUIButtons;
+                foreach(AiBuildButtons button in aiBuild)
+                {
+                    button.setBuildableObject = _objectToBuild;
+                }*/
+                buildButtons.ToggelAiUIButtons();  
             }
-            SeekerPlacementIndicator.Instance.SpawnObject(_objectToBuild);
+
+            if (buildButtons.IsAiBuilded) SeekerPlacementIndicator.Instance.SpawnObject(_objectToBuild.prefab.gameObject);
         }
     }
 }
