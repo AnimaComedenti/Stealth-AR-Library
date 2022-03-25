@@ -23,16 +23,9 @@ public class HiderPlayerController : MonoBehaviourPun
     private LayerMask groundLayer;
     [SerializeField]
     private Camera myCam;
-    [SerializeField]
-    private GameResolver gameResolver;
 
     private Vector3 velocity;
     private bool isHiderOnGround = true;
-
-    /// <summary>
-    /// Interact
-    /// Use Items
-    /// </summary>
 
     private void Start()
     {

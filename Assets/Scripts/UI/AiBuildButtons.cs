@@ -5,10 +5,10 @@ using StealthARLibrary;
 public class AiBuildButtons : MonoBehaviour
 {
     [SerializeField] private GameObject pointPrefab;
+    [SerializeField] private LineRenderer lineRenderer;
 
     private BuildableObjectSO buildableObject;
-    private LineRenderer lineRenderer;
-    private ARUIButtonScript buildButtons;
+    private ARUIButtonScript arUihandler;
     private List<GameObject> points;
 
     public BuildableObjectSO setBuildableObject
@@ -18,8 +18,7 @@ public class AiBuildButtons : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        buildButtons = FindObjectOfType<ARUIButtonScript>();
-        lineRenderer = FindObjectOfType<LineRenderer>();
+        arUihandler = FindObjectOfType<ARUIButtonScript>();
     }
 
     public void SetAiPositions()
@@ -51,7 +50,7 @@ public class AiBuildButtons : MonoBehaviour
         if (positionList.Count <= 0)
         {
             Debug.Log("PositionList Empty");
-            buildButtons.ToggelAiUIButtons();
+            arUihandler.ToggelAiUIButtons();
         }
 
         if (points.Count > 0) points.RemoveAt(points.Count - 1);
@@ -71,13 +70,13 @@ public class AiBuildButtons : MonoBehaviour
 
     public void ConfirmAIBuild()
     {
-        SeekerPlacementIndicator.Instance.SpawnObject(buildableObject.prefab.gameObject);
+        SeekerPlacementIndicator.Instance.SpawnObject(buildableObject.prefab.gameObject, Quaternion.identity);
         lineRenderer.positionCount = 0;
         foreach (GameObject point in points)
         {
             Destroy(point);
         }
         points.Clear();
-        buildButtons.ToggelAiUIButtons();
+        arUihandler.ToggelAiUIButtons();
     }
 }

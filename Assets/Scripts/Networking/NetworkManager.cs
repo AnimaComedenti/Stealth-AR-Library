@@ -21,7 +21,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject hiderPrefab;
     [SerializeField]
-    private GameObject seekerPrefab;
+    private GameObject seekerCam;
+    [SerializeField]
+    private GameObject seekerIndicator;
     [Header("Spawn options for hider")]
     [SerializeField]
     private GameObject spawner;
@@ -32,7 +34,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private string spawnTag = "Spawn";
     [SerializeField]
-    private Transform parent;
+    private Transform cameraOffset;
+    [SerializeField]
+    private Transform arParent;
     [SerializeField]
     private ARSessionOrigin arSessionOrigin;
 
@@ -59,20 +63,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-       // SpawnSeeker();
+        SpawnSeeker();
     }
 
     private void SpawnSeeker()
     {
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
-            GameObject seeker = PhotonNetwork.Instantiate(seekerPrefab.name, Vector3.zero, Quaternion.identity);
-            pv.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, seeker.GetComponent<PhotonView>().ViewID);
-            Camera cam = seeker.GetComponentInChildren<Camera>();
-            SeekerPlacementIndicator.Instance.Cam = cam;
-            GameObject indicator = seeker.transform.GetChild(0).gameObject;
-            indicator.SetActive(false);
-            SeekerPlacementIndicator.Instance.Indicator = indicator;
+            GameObject seekerCamera = PhotonNetwork.Instantiate(seekerCam.name, Vector3.zero, Quaternion.identity);
+            GameObject seekerIndi= PhotonNetwork.Instantiate(seekerIndicator.name, Vector3.zero, Quaternion.identity);
+            pv.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, seekerCamera.GetComponent<PhotonView>().ViewID);
+            Camera cam = seekerCamera.GetComponent<Camera>();
+            SeekerPlacementIndicator.Instance.cam = cam;
+            arSessionOrigin.camera = cam;
+            SeekerPlacementIndicator.Instance.placementIdicator = seekerIndi;  
         }
     }
 
@@ -140,15 +144,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Attach"); 
         GameObject objectToSpawn = PhotonNetwork.GetPhotonView(viewID).gameObject;
-        objectToSpawn.transform.parent = parent;
-
-        //arSessionOrigin.MakeContentAppearAt(objectToSpawn.transform, objectToSpawn.transform.position, objectToSpawn.transform.rotation);
-        
-    }
-
-    public PhotonView photonView
-    {
-        get { return pv; }
+        if (objectToSpawn.transform.CompareTag("Seeker"))
+        {
+            objectToSpawn.transform.parent = cameraOffset;
+            return;
+        }
     }
 
     public float hiderCount

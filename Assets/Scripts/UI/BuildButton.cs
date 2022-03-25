@@ -1,46 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace StealthARLibrary
 {
     public class BuildButton : MonoBehaviour
     {
-        //TODO: Deactivate Touch on Ui click
-        [SerializeField] private string enemyTag = "Enemy";
-
-        public BuildableObjectSO ObjectToSpawn
-        {
-            set { _objectToBuild = value; }
-            get { return _objectToBuild; }
-        }
-
-        private BuildableObjectSO _objectToBuild;
-        private ARUIButtonScript buildButtons;
-        
+        [SerializeField] private BuildableObjectSO _objectToBuild;
+        [SerializeField] private ARUIButtonScript artoggler;
+        [SerializeField] private GameObject rotateButtonParent;
 
         private void Start()
         {
-            buildButtons = FindObjectOfType<ARUIButtonScript>();
-            
+            AddSpritesToImages();
         }
 
         public void BuildOnClick()
         {
-            if (_objectToBuild == null) return;
+            SeekerPlacementIndicator.Instance.SpawnObject(_objectToBuild.prefab.gameObject, Quaternion.identity);
+        }
 
-            if (_objectToBuild.prefab.gameObject.CompareTag(enemyTag))
+        public void RotateBeforeBuild()
+        {
+            if (rotateButtonParent == null) return;
+            RotateButton[] rotateButtons = rotateButtonParent.GetComponentsInChildren<RotateButton>();
+            foreach (RotateButton button in rotateButtons)
             {
-                /*AiBuildButtons[] aiBuild = buildButtons.getARUIButtons;
-                foreach(AiBuildButtons button in aiBuild)
-                {
-                    button.setBuildableObject = _objectToBuild;
-                }*/
-                buildButtons.ToggelAiUIButtons();  
+                button.SetObjectToBuild(_objectToBuild);
             }
+            artoggler.ToggelRotationMenu();
+        }
 
-            if (buildButtons.IsAiBuilded) SeekerPlacementIndicator.Instance.SpawnObject(_objectToBuild.prefab.gameObject);
+        private void AddSpritesToImages()
+        {
+            Image image = transform.GetChild(1).GetComponent<Image>();
+
+            if (_objectToBuild.sprite != null)
+            {
+                image.sprite = _objectToBuild.sprite;
+            }
         }
     }
 }

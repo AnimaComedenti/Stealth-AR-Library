@@ -4,7 +4,6 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using Utils;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
 
@@ -19,34 +18,31 @@ namespace StealthARLibrary
         {
             get { return _instance; }
         }
-        
+
         [SerializeField] private int levelLayerInt = 3;
         [SerializeField] private string levelTag = "Level";
         [SerializeField] private ARRaycastManager aRRaycastManager;
-        [SerializeField] private ARSessionOrigin origin;
-
 
         private Pose placementPosition;
         private NavMeshSurface levelMash;
-        private Camera cam;
-        private GameObject placementIdicator;
+        private Camera _cam;
+        private GameObject _placementIdicator;
 
         private GameObject _player;
-
+        private List<RaycastResult> results = new List<RaycastResult>();
         private bool isPlacementValid = false;
         private bool isLevelPlaced = false;
         private bool hasHitLevel = false;
-        private PhotonView networkView;
 
-        public Camera Cam
+        public Camera cam
         {
-            get { return cam; }
-            set { cam = value; }
+            get { return _cam; }
+            set { _cam = value; }
         }
-        public GameObject Indicator
+        public GameObject placementIdicator
         {
-            get { return placementIdicator; }
-            set { placementIdicator = value; }
+            get { return _placementIdicator; }
+            set { _placementIdicator = value; }
         }
         public Pose getPlacementPosition
         {
@@ -63,18 +59,12 @@ namespace StealthARLibrary
             else
             {
                 _instance = this;
-            } 
-
-            if (photonView.IsMine && SystemInfo.deviceType == DeviceType.Handheld)
-            {
-                networkView = NetworkManager.Instance.photonView;
             }
         }
 
         public virtual void FixedUpdate()
         {
             if (cam == null || placementIdicator == null) return;
-            Debug.Log(cam.transform.position);
             if (photonView.IsMine)
             {
                 if (!isLevelPlaced) UpdateLevelCursorPosition();
@@ -83,24 +73,12 @@ namespace StealthARLibrary
             }
         }
 
-        private void UpdatePlacementIndicator()
-        {
-            if (isPlacementValid)
-            {
-                placementIdicator.SetActive(true);
-                placementIdicator.transform.SetPositionAndRotation(placementPosition.position, placementPosition.rotation);
-            }
-            else
-            {
-                placementIdicator.SetActive(false);
-            }
-        }
-
+        #region Cursor 
         void UpdateLevelCursorPosition()
         {
             List<ARRaycastHit> hits = new List<ARRaycastHit>();
-            Vector3 screenCenter = cam.ViewportToScreenPoint(new Vector3(0.5f, 0.3f));
-            aRRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
+            Vector3 screenCenter = _cam.ViewportToScreenPoint(new Vector3(0.5f, 0.3f));
+            aRRaycastManager.Raycast(screenCenter, hits, TrackableType.PlaneWithinPolygon);
             isPlacementValid = hits.Count > 0;
 
             if (isPlacementValid)
@@ -110,77 +88,95 @@ namespace StealthARLibrary
         }
         private void UpdateBuildingCursorPosition()
         {
-            //if (IsPointerOverUIObject()) return;
+            if (!isLevelPlaced) return;
+            if (!IsScreenTouched()) return;
+            Touch touch = Input.GetTouch(0);
+            Vector3 touchposition = touch.position;
+            RaycastHit hit;
+            Ray screenCenter = _cam.ScreenPointToRay(touchposition);
+            if (Physics.Raycast(screenCenter, out hit))
+            {
+                if (hit.transform.gameObject.layer == levelLayerInt)
+                {
+                    Pose newPosition = new Pose(hit.point, Quaternion.identity);
+                    placementPosition = newPosition;
+                    isPlacementValid = true;
+                    hasHitLevel = true;
+                    return;
+                }
+
+            }
+            isPlacementValid = false;
+            hasHitLevel = false;
+        }
+
+        private void UpdatePlacementIndicator()
+        {
+            if (isPlacementValid)
+            {
+                _placementIdicator.SetActive(true);
+                _placementIdicator.transform.SetPositionAndRotation(placementPosition.position, placementPosition.rotation);
+            }
+            else
+            {
+                _placementIdicator.SetActive(false);
+            }
+        }
+        #endregion
+
+        #region TouchFunctionalities
+        public bool IsScreenTouched()
+        {
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
-
                 Vector3 touchposition = touch.position;
-
-                if(touch.phase == TouchPhase.Began)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    if(isLevelPlaced)
-                    {
-                        RaycastHit hit;
-                        Ray screenCenter = cam.ScreenPointToRay(touchposition);
-                        if (Physics.Raycast(screenCenter, out hit))
-                        {
-                            if (hit.transform.gameObject.layer == levelLayerInt)
-                            {
-                                Pose newPosition = new Pose(hit.point, Quaternion.identity);
-                                placementPosition = newPosition;
-                                isPlacementValid = true;
-                                hasHitLevel = true;
-                            }
-                            else
-                            {
-                                isPlacementValid = false;
-                                hasHitLevel = false;
-                            }
-
-                        }
-                        else
-                        {
-                            Debug.Log("Raycasthit didnt hit anything");
-                            isPlacementValid = false;
-                            hasHitLevel = false;
-                        }
-                    }
-                }   
+                    if (IsPointerOverUIObject()) return false;
+                    return true;
+                }
             }
+            return false;
         }
-
-       public void SpawnObject(GameObject obj)
-        {
-            GameObject obcjToSpawn;
-            if (isPlacementValid && obj.CompareTag(levelTag) && !isLevelPlaced)
-            {
-                levelMash = obj.GetComponent<NavMeshSurface>();
-                obcjToSpawn = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, Quaternion.identity);
-                networkView.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, obcjToSpawn.GetComponent<PhotonView>().ViewID);
-                //origin.MakeContentAppearAt(obcjToSpawn.transform,new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z-10));
-                isLevelPlaced = true;
-            }
-            else if (isPlacementValid && hasHitLevel)
-            {
-                obcjToSpawn = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, Quaternion.identity);
-                networkView.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, obcjToSpawn.GetComponent<PhotonView>().ViewID);
-                NavMeshSurface meshFromObject;
-                meshFromObject = obj.GetComponent<NavMeshSurface>();
-                if (meshFromObject != null) meshFromObject.BuildNavMesh();
-            }
-            if(isLevelPlaced) levelMash.BuildNavMesh();
-        }
-
 
         private bool IsPointerOverUIObject()
         {
             PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
             eventDataCurrentPosition.position = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
-            List<RaycastResult> results = new List<RaycastResult>();
+            results.Clear();
             EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
             return results.Count > 0;
         }
+        #endregion
+
+        #region BuildMethods
+        public void SpawnObject(GameObject obj, Quaternion quaternion)
+        {
+
+            if (!isPlacementValid) return;
+            if (obj.CompareTag(levelTag) && !isLevelPlaced)
+            {
+                levelMash = InstantiatObject(obj, quaternion);
+                isLevelPlaced = true;
+                levelMash.BuildNavMesh();
+            }
+            else if (hasHitLevel && !obj.CompareTag(levelTag))
+            {
+                NavMeshSurface meshFromObject = InstantiatObject(obj, quaternion);
+                if (meshFromObject != null) meshFromObject.BuildNavMesh();
+                levelMash.BuildNavMesh();
+            }
+        }
+
+        private NavMeshSurface InstantiatObject(GameObject obj, Quaternion quaternion)
+        {
+            GameObject objToSpawn;
+            objToSpawn = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, quaternion);
+            NavMeshSurface objectMesh = obj.GetComponent<NavMeshSurface>();
+            return objectMesh;
+        }
+        #endregion
     }
 }
 

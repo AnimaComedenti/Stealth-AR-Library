@@ -308,6 +308,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlacementIdicator
       objectReference: {fileID: 0}
+    - target: {fileID: 5570230888434382978, guid: 7615e862e92805649b02491bca3d3c8c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7615e862e92805649b02491bca3d3c8c, type: 3}
 --- !u!4 &2660076050048751687 stripped

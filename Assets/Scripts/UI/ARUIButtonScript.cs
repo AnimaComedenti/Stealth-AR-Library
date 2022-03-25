@@ -11,20 +11,8 @@ namespace StealthARLibrary
         [SerializeField] private GameObject buildButtons;
         [SerializeField] private GameObject confirmButtons;
         [SerializeField] private GameObject menuButtons;
+        [SerializeField] private GameObject rotateButtons;
 
-        private bool isAiBuilded = true;
-        private AiBuildButtons[] aiBuildButtons;
-
-        public bool IsAiBuilded
-        {
-            get{ return isAiBuilded;}
-            set{ isAiBuilded = value; }
-        }
-
-        public AiBuildButtons[] getARUIButtons
-        {
-            get { return aiBuildButtons; }
-        }
 
         void Awake()
         {
@@ -33,7 +21,6 @@ namespace StealthARLibrary
                 gameObject.SetActive(false);
                 return;
             }
-            aiBuildButtons = GetComponentsInChildren<AiBuildButtons>();
         }
 
         public void ToggelCombatMenu()
@@ -51,7 +38,7 @@ namespace StealthARLibrary
 
         public void ToggelAiUIButtons()
         {
-            isAiBuilded = !isAiBuilded;
+
             if (confirmButtons.activeSelf)
             {
                 confirmButtons.SetActive(false);
@@ -60,6 +47,20 @@ namespace StealthARLibrary
             else
             {
                 confirmButtons.SetActive(true);
+                menuButtons.SetActive(false);
+            }
+        }
+
+        public void ToggelRotationMenu()
+        {
+            if (rotateButtons.activeSelf)
+            {
+                rotateButtons.SetActive(false);
+                menuButtons.SetActive(true);
+            }
+            else
+            {
+                rotateButtons.SetActive(true);
                 menuButtons.SetActive(false);
             }
         }

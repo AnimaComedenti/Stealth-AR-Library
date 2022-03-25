@@ -8,6 +8,7 @@ TagManager:
   - Spawn
   - Seeker
   - Enemy
+  - Duplicate
   layers:
   - Default
   - TransparentFX
