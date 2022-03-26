@@ -5,12 +5,8 @@ using StealthARLibrary;
 
 public abstract class RotateButton: MonoBehaviour
 {
-    public string duplicateTag = "Duplicate";
+    public static Transform buildObjectDouble;
     public abstract void OnUiClick();
-
-    public abstract void SetObjectToBuild(BuildableObjectSO obj);
-
-    public abstract BuildableObjectSO GetObjectToBuild();
 
 }
 

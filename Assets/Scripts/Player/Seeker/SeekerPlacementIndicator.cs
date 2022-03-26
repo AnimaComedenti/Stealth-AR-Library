@@ -24,7 +24,6 @@ namespace StealthARLibrary
         [SerializeField] private ARRaycastManager aRRaycastManager;
 
         private Pose placementPosition;
-        private NavMeshSurface levelMash;
         private Camera _cam;
         private GameObject _placementIdicator;
 
@@ -151,30 +150,26 @@ namespace StealthARLibrary
         #endregion
 
         #region BuildMethods
-        public void SpawnObject(GameObject obj, Quaternion quaternion)
+        public GameObject SpawnObject(GameObject obj, Quaternion quaternion)
         {
-
-            if (!isPlacementValid) return;
+            GameObject objToBuild;
+            if (!isPlacementValid) return null;
             if (obj.CompareTag(levelTag) && !isLevelPlaced)
             {
-                levelMash = InstantiatObject(obj, quaternion);
+                objToBuild = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, quaternion);
+                NetworkManager.Instance.photonView.RPC("BuildNavMesh", RpcTarget.AllBuffered);
                 isLevelPlaced = true;
-                levelMash.BuildNavMesh();
+                return objToBuild;
+
             }
             else if (hasHitLevel && !obj.CompareTag(levelTag))
             {
-                NavMeshSurface meshFromObject = InstantiatObject(obj, quaternion);
-                if (meshFromObject != null) meshFromObject.BuildNavMesh();
-                levelMash.BuildNavMesh();
+                objToBuild = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, quaternion);
+                NetworkManager.Instance.photonView.RPC("BuildNavMesh", RpcTarget.AllBuffered);
+                return objToBuild;
             }
-        }
+            return null;
 
-        private NavMeshSurface InstantiatObject(GameObject obj, Quaternion quaternion)
-        {
-            GameObject objToSpawn;
-            objToSpawn = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, quaternion);
-            NavMeshSurface objectMesh = obj.GetComponent<NavMeshSurface>();
-            return objectMesh;
         }
         #endregion
     }

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1992395841121069272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0279, z: 0.00852}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5335450727522664125}
   - {fileID: 2986733792055116811}
@@ -50,9 +50,9 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 0
   m_StepOffset: 0
-  m_SkinWidth: 1
+  m_SkinWidth: 0.01
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &934305550
@@ -69,15 +69,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 6052799484981301846}
   characterController: {fileID: 934305549}
-  movementSpeed: 2
-  jumpHeight: 4
+  movementSpeed: 10
+  jumpHeight: 5
   gravity: -9.81
-  groundCheckDistance: 0.2
+  groundCheckDistance: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   myCam: {fileID: 7010818799395704483}
-  gameResolver: {fileID: 7855517271744711722, guid: 26fb8e5646527ae4bb64faaf7c6217f4, type: 3}
 --- !u!114 &-1128356301770861147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeScale: 1
   m_UseLocal: 1
 --- !u!1 &3093459339146356823
 GameObject:
@@ -144,7 +143,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3093459339146356823}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0049}
+  m_LocalPosition: {x: 0, y: 0.58, z: -0.0049}
   m_LocalScale: {x: 0.0004, y: 0.0004, z: 0.0004}
   m_Children: []
   m_Father: {fileID: 1992395841121069279}

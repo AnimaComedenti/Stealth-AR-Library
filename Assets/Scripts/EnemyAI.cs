@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using BehaviorTree;
+using Photon.Pun;
 
-public class EnemyAI : MonoBehaviour
-{   
+public class EnemyAI : MonoBehaviourPun
+{
+    [SerializeField] private PhotonView pv;
     [Header("WalkingPath")]
-    [SerializeField] private List<Pose> movePositions;
+    [SerializeField] private List<Transform> movePositionsPose;
     [Header("Base Stats")]
     [SerializeField] private float startinghealth;
     [SerializeField] private float speedToRotate;
@@ -19,16 +21,28 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Light flashLigth;
     [SerializeField] private int playerLayer;
 
+    private List<Vector3> movePositions = new List<Vector3>();
     private GameObject _player;
     private Vector3 _lastSeenPlayerPosition;
     private float _currentHealth;
     private NavMeshAgent agent;
     private Selector topNode;
 
+    public PhotonView photonV
+    {
+        get { return pv; }
+    }
+    
+
 
     private void Start()
     {
         _currentHealth = startinghealth;
+        if (movePositionsPose.Count == 0) return;
+        foreach(Transform pose in movePositionsPose)
+        {
+            movePositions.Add(pose.position);
+        }
         BuildBehaviour();
     }
     private void Awake()
@@ -65,13 +79,15 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        if (topNode == null) return;
         topNode.Evaluate();
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.forward * viewDistance);
+        Transform child = transform.GetChild(0);
+        Gizmos.DrawRay(child.position, transform.forward * viewDistance);
     }
 
     #region Getter&Setter
@@ -94,15 +110,24 @@ public class EnemyAI : MonoBehaviour
         set { _currentHealth = Mathf.Clamp(value, 0, startinghealth); }
     }
 
-    public Pose addDefaultMovePositionsEntry
-    {
-        set { movePositions.Add(value); }
-    }
-    public List<Pose> DefaultMovePositions
+    public List<Vector3> DefaultMovePositions
     {
         get { return movePositions; }
-        set { movePositions = value; }
+        private set { movePositions = value; }      
     }
+
+    [PunRPC]
+    public void AddMovePositions(Vector3[] positions)
+    {
+        Debug.Log("Fuck "+positions);
+        List<Vector3> positionList = new List<Vector3>();
+        foreach (Vector3 pose in positions) {
+            positionList.Add(pose);
+        }
+        movePositions = positionList;
+        BuildBehaviour();
+    }
+
     public float GetShootingRange { get { return shootingRange; } }
     public float GetChasingRange { get { return viewDistance; } }
     #endregion

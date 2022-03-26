@@ -9,11 +9,13 @@ namespace StealthARLibrary
     {
         [SerializeField] BuildableObjectSO _objectToBuild;
         [SerializeField] ARUIButtonScript aRUIButton;
-        [SerializeField] AiBuildButtons[] aiBuildButtons;
+        [SerializeField] GameObject aiBuildButtonParent;
+        private AiBuildButtons[] aiBuildButtons;
 
         private void Start()
         {
             AddSpritesToImages();
+            aiBuildButtons = aiBuildButtonParent.GetComponentsInChildren<AiBuildButtons>();
         }
 
         public void BuildOnClick()

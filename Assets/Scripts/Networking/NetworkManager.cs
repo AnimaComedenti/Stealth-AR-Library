@@ -6,6 +6,7 @@ using Photon.Realtime;
 using StealthARLibrary;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.AI;
 
 
 public class NetworkManager : MonoBehaviourPunCallbacks
@@ -36,9 +37,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private Transform cameraOffset;
     [SerializeField]
-    private Transform arParent;
-    [SerializeField]
     private ARSessionOrigin arSessionOrigin;
+    [SerializeField] private NavMeshSurface levelMash;
 
 
     private GameObject[] spawns;
@@ -147,8 +147,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (objectToSpawn.transform.CompareTag("Seeker"))
         {
             objectToSpawn.transform.parent = cameraOffset;
-            return;
         }
+    }
+
+    [PunRPC]
+    private void BuildNavMesh()
+    {
+        levelMash.BuildNavMesh();
+        Debug.Log("NavMesh has been Baked");
     }
 
     public float hiderCount

@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
+
 namespace BehaviorTree
 {
     public class MoveToDestinationNode : Node
     {
         private NavMeshAgent agent;
-        private List<Pose> destinationPoints;
-        private Pose currentDestination;
+        private List<Vector3> destinationPoints;
+        private Vector3 currentDestination;
         private float rotatingSpeed;
         private int counter = 0;
         private float maxTime = 6;
@@ -20,25 +21,30 @@ namespace BehaviorTree
 
         private RotatingNode rotate;
 
-        public MoveToDestinationNode(NavMeshAgent agent, List<Pose> destinationPoints, float rotatingSpeed)
+        public MoveToDestinationNode(NavMeshAgent agent, List<Vector3> destinationPoints, float rotatingSpeed)
         {
             this.agent = agent;
             this.destinationPoints = destinationPoints;
-            currentDestination = destinationPoints[0];
 
             rotate = new RotatingNode(agent.transform, rotatingSpeed);
-            rotate.SetInstandLookDirection(currentDestination.position);
+            if (destinationPoints.Count >= 0)
+            {
+                currentDestination = destinationPoints[0];
+                rotate.SetInstandLookDirection(currentDestination);
+            }
+
         }
 
         public override NodeState Evaluate()
         {
             timer += Time.deltaTime;
-            float distance = Vector3.Distance(agent.transform.position, currentDestination.position);
+            float distance = Vector3.Distance(agent.transform.position, currentDestination);
 
-            if (distance >= 0.02f)
+            if (distance >= 1f)
             {
                 agent.isStopped = false;
-                agent.SetDestination(currentDestination.position);
+                Vector3 destination = new Vector3(currentDestination.x, agent.transform.position.y, currentDestination.z);
+                agent.SetDestination(destination);
                 return NodeState.RUNNING;
             }
             else
@@ -48,7 +54,7 @@ namespace BehaviorTree
                 {
                     timer = 0;
                     SetDestinationPoint();
-                    rotate.SetLookDirection(currentDestination.position);
+                    rotate.SetLookDirection(currentDestination);
                     return NodeState.SUCCESS;
                 }
                 return NodeState.RUNNING;
@@ -58,8 +64,8 @@ namespace BehaviorTree
         private void SetDestinationPoint()
         {
 
-            if (destinationPoints.Count == 1) return;
-            foreach(Pose destination in destinationPoints)
+            if (destinationPoints.Count <= 1) return;
+            foreach(Vector3 destination in destinationPoints)
             {
                 if(destination == currentDestination)
                 {

@@ -5,21 +5,30 @@ using StealthARLibrary;
 
 public class ConfirmRotationButton : RotateButton
 {
+    public static ConfirmRotationButton Instance;
     [SerializeField] ARUIButtonScript aRUI;
+    [SerializeField] Material material;
     private BuildableObjectSO objectToBuild;
     private SeekerPlacementIndicator seekerPlacement;
     private Pose placementPosition;
-    private Pose lastPlacement;
-    private Transform buildObject;
-    private Transform buildObjectDouble;
 
+    void Awacke()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void SetAlpha(GameObject obj)
     {
         MeshRenderer[] allChildRenderer = obj.GetComponentsInChildren<MeshRenderer>();
         foreach(MeshRenderer renderer in allChildRenderer)
         {
-            Color color = renderer.material.color;
-            renderer.material.color = new Color(color.r, color.g, color.b, 0.6f);
+            renderer.material = material;
         }
     }
 
@@ -37,10 +46,11 @@ public class ConfirmRotationButton : RotateButton
     {
         //Spawn Real Object
         seekerPlacement.SpawnObject(objectToBuild.prefab.gameObject, buildObjectDouble.transform.rotation);
-        
+
+        if (buildObjectDouble != null) Destroy(buildObjectDouble.gameObject);
+
         //Reset Objects
         buildObjectDouble = null;
-        Destroy(buildObjectDouble);
         objectToBuild = null;
         aRUI.ToggelRotationMenu();
     }
@@ -49,21 +59,20 @@ public class ConfirmRotationButton : RotateButton
     {
         ConfirmBuild();
     }
-    public override void SetObjectToBuild(BuildableObjectSO obj)
+    public void SetObjectToBuild(BuildableObjectSO obj)
     {
 
-        GameObject findingObject = GameObject.FindGameObjectWithTag(duplicateTag);
-        if (findingObject != null) Destroy(findingObject);
+
+        if(buildObjectDouble != null )Destroy(buildObjectDouble);
         if (obj == null) return;
         objectToBuild = obj;
 
         //Set Duplicate and make colors Transparent
         buildObjectDouble = Instantiate(objectToBuild.prefab, placementPosition.position, placementPosition.rotation);
-        buildObjectDouble.tag = duplicateTag;
         SetAlpha(buildObjectDouble.gameObject);
     }
 
-    public override BuildableObjectSO GetObjectToBuild()
+    public  BuildableObjectSO GetObjectToBuild()
     {
         return objectToBuild;
     }

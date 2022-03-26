@@ -2,81 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StealthARLibrary;
+using Photon.Pun;
+using BehaviorTree;
+
+
+
 public class AiBuildButtons : MonoBehaviour
 {
     [SerializeField] private GameObject pointPrefab;
-    [SerializeField] private LineRenderer lineRenderer;
-
+    [SerializeField] ARUIButtonScript arUihandler;
     private BuildableObjectSO buildableObject;
-    private ARUIButtonScript arUihandler;
-    private List<GameObject> points;
+    public static List<GameObject> points = new List<GameObject>();
+    public static List<Vector3> listWithPositions = new List<Vector3>();
 
     public BuildableObjectSO setBuildableObject
     {
         set { buildableObject = value; }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        arUihandler = FindObjectOfType<ARUIButtonScript>();
-    }
 
     public void SetAiPositions()
     {
-        GameObject ai = buildableObject.prefab.gameObject;
-        EnemyAI aiScript = ai.GetComponent<EnemyAI>();
         Pose position = SeekerPlacementIndicator.Instance.getPlacementPosition;
-        Debug.Log($"Set Position: {position}");
-        aiScript.addDefaultMovePositionsEntry = position;
+        Debug.Log($"Added a Position {position}");
         GameObject circle = Instantiate(pointPrefab, position.position, Quaternion.identity);
+        listWithPositions.Add(position.position);
         points.Add(circle);
-
-        if (points.Count < 1)
-        {
-            for (int i = 0; i < points.Count; i++)
-            {
-                lineRenderer.SetPosition(i, points[i].transform.position);
-            }
-        }
-
     }
 
     public void ResetLastPosition()
     {
-        GameObject ai = buildableObject.prefab.gameObject;
-        EnemyAI aiScript = ai.GetComponent<EnemyAI>();
-        List<Pose> positionList = aiScript.DefaultMovePositions;
 
-        if (positionList.Count <= 0)
+        if (listWithPositions.Count <= 0)
         {
             Debug.Log("PositionList Empty");
             arUihandler.ToggelAiUIButtons();
         }
-
-        if (points.Count > 0) points.RemoveAt(points.Count - 1);
-
-        if (points.Count < 1)
+        else
         {
-            for (int i = 0; i < points.Count; i++)
-            {
-                lineRenderer.SetPosition(i, points[i].transform.position);
-            }
+            GameObject lastPoint = points[points.Count - 1];
+            Destroy(lastPoint);
+            listWithPositions.RemoveAt(listWithPositions.Count - 1);
+            points.RemoveAt(points.Count - 1);
         }
-
-        positionList.RemoveAt(positionList.Count - 1);
-        Debug.Log($"Removed a Position {positionList}");
-        aiScript.DefaultMovePositions = positionList;
     }
 
     public void ConfirmAIBuild()
     {
-        SeekerPlacementIndicator.Instance.SpawnObject(buildableObject.prefab.gameObject, Quaternion.identity);
-        lineRenderer.positionCount = 0;
+
+        GameObject ai = SeekerPlacementIndicator.Instance.SpawnObject(buildableObject.prefab.gameObject, Quaternion.identity);
+        EnemyAI aiScript = ai.GetComponent<EnemyAI>();
+        Vector3[] vect3array = listWithPositions.ToArray();
+        aiScript.photonV.RPC("AddMovePositions", RpcTarget.AllBuffered, vect3array);
         foreach (GameObject point in points)
         {
             Destroy(point);
         }
+
+        listWithPositions.Clear();
         points.Clear();
         arUihandler.ToggelAiUIButtons();
     }
+
 }

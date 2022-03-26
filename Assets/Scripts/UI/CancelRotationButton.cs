@@ -7,27 +7,15 @@ public class CancelRotationButton : RotateButton
 {
     [SerializeField] ARUIButtonScript aRUI;
     [SerializeField] private ConfirmRotationButton confirm;
-    private BuildableObjectSO objectToBuild;
-
     
     private void CancelBuild()
     {
-        GameObject findGameobject = GameObject.FindGameObjectWithTag(duplicateTag);
-        if(findGameobject != null) Destroy(findGameobject);
+        if(buildObjectDouble != null) Destroy(buildObjectDouble.gameObject);
         confirm.SetObjectToBuild(null);
         aRUI.ToggelRotationMenu();
     }
     public override void OnUiClick()
     {
         CancelBuild();
-    }
-    public override void SetObjectToBuild(BuildableObjectSO obj)
-    {
-        objectToBuild = obj;
-    }
-
-    public override BuildableObjectSO GetObjectToBuild()
-    {
-        return objectToBuild;
     }
 }

@@ -44,6 +44,8 @@ MonoBehaviour:
   - DebugAndroid
   - DebugNetwork
   - AttachParentOnSpawn
+  - BuildNavMesh
+  - AddMovePositions
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

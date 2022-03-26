@@ -33,14 +33,16 @@ namespace BehaviorTree
             if (players.Count == 0) return false;
             foreach (GameObject player in players)
             {
-                if(Vector3.Distance(origin.transform.position, player.transform.position) < seeDistance)
+                
+                if (Vector3.Distance(origin.transform.position, player.transform.position) < seeDistance)
                 {
+                    Transform child = origin.transform.GetChild(0);
                     Vector3 dirToPlayer = (player.transform.position - origin.transform.position).normalized;
                     float anglePlayerAndEnemy = Vector3.Angle(origin.transform.forward, dirToPlayer);
                     if(anglePlayerAndEnemy < viewAngle / 2f)
                     {
                         RaycastHit hit;
-                        Physics.Linecast(origin.transform.position, player.transform.position, out hit, 1 << playerLayer);
+                        Physics.Linecast(child.position, player.transform.position, out hit, 1 << playerLayer);
                         
                         if(hit.collider != null)
                         {

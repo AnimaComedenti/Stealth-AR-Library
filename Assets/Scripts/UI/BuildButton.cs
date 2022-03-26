@@ -10,7 +10,7 @@ namespace StealthARLibrary
     {
         [SerializeField] private BuildableObjectSO _objectToBuild;
         [SerializeField] private ARUIButtonScript artoggler;
-        [SerializeField] private GameObject rotateButtonParent;
+        [SerializeField] private ConfirmRotationButton confirmButton;
 
         private void Start()
         {
@@ -24,12 +24,9 @@ namespace StealthARLibrary
 
         public void RotateBeforeBuild()
         {
-            if (rotateButtonParent == null) return;
-            RotateButton[] rotateButtons = rotateButtonParent.GetComponentsInChildren<RotateButton>();
-            foreach (RotateButton button in rotateButtons)
-            {
-                button.SetObjectToBuild(_objectToBuild);
-            }
+            if (confirmButton == null) return;
+
+            confirmButton.SetObjectToBuild(_objectToBuild);
             artoggler.ToggelRotationMenu();
         }
 
