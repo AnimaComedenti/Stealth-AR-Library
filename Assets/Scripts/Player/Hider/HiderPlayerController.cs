@@ -54,7 +54,7 @@ public class HiderPlayerController : MonoBehaviourPun
 
     void HandleGravity(Vector3 currentVelocity)
     {
-        isHiderOnGround = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundLayer);
+        isHiderOnGround = Physics.CheckSphere(groundCheck.position, groundCheckDistance);
 
         if (isHiderOnGround && velocity.y < 0) velocity.y = -2f;
 

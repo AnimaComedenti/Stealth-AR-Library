@@ -26,7 +26,7 @@ namespace StealthARLibrary
         private Pose placementPosition;
         private Camera _cam;
         private GameObject _placementIdicator;
-
+        private ARSessionOrigin origin;
         private GameObject _player;
         private List<RaycastResult> results = new List<RaycastResult>();
         private bool isPlacementValid = false;
@@ -59,6 +59,7 @@ namespace StealthARLibrary
             {
                 _instance = this;
             }
+            origin = GetComponent<ARSessionOrigin>();
         }
 
         public virtual void FixedUpdate()
@@ -158,6 +159,7 @@ namespace StealthARLibrary
             {
                 objToBuild = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, quaternion);
                 NetworkManager.Instance.photonView.RPC("BuildNavMesh", RpcTarget.AllBuffered);
+                this.photonView.RPC("MakeContentStickToOrigin",RpcTarget.AllBuffered,objToBuild.GetComponent<PhotonView>().ViewID);
                 isLevelPlaced = true;
                 return objToBuild;
 
@@ -166,12 +168,20 @@ namespace StealthARLibrary
             {
                 objToBuild = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, quaternion);
                 NetworkManager.Instance.photonView.RPC("BuildNavMesh", RpcTarget.AllBuffered);
+                this.photonView.RPC("MakeContentStickToOrigin", RpcTarget.AllBuffered, objToBuild.GetComponent<PhotonView>().ViewID);
                 return objToBuild;
             }
             return null;
 
         }
         #endregion
+
+        [PunRPC]
+        public void MakeContentStickToOrigin(int objectViewID)
+        {
+            GameObject objectToStick = PhotonNetwork.GetPhotonView(objectViewID).gameObject;
+            origin.MakeContentAppearAt(objectToStick.transform,objectToStick.transform.position,objectToStick.transform.rotation);
+        }
     }
 }
 

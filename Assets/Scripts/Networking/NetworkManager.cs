@@ -23,8 +23,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private GameObject hiderPrefab;
     [SerializeField]
     private GameObject seekerCam;
-    [SerializeField]
-    private GameObject seekerIndicator;
     [Header("Spawn options for hider")]
     [SerializeField]
     private GameObject spawner;
@@ -71,9 +69,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
             GameObject seekerCamera = PhotonNetwork.Instantiate(seekerCam.name, Vector3.zero, Quaternion.identity);
-            GameObject seekerIndi= PhotonNetwork.Instantiate(seekerIndicator.name, Vector3.zero, Quaternion.identity);
             pv.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, seekerCamera.GetComponent<PhotonView>().ViewID);
             Camera cam = seekerCamera.GetComponent<Camera>();
+            GameObject seekerIndi = seekerCamera.transform.GetChild(0).gameObject;
             SeekerPlacementIndicator.Instance.cam = cam;
             arSessionOrigin.camera = cam;
             SeekerPlacementIndicator.Instance.placementIdicator = seekerIndi;  
@@ -113,7 +111,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        SpawnHider();
+        //SpawnHider();
     }
 
     public override void OnDisconnected(DisconnectCause cause)

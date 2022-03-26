@@ -40,11 +40,10 @@ namespace BehaviorTree
             timer += Time.deltaTime;
             float distance = Vector3.Distance(agent.transform.position, currentDestination);
 
-            if (distance >= 1f)
+            if (distance >= 0.1f)
             {
                 agent.isStopped = false;
-                Vector3 destination = new Vector3(currentDestination.x, agent.transform.position.y, currentDestination.z);
-                agent.SetDestination(destination);
+                agent.SetDestination(currentDestination);
                 return NodeState.RUNNING;
             }
             else

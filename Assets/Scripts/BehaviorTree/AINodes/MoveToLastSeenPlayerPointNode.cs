@@ -26,7 +26,7 @@ namespace BehaviorTree
             if (destinationPoint != Vector3.zero)
             {
                 float distance = Vector3.Distance(agent.transform.position, destinationPoint);
-                if (distance >= 1)
+                if (distance >= 0.2f)
                 {
                     agent.isStopped = false;
                     rotate.SetLookDirection(destinationPoint);
