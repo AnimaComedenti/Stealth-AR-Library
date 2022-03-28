@@ -11,22 +11,42 @@ public class HiderPlayerController : MonoBehaviourPun
     private CharacterController characterController;
     [Header("PlayerMovement")]
     [SerializeField]
-    private float movementSpeed = 0.4f;
+    private float movementSpeed = 2;
     [SerializeField]
-    private float jumpHeight = 0.2f;
+    private float runSpeed = 4;
+    [SerializeField]
+    private float sneakSpeed = 1;
+    [SerializeField]
+    private float jumpHeight = 1f;
     [Header("Physics")]
     [SerializeField]
-    private float gravity = -3.905f;
+    private float gravity = -9.81f;
     [SerializeField]
-    private float groundCheckDistance = 0.4f;
+    private float groundCheckDistance = 0.2f;
     [SerializeField]
     private LayerMask groundLayer;
     [SerializeField]
     private Camera myCam;
+    [SerializeField]
+    private SoundMaker soundMaker;
+    [Header("Sound")]
+    [SerializeField] 
+    private SoundSO walking;
+    [SerializeField] 
+    private SoundSO running;
+    [SerializeField] 
+    private SoundSO sneaking;
+    [SerializeField] 
+    private SoundSO shooting;
+    [SerializeField]
+    private SoundSO jumping;
+    [SerializeField]
+    private SoundSO landing;
 
     private Vector3 velocity;
     private bool isHiderOnGround = true;
-
+    private bool isWASDPressed = false;
+    private bool isFirstTimeLanded = false;
     private void Start()
     {
         if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
@@ -44,7 +64,31 @@ public class HiderPlayerController : MonoBehaviourPun
 
             Vector3 moveDirection = transform.right * x + transform.forward * z;
 
-            characterController.Move(moveDirection * movementSpeed * Time.deltaTime);
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.D))
+            {
+                isWASDPressed = true;
+            }
+            else
+            {
+                isWASDPressed = false;
+                soundMaker.StopSound();
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift) && isWASDPressed)
+            {
+                moveCharacter(moveDirection, runSpeed);
+                if (isHiderOnGround) soundMaker.Play3DSound(running);
+            }
+            else if (Input.GetKey(KeyCode.CapsLock) && isWASDPressed) 
+            {
+                moveCharacter(moveDirection, sneakSpeed);
+                if (isHiderOnGround) soundMaker.Play3DSound(sneaking);
+            }
+            else if(isWASDPressed)
+            {
+                moveCharacter(moveDirection, movementSpeed);
+                if(isHiderOnGround) soundMaker.Play3DSound(walking);
+            }
 
             HandleGravity(velocity);
 
@@ -56,7 +100,19 @@ public class HiderPlayerController : MonoBehaviourPun
     {
         isHiderOnGround = Physics.CheckSphere(groundCheck.position, groundCheckDistance);
 
-        if (isHiderOnGround && velocity.y < 0) velocity.y = -2f;
+
+        if (transform.position.y >= jumpHeight) isFirstTimeLanded = true;
+
+        if (isHiderOnGround && isFirstTimeLanded)
+        {
+            soundMaker.Play3DSound(landing);
+            isFirstTimeLanded = false;
+        }
+
+        if (isHiderOnGround && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
 
         PerformJump();
 
@@ -67,9 +123,16 @@ public class HiderPlayerController : MonoBehaviourPun
     {
         if (isHiderOnGround && Input.GetButtonDown("Jump"))
         {
+            soundMaker.StopSound();
+            soundMaker.Play3DSound(jumping);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            isHiderOnGround = false;
+            isHiderOnGround = false;   
         }
+    }
+
+    void moveCharacter(Vector3 moveDirection, float moveSpeed)
+    {
+        characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
     }
 
     void Update()

@@ -755,7 +755,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1268719363}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ARUIUtilsButtons, Assembly-CSharp
         m_MethodName: DisconnectOnClick
         m_Mode: 1
@@ -777,14 +777,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7595853889355567397}
   - component: {fileID: 5564729495770036423}
-  - component: {fileID: 1268719363}
   m_Layer: 5
   m_Name: AR UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7595853889355567397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -810,20 +809,6 @@ RectTransform:
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5564729495770036423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7595853889355567396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37ef896dccc24b4095ac4143e9aa2a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combatButtons: {fileID: 3841810242464290678}
-  buildButtons: {fileID: 7595853889798541726}
---- !u!114 &1268719363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -994,7 +979,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1268719363}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ARUIUtilsButtons, Assembly-CSharp
         m_MethodName: ToogelButtons
         m_Mode: 1
@@ -1360,7 +1345,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1268719363}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ARUIUtilsButtons, Assembly-CSharp
         m_MethodName: ToogelButtons
         m_Mode: 1
@@ -2432,20 +2417,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5455401442475972617, guid: 72700d0c4800c01429fff21e1c5860dd, type: 3}
   m_PrefabInstance: {fileID: 4810766636304312002}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2297619805718498750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491609748069046332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02445417a509a2a4b957b3217daf2da3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointPrefab: {fileID: 0}
-  buildButtons: {fileID: 7595853889798541726}
 --- !u!114 &1268719368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2459,6 +2430,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 2470490245933918285, guid: 4e3ad7ae35338484ab07e93389a29edb, type: 3}
+  buildButtons: {fileID: 7595853889798541726}
+--- !u!114 &2297619805718498750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491609748069046332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02445417a509a2a4b957b3217daf2da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointPrefab: {fileID: 0}
   buildButtons: {fileID: 7595853889798541726}
 --- !u!1001 &6537266557587159286
 PrefabInstance:
@@ -2631,20 +2616,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 734021307261551090, guid: 83a1ae6ed6db2b44da3741184af40453, type: 3}
   m_PrefabInstance: {fileID: 6537266557587159286}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4495999579316382720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9058503397265705480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bdb0473af41d24aabb5ec4e6b9370b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 0}
-  buildButtons: {fileID: 7595853889798541726}
 --- !u!114 &1268719365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2658,6 +2629,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 652fc578a7500084c8f13f7080519eb4, type: 2}
+  buildButtons: {fileID: 7595853889798541726}
+--- !u!114 &4495999579316382720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9058503397265705480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38bdb0473af41d24aabb5ec4e6b9370b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 0}
   buildButtons: {fileID: 7595853889798541726}
 --- !u!1001 &7127131023508024012
 PrefabInstance:

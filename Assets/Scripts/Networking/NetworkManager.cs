@@ -61,7 +61,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        SpawnSeeker();
+        //SpawnSeeker();
     }
 
     private void SpawnSeeker()
@@ -111,7 +111,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        SpawnHider();
+        //SpawnHider();
     }
 
     public override void OnDisconnected(DisconnectCause cause)

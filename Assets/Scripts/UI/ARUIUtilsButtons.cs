@@ -8,14 +8,6 @@ public class ARUIUtilsButtons : MonoBehaviour
 {
     [SerializeField] private GameObject combatButtons;
     [SerializeField] private GameObject buildButtons;
-    private void Awake()
-    {
-        if (SystemInfo.deviceType != DeviceType.Handheld)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
-    }
 
     public void ToogelButtons()
     {
