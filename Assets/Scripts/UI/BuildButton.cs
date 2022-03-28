@@ -9,8 +9,8 @@ namespace StealthARLibrary
     public class BuildButton : MonoBehaviour
     {
         [SerializeField] private BuildableObjectSO _objectToBuild;
-        [SerializeField] private ARUIButtonScript artoggler;
-        [SerializeField] private ConfirmRotationButton confirmButton;
+        [SerializeField] private RotationButtons rotationButtons;
+        [SerializeField] private GameObject buildButtons;
 
         private void Start()
         {
@@ -24,10 +24,10 @@ namespace StealthARLibrary
 
         public void RotateBeforeBuild()
         {
-            if (confirmButton == null) return;
+            if (rotationButtons == null) return;
 
-            confirmButton.SetObjectToBuild(_objectToBuild);
-            artoggler.ToggelRotationMenu();
+            rotationButtons.SetObjectToBuild(_objectToBuild);
+            UIToggler.Instance.ToggelUIButtons(buildButtons, rotationButtons.gameObject);
         }
 
         private void AddSpritesToImages()

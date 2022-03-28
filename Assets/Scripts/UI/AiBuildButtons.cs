@@ -10,7 +10,7 @@ using BehaviorTree;
 public class AiBuildButtons : MonoBehaviour
 {
     [SerializeField] private GameObject pointPrefab;
-    [SerializeField] ARUIButtonScript arUihandler;
+    [SerializeField] private GameObject buildButtons;
     private BuildableObjectSO buildableObject;
     public static List<GameObject> points = new List<GameObject>();
     public static List<Vector3> listWithPositions = new List<Vector3>();
@@ -34,7 +34,7 @@ public class AiBuildButtons : MonoBehaviour
         if (listWithPositions.Count <= 0)
         {
             Debug.Log("PositionList Empty");
-            arUihandler.ToggelAiUIButtons();
+            UIToggler.Instance.ToggelUIButtons(buildButtons, this.gameObject);
         }
         else
         {
@@ -48,7 +48,7 @@ public class AiBuildButtons : MonoBehaviour
     public void ConfirmAIBuild()
     {
 
-        GameObject ai = SeekerPlacementIndicator.Instance.SpawnObject(buildableObject.prefab.gameObject, Quaternion.identity);
+        GameObject ai = SeekerPlacementIndicator.Instance.SpawnObject(buildableObject.Prefab.gameObject, Quaternion.identity);
         EnemyAI aiScript = ai.GetComponent<EnemyAI>();
         Vector3[] vect3array = listWithPositions.ToArray();
         aiScript.photonV.RPC("AddMovePositions", RpcTarget.AllBuffered, vect3array);
@@ -59,7 +59,7 @@ public class AiBuildButtons : MonoBehaviour
 
         listWithPositions.Clear();
         points.Clear();
-        arUihandler.ToggelAiUIButtons();
+        UIToggler.Instance.ToggelUIButtons(buildButtons, this.gameObject);
     }
 
 }

@@ -8,32 +8,27 @@ namespace StealthARLibrary
     public class EnemyBuildButton : MonoBehaviour
     {
         [SerializeField] BuildableObjectSO _objectToBuild;
-        [SerializeField] ARUIButtonScript aRUIButton;
-        [SerializeField] GameObject aiBuildButtonParent;
-        private AiBuildButtons[] aiBuildButtons;
+        [SerializeField] AiBuildButtons aiBuildButtons;
+        [SerializeField] GameObject buildButtons;
 
         private void Start()
         {
             AddSpritesToImages();
-            aiBuildButtons = aiBuildButtonParent.GetComponentsInChildren<AiBuildButtons>();
         }
 
         public void BuildOnClick()
-        {
-            foreach(AiBuildButtons button in aiBuildButtons)
-            {
-                button.setBuildableObject = _objectToBuild;
-            }
-            aRUIButton.ToggelAiUIButtons();
+        { 
+            aiBuildButtons.setBuildableObject = _objectToBuild;
+            UIToggler.Instance.ToggelUIButtons(buildButtons, aiBuildButtons.gameObject);
         }
 
         private void AddSpritesToImages()
         {
             Image image = transform.GetChild(1).GetComponent<Image>();
 
-            if (_objectToBuild.sprite != null)
+            if (_objectToBuild.Sprite != null)
             {
-                image.sprite = _objectToBuild.sprite;
+                image.sprite = _objectToBuild.Sprite;
             }
         }
     }

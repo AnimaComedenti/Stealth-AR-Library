@@ -3,26 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using StealthARLibrary;
 
-public class ConfirmRotationButton : RotateButton
+public class RotationButtons : MonoBehaviour
 {
-    public static ConfirmRotationButton Instance;
-    [SerializeField] ARUIButtonScript aRUI;
-    [SerializeField] Material material;
+    public static Transform buildObjectDouble;
+
+    [SerializeField] private Material material;
+    [SerializeField] private GameObject buildButtons;
     private BuildableObjectSO objectToBuild;
     private SeekerPlacementIndicator seekerPlacement;
     private Pose placementPosition;
+    
 
-    void Awacke()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
     private void SetAlpha(GameObject obj)
     {
         MeshRenderer[] allChildRenderer = obj.GetComponentsInChildren<MeshRenderer>();
@@ -42,23 +33,39 @@ public class ConfirmRotationButton : RotateButton
         buildObjectDouble.transform.position = seekerPlacement.getPlacementPosition.position;
     }
 
-    private void ConfirmBuild()
+    public void RotateObjectLeft()
+    {
+        if (buildObjectDouble == null) return;
+        buildObjectDouble.transform.Rotate(Vector3.up, 20f);
+    }
+
+    public void RotateObjectRight()
+    {
+        if (buildObjectDouble == null) return;
+        buildObjectDouble.transform.Rotate(Vector3.up, -20f);
+    }
+
+    public void CancelBuild()
+    {
+        if (buildObjectDouble != null) Destroy(buildObjectDouble.gameObject);
+        SetObjectToBuild(null);
+        UIToggler.Instance.ToggelUIButtons(this.gameObject, buildButtons);
+    }
+
+
+    public void ConfirmRotation()
     {
         //Spawn Real Object
-        seekerPlacement.SpawnObject(objectToBuild.prefab.gameObject, buildObjectDouble.transform.rotation);
+        seekerPlacement.SpawnObject(objectToBuild.Prefab.gameObject, buildObjectDouble.transform.rotation);
 
         if (buildObjectDouble != null) Destroy(buildObjectDouble.gameObject);
 
         //Reset Objects
         buildObjectDouble = null;
         objectToBuild = null;
-        aRUI.ToggelRotationMenu();
+        UIToggler.Instance.ToggelUIButtons(this.gameObject, buildButtons);
     }
 
-    public override void OnUiClick()
-    {
-        ConfirmBuild();
-    }
     public void SetObjectToBuild(BuildableObjectSO obj)
     {
 
@@ -68,7 +75,7 @@ public class ConfirmRotationButton : RotateButton
         objectToBuild = obj;
 
         //Set Duplicate and make colors Transparent
-        buildObjectDouble = Instantiate(objectToBuild.prefab, placementPosition.position, placementPosition.rotation);
+        buildObjectDouble = Instantiate(objectToBuild.Prefab, placementPosition.position, placementPosition.rotation);
         SetAlpha(buildObjectDouble.gameObject);
     }
 

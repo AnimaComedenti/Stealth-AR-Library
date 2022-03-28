@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 2456407277626311311, guid: 7f4b9d93109b63242add2c08617d5682, type: 3}
   sprite: {fileID: 21300000, guid: a52513818b99c924097a193d7a36fa0e, type: 3}
+  buildingName: BuildableCube

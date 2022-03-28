@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4426811411217573729, guid: aeca6859f87e32a4cadaa2054e4d526f, type: 3}
   sprite: {fileID: 21300000, guid: fccdbbee739c84f40b082a759f1c5a17, type: 3}
+  buildingName: StandartEnemy

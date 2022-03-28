@@ -19,14 +19,13 @@ namespace StealthARLibrary
             get { return _instance; }
         }
 
-        [SerializeField] private int levelLayerInt = 3;
         [SerializeField] private string levelTag = "Level";
         [SerializeField] private ARRaycastManager aRRaycastManager;
+        [SerializeField] private ARSessionOrigin origin;
 
         private Pose placementPosition;
         private Camera _cam;
         private GameObject _placementIdicator;
-        private ARSessionOrigin origin;
         private GameObject _player;
         private List<RaycastResult> results = new List<RaycastResult>();
         private bool isPlacementValid = false;
@@ -59,7 +58,6 @@ namespace StealthARLibrary
             {
                 _instance = this;
             }
-            origin = GetComponent<ARSessionOrigin>();
         }
 
         public virtual void FixedUpdate()
@@ -96,7 +94,7 @@ namespace StealthARLibrary
             Ray screenCenter = _cam.ScreenPointToRay(touchposition);
             if (Physics.Raycast(screenCenter, out hit))
             {
-                if (hit.transform.gameObject.layer == levelLayerInt)
+                if (hit.transform.gameObject.CompareTag(levelTag))
                 {
                     Pose newPosition = new Pose(hit.point, Quaternion.identity);
                     placementPosition = newPosition;
