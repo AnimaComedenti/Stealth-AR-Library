@@ -7,8 +7,13 @@ namespace StealthARLibrary
     [CreateAssetMenu(menuName ="ScriptableObjects/BuildableObjectsSO")]
     public class BuildableObjectSO : ScriptableObject
     {
-        public Transform prefab;
-        public Sprite sprite;
+        [SerializeField] private Transform prefab;
+        [SerializeField] private Sprite sprite;
+        [SerializeField] private string buildingName;
+
+        public Transform Prefab => prefab;
+        public Sprite Sprite => sprite;
+        public string Name => buildingName;
     }
 }
 

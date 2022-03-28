@@ -111,7 +111,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        //SpawnHider();
+        SpawnHider();
     }
 
     public override void OnDisconnected(DisconnectCause cause)

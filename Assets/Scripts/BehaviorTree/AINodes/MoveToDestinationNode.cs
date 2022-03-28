@@ -39,15 +39,20 @@ namespace BehaviorTree
         {
             timer += Time.deltaTime;
             float distance = Vector3.Distance(agent.transform.position, currentDestination);
-
-            if (distance >= 0.1f)
+            Vector3 gotoDestination = new Vector3(currentDestination.x, agent.transform.position.y, currentDestination.z);
+            float scaleX = agent.transform.localScale.x * 2.5f;
+            if (distance > scaleX)
             {
                 agent.isStopped = false;
-                agent.SetDestination(currentDestination);
+                //Check if the current destination is reachable, if not try again with a position which is has the same y as the agent
+                if (!agent.SetDestination(currentDestination)){
+                    agent.SetDestination(gotoDestination);
+                }
                 return NodeState.RUNNING;
             }
             else
             {
+                Debug.Log("stoped");
                 agent.isStopped = true;
                 if(timer >= maxTime)
                 {

@@ -23,7 +23,6 @@ public class AiBuildButtons : MonoBehaviour
     public void SetAiPositions()
     {
         Pose position = SeekerPlacementIndicator.Instance.getPlacementPosition;
-        Debug.Log($"Added a Position {position}");
         GameObject circle = Instantiate(pointPrefab, position.position, Quaternion.identity);
         listWithPositions.Add(position.position);
         points.Add(circle);

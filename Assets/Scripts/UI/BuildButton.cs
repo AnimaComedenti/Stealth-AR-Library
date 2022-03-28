@@ -19,7 +19,7 @@ namespace StealthARLibrary
 
         public void BuildOnClick()
         {
-            SeekerPlacementIndicator.Instance.SpawnObject(_objectToBuild.prefab.gameObject, Quaternion.identity);
+            SeekerPlacementIndicator.Instance.SpawnObject(_objectToBuild.Prefab.gameObject, Quaternion.identity);
         }
 
         public void RotateBeforeBuild()
@@ -34,9 +34,9 @@ namespace StealthARLibrary
         {
             Image image = transform.GetChild(1).GetComponent<Image>();
 
-            if (_objectToBuild.sprite != null)
+            if (_objectToBuild.Sprite != null)
             {
-                image.sprite = _objectToBuild.sprite;
+                image.sprite = _objectToBuild.Sprite;
             }
         }
     }
