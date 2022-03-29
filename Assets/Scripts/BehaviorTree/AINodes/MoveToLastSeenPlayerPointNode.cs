@@ -25,13 +25,12 @@ namespace BehaviorTree
             destinationPoint = origin.LastSeenPlayerPosition;
             if (destinationPoint != Vector3.zero)
             {
-                float distance = Vector3.Distance(agent.transform.position, destinationPoint);
-                float scaleX = agent.transform.localScale.x * 2.5f;
-                if (distance > scaleX)
+
+                agent.SetDestination(destinationPoint);
+                if (agent.remainingDistance > 0.1f)
                 {
                     agent.isStopped = false;
                     rotate.SetLookDirection(destinationPoint);
-                    agent.SetDestination(destinationPoint);
                     return NodeState.RUNNING;
                 }
                 else

@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BehaviorTree;
 
-public class CheckSomthingHeardNode : MonoBehaviour
+public class CheckSomthingHeardNode : Node
 {
-    // Start is called before the first frame update
-    void Start()
+    private EnemyAI origin;
+    private SoundDetector soundDetector;
+    private GameObject hearedObject;
+
+    public CheckSomthingHeardNode(EnemyAI origin, SoundDetector soundDetector)
     {
-        
+        this.origin = origin;
+        this.soundDetector = soundDetector;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override NodeState Evaluate()
     {
-        
+        hearedObject = soundDetector.CurrentHearingObject;
+        if(hearedObject != null){
+            origin.LastSeenPlayerPosition = hearedObject.transform.position;
+            return NodeState.FAILURE;    
+        }
+        else
+        {
+            origin.Player = null;
+            return NodeState.SUCCESS;
+        }
     }
 }

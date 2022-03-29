@@ -15,7 +15,7 @@ MonoBehaviour:
   audioName: Walking
   audio:
   - {fileID: 8300000, guid: b2c305fdeefa5194eaa2c69a95a9ae77, type: 3}
-  volume: 0.2
+  volume: 0.4
   maxHearDistance: 2
   minHearDistance: 1
   isLoop: 0

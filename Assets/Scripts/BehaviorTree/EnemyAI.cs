@@ -20,6 +20,8 @@ public class EnemyAI : MonoBehaviourPun
     [SerializeField] private float viewDistance;
     [SerializeField] private Light flashLigth;
     [SerializeField] private int playerLayer;
+    [Header("SoundDetection")]
+    [SerializeField] private SoundDetector soundDetector;
 
     private List<Vector3> movePositions = new List<Vector3>();
     private GameObject _player;
@@ -54,7 +56,7 @@ public class EnemyAI : MonoBehaviourPun
     {
         CurrentlyDamagedNode checkCurrentlyDamaged = new CurrentlyDamagedNode(_currentHealth, this);
         //SequenzNode
-        //checkHearedNode
+        CheckSomthingHeardNode somethingHeared = new CheckSomthingHeardNode(this,soundDetector);
         CheckPlayerSeenNode checkPlayer = new CheckPlayerSeenNode(this, flashLigth, viewDistance, playerLayer);
         MoveToDestinationNode moveToDestination = new MoveToDestinationNode(agent,movePositions,speedToRotate);
         CheckShootingRangeNode shootingRange = new CheckShootingRangeNode(playerLayer, this);
@@ -67,11 +69,16 @@ public class EnemyAI : MonoBehaviourPun
 
         Invertor CurrentlySeenPlayer = new Invertor(checkPlayer);
         Invertor checkIfNotShootingRange = new Invertor(shootingRange);
+       
 
-        Sequenz move = new Sequenz(new List<Node> { checkCurrentlyDamaged, CurrentlySeenPlayer, moveToDestination });
+        Sequenz movingToHearLocation = new Sequenz(new List<Node> { moveToPlayerLastPosition, CurrentlySeenPlayer, turnWhileSearching });
+
+        Selector checkHearing = new Selector(new List<Node> { somethingHeared, movingToHearLocation });
+
+        Sequenz move = new Sequenz(new List<Node> { checkCurrentlyDamaged, CurrentlySeenPlayer, checkHearing, moveToDestination });
         Sequenz shoot = new Sequenz(new List<Node> { checkPlayer, shootingRange, shooting });
         Sequenz chase = new Sequenz(new List<Node> { checkPlayer, checkIfNotShootingRange, chasePlayer });
-        Sequenz search = new Sequenz(new List<Node> { CurrentlySeenPlayer, moveToPlayerLastPosition, turnWhileSearching, CurrentlySeenPlayer, searchingTimer });
+        Sequenz search = new Sequenz(new List<Node> { CurrentlySeenPlayer, moveToPlayerLastPosition, turnWhileSearching, checkHearing, CurrentlySeenPlayer, searchingTimer });
 
         topNode = new Selector(new List<Node> {search, move, shoot, chase});
 

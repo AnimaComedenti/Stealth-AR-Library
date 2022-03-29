@@ -100,15 +100,6 @@ public class HiderPlayerController : MonoBehaviourPun
     {
         isHiderOnGround = Physics.CheckSphere(groundCheck.position, groundCheckDistance);
 
-
-        if (transform.position.y >= jumpHeight) isFirstTimeLanded = true;
-
-        if (isHiderOnGround && isFirstTimeLanded)
-        {
-            soundMaker.Play3DSound(landing);
-            isFirstTimeLanded = false;
-        }
-
         if (isHiderOnGround && velocity.y < 0)
         {
             velocity.y = -2f;
@@ -126,7 +117,8 @@ public class HiderPlayerController : MonoBehaviourPun
             soundMaker.StopSound();
             soundMaker.Play3DSound(jumping);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            isHiderOnGround = false;   
+            isHiderOnGround = false;
+
         }
     }
 

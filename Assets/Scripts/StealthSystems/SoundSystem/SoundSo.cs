@@ -29,7 +29,6 @@ public class SoundSO : ScriptableObject
             randomeNumber = Random.Range(0, audio.Length);
         }
         lastNumber = randomeNumber;
-        Debug.Log(randomeNumber);
         return audio[randomeNumber];
     }
 }

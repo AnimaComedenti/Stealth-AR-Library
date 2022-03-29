@@ -38,21 +38,20 @@ namespace BehaviorTree
         public override NodeState Evaluate()
         {
             timer += Time.deltaTime;
-            float distance = Vector3.Distance(agent.transform.position, currentDestination);
             Vector3 gotoDestination = new Vector3(currentDestination.x, agent.transform.position.y, currentDestination.z);
-            float scaleX = agent.transform.localScale.x * 2.5f;
-            if (distance > scaleX)
+
+            if (!agent.SetDestination(currentDestination))
+            {
+                agent.SetDestination(gotoDestination);
+            }
+
+            if (agent.remainingDistance > 0.1f)
             {
                 agent.isStopped = false;
-                //Check if the current destination is reachable, if not try again with a position which is has the same y as the agent
-                if (!agent.SetDestination(currentDestination)){
-                    agent.SetDestination(gotoDestination);
-                }
                 return NodeState.RUNNING;
             }
             else
             {
-                Debug.Log("stoped");
                 agent.isStopped = true;
                 if(timer >= maxTime)
                 {

@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class SoundMaker : MonoBehaviour, IHearable
+public class SoundMaker : MonoBehaviour
 {
     [SerializeField] private AudioSource source;
     private PhotonView pv;
 
-    private float wholeVolume;
-
+    private float wholeVolume = 0;
+    public void Update()
+    {
+        if (!source.isPlaying)
+        {
+            source.volume = 0;
+        }
+        wholeVolume = source.volume;
+    }
 
     public void Play2DSound(SoundSO sound)
     {
@@ -27,7 +34,6 @@ public class SoundMaker : MonoBehaviour, IHearable
             {
                 source.clip = sound.Audio[0];
             }
-            wholeVolume = sound.Volume;
             source.Play();
         }
     }
@@ -50,7 +56,6 @@ public class SoundMaker : MonoBehaviour, IHearable
             {
                 source.clip = sound.Audio[0];
             }
-            wholeVolume = sound.Volume;
             source.Play();
         }
     }
@@ -60,7 +65,7 @@ public class SoundMaker : MonoBehaviour, IHearable
         if (source.isPlaying) source.Stop();
     }
 
-    public float hearedVolume()
+    public float Volume()
     {
         return wholeVolume;
     }

@@ -15,7 +15,7 @@ MonoBehaviour:
   audioName: Landing
   audio:
   - {fileID: 8300000, guid: b70d04f1f7e251b4f8629b271d71c623, type: 3}
-  volume: 0.4
+  volume: 0.5
   maxHearDistance: 3
   minHearDistance: 1
   isLoop: 0
