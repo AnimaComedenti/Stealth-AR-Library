@@ -11,6 +11,7 @@ public class AiBuildButtons : MonoBehaviour
 {
     [SerializeField] private GameObject pointPrefab;
     [SerializeField] private GameObject buildButtons;
+    [SerializeField] private GameObject aiBuildButtons;
     private BuildableObjectSO buildableObject;
     public static List<GameObject> points = new List<GameObject>();
     public static List<Vector3> listWithPositions = new List<Vector3>();
@@ -34,7 +35,7 @@ public class AiBuildButtons : MonoBehaviour
         if (listWithPositions.Count <= 0)
         {
             Debug.Log("PositionList Empty");
-            UIToggler.Instance.ToggelUIButtons(buildButtons, this.gameObject);
+            UIToggler.Instance.ToggelUIButtons(buildButtons, aiBuildButtons);
         }
         else
         {
@@ -59,7 +60,7 @@ public class AiBuildButtons : MonoBehaviour
 
         listWithPositions.Clear();
         points.Clear();
-        UIToggler.Instance.ToggelUIButtons(buildButtons, this.gameObject);
+        UIToggler.Instance.ToggelUIButtons(buildButtons, aiBuildButtons);
     }
 
 }

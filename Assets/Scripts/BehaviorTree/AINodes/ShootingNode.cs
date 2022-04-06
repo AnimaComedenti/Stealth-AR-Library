@@ -10,13 +10,13 @@ namespace BehaviorTree
         private float rotatingSpeed;
         private Transform player;
 
-        private RotatingNode rotate;
+        private RotatingEnemyClass rotate;
 
         public ShootingNode(EnemyAI origin, float rotatingSpeed)
         {
             this.origin = origin;
             this.rotatingSpeed = rotatingSpeed;
-            rotate = new RotatingNode(origin.transform, rotatingSpeed);
+            rotate = new RotatingEnemyClass(origin.transform, rotatingSpeed);
         }
 
         public override NodeState Evaluate()

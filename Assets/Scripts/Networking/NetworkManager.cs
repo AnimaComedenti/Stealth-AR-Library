@@ -25,8 +25,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private GameObject seekerCam;
     [Header("Spawn options for hider")]
     [SerializeField]
-    private GameObject spawner;
-    [SerializeField]
     private bool isSpawnfixed;
     [SerializeField]
     private string levelTag = "Level";
@@ -61,7 +59,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        //SpawnSeeker();
+        SpawnSeeker();
     }
 
     private void SpawnSeeker()
@@ -92,7 +90,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             if (isSpawnfixed)
             {
                 //spawn on given spawn point
-                Vector3 spawnPosition = spawner.transform.position;
+                spawns = GameObject.FindGameObjectsWithTag(spawnTag);
+                Vector3 spawnPosition = spawns[0].transform.position;
                 hider = PhotonNetwork.Instantiate(hiderPrefab.name, spawnPosition, Quaternion.identity, 0);
             }
             else
@@ -111,7 +110,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        //SpawnHider();
+        SpawnHider();
     }
 
     public override void OnDisconnected(DisconnectCause cause)

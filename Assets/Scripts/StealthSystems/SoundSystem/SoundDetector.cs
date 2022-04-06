@@ -24,11 +24,11 @@ public class SoundDetector : MonoBehaviour
             foreach(Collider collider in colliders)
             {
               
-                //If it is he return
+                //If its himself, return
                 if (collider.gameObject.CompareTag(gameObject.tag)) continue;
+
                 if (collider.gameObject.TryGetComponent(out SoundMaker soundMaker))
                 {
-                    
                     Vector3 makerPosition = soundMaker.transform.position;
                     distance = Vector3.Distance(makerPosition,transform.position);
                     if (soundMaker.Volume() == 0) continue;

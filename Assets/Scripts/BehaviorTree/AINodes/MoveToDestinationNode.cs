@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using Photon.Pun;
 
 
 namespace BehaviorTree
@@ -17,22 +17,20 @@ namespace BehaviorTree
         private float maxTime = 6;
         private float timer = 0;
 
+        private RotatingEnemyClass rotate;
 
-
-        private RotatingNode rotate;
 
         public MoveToDestinationNode(NavMeshAgent agent, List<Vector3> destinationPoints, float rotatingSpeed)
         {
             this.agent = agent;
             this.destinationPoints = destinationPoints;
 
-            rotate = new RotatingNode(agent.transform, rotatingSpeed);
+            rotate = new RotatingEnemyClass(agent.transform, rotatingSpeed);
             if (destinationPoints.Count >= 0)
             {
                 currentDestination = destinationPoints[0];
                 rotate.SetInstandLookDirection(currentDestination);
             }
-
         }
 
         public override NodeState Evaluate()

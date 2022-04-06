@@ -6,9 +6,14 @@ using Photon.Pun;
 public class HiderPlayerController : MonoBehaviourPun
 {
     [SerializeField]
-    private Transform groundCheck;
+    private GameObject face;
+    [SerializeField]
+    private LayerMask interactLayer;
+    [SerializeField]
+    private PhotonView pv;
     [SerializeField]
     private CharacterController characterController;
+
     [Header("PlayerMovement")]
     [SerializeField]
     private float movementSpeed = 2;
@@ -20,33 +25,20 @@ public class HiderPlayerController : MonoBehaviourPun
     private float jumpHeight = 1f;
     [Header("Physics")]
     [SerializeField]
+    private Transform groundCheck;
+    [SerializeField]
     private float gravity = -9.81f;
     [SerializeField]
     private float groundCheckDistance = 0.2f;
     [SerializeField]
-    private LayerMask groundLayer;
-    [SerializeField]
     private Camera myCam;
-    [SerializeField]
-    private SoundMaker soundMaker;
-    [Header("Sound")]
-    [SerializeField] 
-    private SoundSO walking;
-    [SerializeField] 
-    private SoundSO running;
-    [SerializeField] 
-    private SoundSO sneaking;
-    [SerializeField] 
-    private SoundSO shooting;
-    [SerializeField]
-    private SoundSO jumping;
-    [SerializeField]
-    private SoundSO landing;
 
     private Vector3 velocity;
     private bool isHiderOnGround = true;
     private bool isWASDPressed = false;
-    private bool isFirstTimeLanded = false;
+
+    public bool isMovementDisabled { get; set; } = false;
+
     private void Start()
     {
         if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
@@ -54,10 +46,23 @@ public class HiderPlayerController : MonoBehaviourPun
             myCam.gameObject.SetActive(true);
         }
     }
+
+    void Update()
+    {
+        HandelPlayerMovement();
+    }
+
     void HandelPlayerMovement()
     {
         if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
         {
+            if (isMovementDisabled) return;
+            if (Input.GetKey(KeyCode.F))
+            {
+                Debug.Log("F-Key Pressed");
+                Interact();
+            }
+
             //Get inputvalues
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
@@ -71,28 +76,43 @@ public class HiderPlayerController : MonoBehaviourPun
             else
             {
                 isWASDPressed = false;
-                soundMaker.StopSound();
+               pv.RPC("StopAudio", RpcTarget.All);
             }
 
             if (Input.GetKey(KeyCode.LeftShift) && isWASDPressed)
             {
-                moveCharacter(moveDirection, runSpeed);
-                if (isHiderOnGround) soundMaker.Play3DSound(running);
+                MoveCharacter(moveDirection, runSpeed);
+                pv.RPC("SetAudioRemote", RpcTarget.All, "Running");
             }
             else if (Input.GetKey(KeyCode.CapsLock) && isWASDPressed) 
             {
-                moveCharacter(moveDirection, sneakSpeed);
-                if (isHiderOnGround) soundMaker.Play3DSound(sneaking);
+                MoveCharacter(moveDirection, sneakSpeed);
+                pv.RPC("SetAudioRemote", RpcTarget.All, "Sneaking");
             }
             else if(isWASDPressed)
             {
-                moveCharacter(moveDirection, movementSpeed);
-                if(isHiderOnGround) soundMaker.Play3DSound(walking);
+                MoveCharacter(moveDirection, movementSpeed);
+                pv.RPC("SetAudioRemote", RpcTarget.All, "Walking");
             }
 
             HandleGravity(velocity);
 
             characterController.Move(velocity * Time.deltaTime);
+        }
+    }
+
+    void Interact()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(face.transform.position,face.transform.forward,out hit, 0.5f))
+        {
+
+            if(hit.collider.TryGetComponent(out IInteractable interact))
+            {
+                interact.OnInteract(gameObject);
+            }
+            Debug.Log(hit.collider.gameObject);
         }
     }
 
@@ -114,26 +134,16 @@ public class HiderPlayerController : MonoBehaviourPun
     {
         if (isHiderOnGround && Input.GetButtonDown("Jump"))
         {
-            soundMaker.StopSound();
-            soundMaker.Play3DSound(jumping);
+            pv.RPC("StopAudio", RpcTarget.All);
+            pv.RPC("SetAudioRemote", RpcTarget.All, "Jumping");
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             isHiderOnGround = false;
 
         }
     }
 
-    void moveCharacter(Vector3 moveDirection, float moveSpeed)
+    void MoveCharacter(Vector3 moveDirection, float moveSpeed)
     {
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-    }
-
-    void Update()
-    {
-        HandelPlayerMovement();
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        throw new System.NotImplementedException();
     }
 }

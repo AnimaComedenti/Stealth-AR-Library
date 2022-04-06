@@ -8,13 +8,16 @@ public class SoundSO : ScriptableObject
     [SerializeField] private string audioName;
     [SerializeField] private AudioClip[] audio;
     [SerializeField] private float volume;
+    [SerializeField] private float detectingVolume;
     [SerializeField] private float maxHearDistance;
     [SerializeField] private float minHearDistance;
     [SerializeField] private bool isLoop;
 
+
     public string AudioName => audioName;
     public AudioClip[] Audio => audio;
     public float Volume => volume;
+    public float DetectingVolume => detectingVolume;
     public float MaxHearDistance => maxHearDistance;
     public float MinHearDistance => minHearDistance;
     public bool IsLoop => isLoop;

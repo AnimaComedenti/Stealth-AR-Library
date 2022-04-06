@@ -34,8 +34,6 @@ public class EnemyAI : MonoBehaviourPun
     {
         get { return pv; }
     }
-    
-
 
     private void Start()
     {
@@ -55,6 +53,7 @@ public class EnemyAI : MonoBehaviourPun
     private void BuildBehaviour()
     {
         CurrentlyDamagedNode checkCurrentlyDamaged = new CurrentlyDamagedNode(_currentHealth, this);
+
         //SequenzNode
         CheckSomthingHeardNode somethingHeared = new CheckSomthingHeardNode(this,soundDetector);
         CheckPlayerSeenNode checkPlayer = new CheckPlayerSeenNode(this, flashLigth, viewDistance, playerLayer);
@@ -63,13 +62,13 @@ public class EnemyAI : MonoBehaviourPun
         ShootingNode shooting = new ShootingNode(this, speedToRotateIfSeen);
         ChasePlayerNode chasePlayer = new ChasePlayerNode(agent,this,speedToRotate);
         MoveToLastSeenPlayerPointNode moveToPlayerLastPosition = new MoveToLastSeenPlayerPointNode(agent,this,speedToRotate);
+
         //CheckHearing
         CheckSearchingTimer searchingTimer = new CheckSearchingTimer(timeToSearch,this);
-        RotatingNode turnWhileSearching = new RotatingNode(this.transform,speedToRotate);
+        RotateNode turnWhileSearching = new RotateNode(this.transform);
 
         Invertor CurrentlySeenPlayer = new Invertor(checkPlayer);
         Invertor checkIfNotShootingRange = new Invertor(shootingRange);
-       
 
         Sequenz movingToHearLocation = new Sequenz(new List<Node> { moveToPlayerLastPosition, CurrentlySeenPlayer, turnWhileSearching });
 
@@ -126,7 +125,6 @@ public class EnemyAI : MonoBehaviourPun
     [PunRPC]
     public void AddMovePositions(Vector3[] positions)
     {
-        Debug.Log("Fuck "+positions);
         List<Vector3> positionList = new List<Vector3>();
         foreach (Vector3 pose in positions) {
             positionList.Add(pose);

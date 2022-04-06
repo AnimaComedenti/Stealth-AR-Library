@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,14 +12,14 @@ namespace BehaviorTree
         private Transform player;
         private EnemyAI origin;
 
-        private RotatingNode rotate;
+        private RotatingEnemyClass rotate;
 
         public ChasePlayerNode(NavMeshAgent agent, EnemyAI origin, float rotatingSpeed)
         {
             this.agent = agent;
             this.origin = origin;
 
-            rotate = new RotatingNode(agent.transform,rotatingSpeed);
+            rotate = new RotatingEnemyClass(agent.transform,rotatingSpeed);
 
         }
 

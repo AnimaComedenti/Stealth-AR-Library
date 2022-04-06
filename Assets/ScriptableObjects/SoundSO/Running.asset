@@ -15,7 +15,8 @@ MonoBehaviour:
   audioName: Running
   audio:
   - {fileID: 8300000, guid: 398a631f92a5b2e4fbbf36e67e05e653, type: 3}
-  volume: 0.6
+  volume: 0.4
+  detectingVolume: 0.6
   maxHearDistance: 3
   minHearDistance: 1
   isLoop: 0

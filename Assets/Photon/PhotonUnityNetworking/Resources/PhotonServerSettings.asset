@@ -47,6 +47,10 @@ MonoBehaviour:
   - BuildNavMesh
   - AddMovePositions
   - MakeContentStickToOrigin
+  - SetAudioRemote
+  - StopAudio
+  - SetLigthAndColor
+  - PlayAnimation
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
