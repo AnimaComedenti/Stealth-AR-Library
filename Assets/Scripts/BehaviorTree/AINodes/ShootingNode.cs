@@ -7,15 +7,15 @@ namespace BehaviorTree
     public class ShootingNode : Node
     {
         private EnemyAI origin;
-        private float rotatingSpeed;
+        private ShootingHandler shootingHandler;
         private Transform player;
 
         private RotatingEnemyClass rotate;
 
-        public ShootingNode(EnemyAI origin, float rotatingSpeed)
+        public ShootingNode(EnemyAI origin, ShootingHandler shootingHandler, float rotatingSpeed)
         {
             this.origin = origin;
-            this.rotatingSpeed = rotatingSpeed;
+            this.shootingHandler = shootingHandler;
             rotate = new RotatingEnemyClass(origin.transform, rotatingSpeed);
         }
 
@@ -23,12 +23,11 @@ namespace BehaviorTree
         {
             if (origin.Player == null)
             {
-                Debug.LogError("Player not found");
                 return NodeState.FAILURE;
             }
             player = origin.Player.transform;
 
-            Debug.Log("Shoot");
+            shootingHandler.OnActivate();
             rotate.SetLookDirection(player.position);
             return NodeState.SUCCESS;
         }

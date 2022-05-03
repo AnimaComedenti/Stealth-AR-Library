@@ -34,8 +34,12 @@ namespace BehaviorTree
 
             player = origin.Player.transform;
             float distance = Vector3.Distance(origin.transform.position,player.position);
-
-            if(distance <= origin.GetChasingRange && distance > origin.GetShootingRange)
+            if(distance == origin.GetShootingRange)
+            {
+                agent.isStopped = true;
+                return NodeState.FAILURE;
+            }
+            if (distance <= origin.GetChasingRange && distance > origin.GetShootingRange)
             {
                 agent.isStopped = false;
                 rotate.SetLookDirection(player.transform.position);

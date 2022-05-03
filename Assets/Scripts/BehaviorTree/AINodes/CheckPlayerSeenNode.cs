@@ -9,16 +9,14 @@ namespace BehaviorTree
         private List<GameObject> players;
         private EnemyAI origin;
         private Light lightResource;
-        private int playerLayer;
         private float seeDistance;
         private float viewAngle;
 
-        public CheckPlayerSeenNode(EnemyAI origin, Light lightResource, float seeDistance, int playerLayer)
+        public CheckPlayerSeenNode(EnemyAI origin, Light lightResource, float seeDistance)
         {
             this.lightResource = lightResource;
             this.seeDistance = seeDistance;
             this.origin = origin;
-            this.playerLayer = playerLayer;
             viewAngle = lightResource.spotAngle;
         }
 
@@ -42,9 +40,7 @@ namespace BehaviorTree
                     if(anglePlayerAndEnemy < viewAngle / 2f)
                     {
                         RaycastHit hit;
-                        Physics.Linecast(child.position, player.transform.position, out hit, 1 << playerLayer);
-                        
-                        if(hit.collider != null)
+                        if(Physics.Linecast(child.position, player.transform.position, out hit))
                         {
                             if (hit.collider.gameObject.CompareTag("Player"))
                             {
@@ -53,7 +49,7 @@ namespace BehaviorTree
                                 origin.Player = player;
                                 return true;
                             }
-                        }    
+                        }
                     }
                 }
             }
@@ -68,7 +64,7 @@ namespace BehaviorTree
             Collider[] hitColliders = Physics.OverlapSphere(origin.transform.position, seeDistance);
             foreach (Collider player in hitColliders)
             {
-                if (player.gameObject.layer == playerLayer) players.Add(player.gameObject);
+                if (player.gameObject.tag == "Player") players.Add(player.gameObject);
             }
         }
     }

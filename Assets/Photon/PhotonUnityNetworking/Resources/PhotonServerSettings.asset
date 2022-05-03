@@ -51,6 +51,9 @@ MonoBehaviour:
   - StopAudio
   - SetLigthAndColor
   - PlayAnimation
+  - killBullet
+  - HiderWon
+  - SeekerWon
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -68,7 +68,6 @@ public class ReactionTask : UiTask
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isTimerStarted = true;
-            Debug.Log("Timer Started");
         }
 
         if (isTimerStarted)

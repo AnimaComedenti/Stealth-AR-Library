@@ -11,7 +11,7 @@ public abstract class UiTask : MonoBehaviour, IInteractable
     [SerializeField] protected float soundAndLigthDuration = 5;
     
 
-    protected bool isGameCompleted = false;
+    public bool isGameCompleted = false;
     protected bool isTimerActive = false;
     protected float timerToMakeSound = 0;
 

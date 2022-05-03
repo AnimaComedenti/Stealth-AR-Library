@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 namespace StealthARLibrary
 {
-    public class BuildButton : MonoBehaviour
+    public class BuildButton : ARInteractionButtons
     {
         [SerializeField] private BuildableObjectSO _objectToBuild;
         [SerializeField] private RotationButtons rotationButtons;
         [SerializeField] private GameObject buildButtons;
 
-        private void Start()
+        void Start()
         {
-            AddSpritesToImages();
+            AddSpritesToImages(_objectToBuild.Sprite);
         }
 
         public void BuildOnClick()
@@ -28,16 +28,6 @@ namespace StealthARLibrary
 
             rotationButtons.SetObjectToBuild(_objectToBuild);
             UIToggler.Instance.ToggelUIButtons(buildButtons, rotationButtons.gameObject);
-        }
-
-        private void AddSpritesToImages()
-        {
-            Image image = transform.GetChild(1).GetComponent<Image>();
-
-            if (_objectToBuild.Sprite != null)
-            {
-                image.sprite = _objectToBuild.Sprite;
-            }
         }
     }
 }

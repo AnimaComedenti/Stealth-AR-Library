@@ -6,14 +6,12 @@ namespace BehaviorTree
 {
     public class CheckShootingRangeNode : Node
     {
-        private LayerMask playerLayer;
         private EnemyAI origin;
         private Transform player;
 
 
-        public CheckShootingRangeNode(LayerMask playerLayer, EnemyAI origin)
+        public CheckShootingRangeNode(EnemyAI origin)
         {
-            this.playerLayer = playerLayer;
             this.origin = origin;
         }
 
@@ -33,7 +31,7 @@ namespace BehaviorTree
             float distance = Vector3.Distance(origin.transform.position, player.position);
             if (distance <= origin.GetShootingRange)
             {
-                if (!Physics.Linecast(origin.transform.position, player.transform.position, playerLayer))
+                if (Physics.Linecast(origin.transform.position, player.transform.position))
                 {
                     return true;
                 }

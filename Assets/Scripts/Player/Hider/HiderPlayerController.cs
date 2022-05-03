@@ -59,7 +59,6 @@ public class HiderPlayerController : MonoBehaviourPun
             if (isMovementDisabled) return;
             if (Input.GetKey(KeyCode.F))
             {
-                Debug.Log("F-Key Pressed");
                 Interact();
             }
 

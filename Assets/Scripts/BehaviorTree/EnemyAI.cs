@@ -8,6 +8,7 @@ using Photon.Pun;
 public class EnemyAI : MonoBehaviourPun
 {
     [SerializeField] private PhotonView pv;
+    [SerializeField] private ShootingHandler shootingHandler;
     [Header("WalkingPath")]
     [SerializeField] private List<Transform> movePositionsPose;
     [Header("Base Stats")]
@@ -19,7 +20,6 @@ public class EnemyAI : MonoBehaviourPun
     [SerializeField] private float shootingRange;
     [SerializeField] private float viewDistance;
     [SerializeField] private Light flashLigth;
-    [SerializeField] private int playerLayer;
     [Header("SoundDetection")]
     [SerializeField] private SoundDetector soundDetector;
 
@@ -56,10 +56,10 @@ public class EnemyAI : MonoBehaviourPun
 
         //SequenzNode
         CheckSomthingHeardNode somethingHeared = new CheckSomthingHeardNode(this,soundDetector);
-        CheckPlayerSeenNode checkPlayer = new CheckPlayerSeenNode(this, flashLigth, viewDistance, playerLayer);
+        CheckPlayerSeenNode checkPlayer = new CheckPlayerSeenNode(this, flashLigth, viewDistance);
         MoveToDestinationNode moveToDestination = new MoveToDestinationNode(agent,movePositions,speedToRotate);
-        CheckShootingRangeNode shootingRange = new CheckShootingRangeNode(playerLayer, this);
-        ShootingNode shooting = new ShootingNode(this, speedToRotateIfSeen);
+        CheckShootingRangeNode shootingRange = new CheckShootingRangeNode(this);
+        ShootingNode shooting = new ShootingNode(this, shootingHandler, speedToRotateIfSeen);
         ChasePlayerNode chasePlayer = new ChasePlayerNode(agent,this,speedToRotate);
         MoveToLastSeenPlayerPointNode moveToPlayerLastPosition = new MoveToLastSeenPlayerPointNode(agent,this,speedToRotate);
 

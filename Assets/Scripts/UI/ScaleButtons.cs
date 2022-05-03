@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 public class ScaleButtons : MonoBehaviour
 {
-    [SerializeField] private Transform arSession;
+    private Transform arSession;
+
+    private void Start()
+    {
+        arSession = FindObjectOfType<ARSessionOrigin>().transform;
+    }
     public void ScaleUp()
     {
         Vector3 originalScale = arSession.localScale;

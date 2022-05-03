@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SoundHandler : MonoBehaviour
+public class SoundHolder : MonoBehaviour
 {
     [SerializeField] List<SoundSO> sounds;
 
-    private static SoundHandler _instance = null;
-    public static SoundHandler Instance
+    private static SoundHolder _instance = null;
+    public static SoundHolder Instance
     {
         get { return _instance; }
     }

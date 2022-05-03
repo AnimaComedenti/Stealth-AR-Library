@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 994832055}
   - component: {fileID: 994832056}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994832054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: -2.18, z: -0.67}
+  m_LocalPosition: {x: 0, y: -0.1, z: -1.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6512713231819368620}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 2933724750356398027}
   - component: {fileID: 8324164925744919487}
   - component: {fileID: 1664409625485960051}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,8 @@ GameObject:
   - component: {fileID: 4733412553255251648}
   - component: {fileID: -1265682301891444919}
   - component: {fileID: 337477422}
-  m_Layer: 0
+  - component: {fileID: 1110036805648542067}
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -260,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pv: {fileID: 4733412553255251648}
+  shootingHandler: {fileID: 1110036805648542067}
   movePositionsPose: []
   startinghealth: 200
   speedToRotate: 2
@@ -268,7 +270,6 @@ MonoBehaviour:
   shootingRange: 3
   viewDistance: 5
   flashLigth: {fileID: 994832056}
-  playerLayer: 6
   soundDetector: {fileID: 337477422}
 --- !u!114 &4733412553255251648
 MonoBehaviour:
@@ -322,6 +323,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHearDistance: 3
+--- !u!114 &1110036805648542067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3213649501757778238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4765b69a009d6014d92df37cb2c27f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemStats: {fileID: 11400000, guid: 2ff318086bfc47f4c9df37362a1d27da, type: 2}
+  bullet: {fileID: 6964366477986964395, guid: 98104b0f7fd7f4546aa1a4ca790f2902, type: 3}
+  shootForce: 20
+  objectToShootFrom: {fileID: 4198145642319726343}
 --- !u!1 &4198145642319726343
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +350,7 @@ GameObject:
   - component: {fileID: 6512713231819368620}
   - component: {fileID: 3285661165066397873}
   - component: {fileID: 5649232831203710752}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

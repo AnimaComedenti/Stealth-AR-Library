@@ -37,10 +37,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private NavMeshSurface levelMash;
 
 
+    public GameObject myPlayer;
+
     private GameObject[] spawns;
     private bool _isHiderSpawned = false;
     private PhotonView pv;
     private float _hiderCount = 0;
+    private MyGameManager currentGameManager;
 
 
 
@@ -72,7 +75,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             GameObject seekerIndi = seekerCamera.transform.GetChild(0).gameObject;
             SeekerPlacementIndicator.Instance.cam = cam;
             arSessionOrigin.camera = cam;
-            SeekerPlacementIndicator.Instance.placementIdicator = seekerIndi;  
+            SeekerPlacementIndicator.Instance.placementIdicator = seekerIndi;
+            if (pv.IsMine)
+            {
+                myPlayer = seekerCam;
+            }
         }
     }
 
@@ -105,6 +112,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             isHiderSpawned = true;
             pv.RPC("CountHiders", RpcTarget.AllBuffered);
             pv.RPC("AttachParentOnSpawn",RpcTarget.AllBuffered, hider.GetComponent<PhotonView>().ViewID);
+            if (pv.IsMine)
+            {
+                myPlayer = hider;
+            }
         }
     }
 

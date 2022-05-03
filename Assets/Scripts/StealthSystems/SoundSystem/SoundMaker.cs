@@ -48,7 +48,7 @@ public class SoundMaker : MonoBehaviour
     [PunRPC]
     public void SetAudioRemote(string soundname)
     {
-        SoundSO sound = SoundHandler.Instance.GetSoundByName(soundname);
+        SoundSO sound = SoundHolder.Instance.GetSoundByName(soundname);
         if (sound == null)
         {
             Debug.Log("Soundname not found");
