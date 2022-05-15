@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviorTree {
+namespace StealthDemo.Nodes
+{
     public class RotatingEnemyClass {
 
         private Transform origin;

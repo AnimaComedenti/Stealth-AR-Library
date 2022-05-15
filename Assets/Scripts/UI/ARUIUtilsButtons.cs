@@ -2,21 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using StealthARLibrary;
 
-public class ARUIUtilsButtons : MonoBehaviour
+namespace StealthDemo
 {
-    [SerializeField] private GameObject combatButtons;
-    [SerializeField] private GameObject buildButtons;
-
-    public void ToogelButtons()
+    public class ARUIUtilsButtons : MonoBehaviour
     {
-        UIToggler.Instance.ToggelUIButtons(combatButtons,buildButtons);
-    }
+        [SerializeField] private GameObject combatButtons;
+        [SerializeField] private GameObject buildButtons;
 
-    public void DisconnectOnClick()
-    {
-        PhotonNetwork.Disconnect();
-        Application.Quit();
+        public void ToogelButtons()
+        {
+            UIToggler.Instance.ToggelUIButtons(combatButtons, buildButtons);
+        }
     }
 }

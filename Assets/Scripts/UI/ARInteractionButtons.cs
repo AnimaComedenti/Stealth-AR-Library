@@ -2,15 +2,23 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public abstract class ARInteractionButtons : MonoBehaviour
+namespace StealthDemo
 {
-    protected void AddSpritesToImages(Sprite sprite)
+    public abstract class ARInteractionButtons : MonoBehaviour
     {
-            
-        if (sprite != null)
+        protected void AddSpritesToImages(Sprite sprite)
         {
-            Image image = transform.GetChild(1).GetComponent<Image>();
-            image.sprite = sprite;
+
+            if (sprite != null)
+            {
+                Image image = transform.GetChild(1).GetComponent<Image>();
+                image.sprite = sprite;
+            }
+            else
+            {
+                Image image = transform.GetChild(1).GetComponent<Image>();
+                image.sprite = null;
+            }
         }
     }
 }

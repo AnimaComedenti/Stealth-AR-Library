@@ -3,41 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class BulletScript : MonoBehaviourPun
+namespace StealthDemo
 {
-    [SerializeField] float damage;
-    [SerializeField] float travelTime;
-
-
-    // Update is called once per frame
-    void Update()
+    public class BulletScript : MonoBehaviourPun
     {
-        travelTime -= Time.deltaTime;
-        if (travelTime <= 0)
-        {
-            photonView.RPC("killBullet", RpcTarget.All);
-        }
-    }
+        [SerializeField] float damage;
+        [SerializeField] float travelTime;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (photonView.IsMine)
-        {
-            return;
-        }
-        if (collision.transform.CompareTag("Player"))
-        {
-            collision.gameObject.GetComponent<HiderHealthHandler>().HitPlayer(damage);
-            photonView.RPC("killBullet", RpcTarget.All);
-        }
-    }
 
-    [PunRPC]
-    public void killBullet()
-    {
-        if (photonView.IsMine)
+        // Update is called once per frame
+        void Update()
         {
-            PhotonNetwork.Destroy(gameObject);
+            travelTime -= Time.deltaTime;
+            if (travelTime <= 0)
+            {
+                photonView.RPC("killBullet", RpcTarget.All);
+            }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (photonView.IsMine)
+            {
+                return;
+            }
+            if (collision.transform.CompareTag("Player"))
+            {
+                collision.gameObject.GetComponent<HiderHealthHandler>().HitPlayer(damage);
+                photonView.RPC("killBullet", RpcTarget.All);
+            }
+        }
+
+        [PunRPC]
+        public void killBullet()
+        {
+            if (photonView.IsMine)
+            {
+                PhotonNetwork.Destroy(gameObject);
+            }
         }
     }
 }

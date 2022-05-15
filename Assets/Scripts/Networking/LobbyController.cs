@@ -3,38 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class LobbyController : MonoBehaviourPunCallbacks
+namespace StealthDemo
 {
-    [SerializeField] private byte roomSize = 2;
-    [SerializeField] private string sceneName = "Mainscene";
-    public void Connect()
+    public class LobbyController : MonoBehaviourPunCallbacks
     {
-        if (PhotonNetwork.IsConnected)
+        [SerializeField] private byte roomSize = 2;
+        [SerializeField] private string sceneName = "Mainscene";
+        public void Connect()
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.JoinRandomRoom();
+            }
+            else
+            {
+                //Connect to server
+                PhotonNetwork.ConnectUsingSettings();
+            }
+        }
+
+        //After callback join room
+        public override void OnConnectedToMaster()
         {
             PhotonNetwork.JoinRandomRoom();
         }
-        else
+
+        //If no room exists
+        public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            //Connect to server
-            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = roomSize });
         }
-    }
 
-    //After callback join room
-    public override void OnConnectedToMaster()
-    {
-        PhotonNetwork.JoinRandomRoom();
-    }
-
-    //If no room exists
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = roomSize });
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("Room joined");
-        PhotonNetwork.LoadLevel(sceneName);
+        public override void OnJoinedRoom()
+        {
+            Debug.Log("Room joined");
+            PhotonNetwork.LoadLevel(sceneName);
+        }
     }
 }

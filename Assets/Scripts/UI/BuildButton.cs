@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace StealthARLibrary
+namespace StealthDemo
 {
     public class BuildButton : ARInteractionButtons
     {

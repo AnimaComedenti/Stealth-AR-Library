@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class MakeUiCanvasVisble : MonoBehaviour
+namespace StealthDemo
 {
-    [SerializeField] PhotonView pv;
-    [SerializeField] GameObject objectToBeActive;
-
-    private void Awake()
+    public class MakeUiCanvasVisble : MonoBehaviour
     {
-        if (pv.IsMine) objectToBeActive.SetActive(true);
-    }
+        [SerializeField] PhotonView pv;
+        [SerializeField] GameObject objectToBeActive;
 
+        private void Awake()
+        {
+            if (pv.IsMine) objectToBeActive.SetActive(true);
+        }
+
+    }
 }

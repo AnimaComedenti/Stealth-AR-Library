@@ -7,7 +7,7 @@ using UnityEngine.XR.ARSubsystems;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
 
-namespace StealthARLibrary
+namespace StealthDemo
 {
     public class SeekerPlacementIndicator : MonoBehaviourPun
     {
@@ -22,6 +22,7 @@ namespace StealthARLibrary
         [SerializeField] private string levelTag = "Level";
         [SerializeField] private ARRaycastManager aRRaycastManager;
         [SerializeField] private ARSessionOrigin origin;
+        [SerializeField] private NavMeshSurface levelMash;
 
         private Pose placementPosition;
         private Camera _cam;
@@ -29,7 +30,7 @@ namespace StealthARLibrary
         private GameObject _player;
         private List<RaycastResult> results = new List<RaycastResult>();
         private bool isPlacementValid = false;
-        private bool isLevelPlaced = false;
+        public bool isLevelPlaced { get; private set; } = false;
         private bool hasHitLevel = false;
 
         public Camera cam
@@ -156,7 +157,7 @@ namespace StealthARLibrary
             if (obj.CompareTag(levelTag) && !isLevelPlaced)
             {
                 objToBuild = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, quaternion);
-                NetworkManager.Instance.photonView.RPC("BuildNavMesh", RpcTarget.AllBuffered);
+                this.photonView.RPC("BuildNavMesh", RpcTarget.AllBuffered);
                 this.photonView.RPC("MakeContentStickToOrigin",RpcTarget.AllBuffered,objToBuild.GetComponent<PhotonView>().ViewID);
                 isLevelPlaced = true;
                 return objToBuild;
@@ -165,7 +166,7 @@ namespace StealthARLibrary
             else if (hasHitLevel && !obj.CompareTag(levelTag))
             {
                 objToBuild = PhotonNetwork.Instantiate(obj.gameObject.name, placementPosition.position, quaternion);
-                NetworkManager.Instance.photonView.RPC("BuildNavMesh", RpcTarget.AllBuffered);
+                this.photonView.RPC("BuildNavMesh", RpcTarget.AllBuffered);
                 this.photonView.RPC("MakeContentStickToOrigin", RpcTarget.AllBuffered, objToBuild.GetComponent<PhotonView>().ViewID);
                 return objToBuild;
             }
@@ -179,6 +180,12 @@ namespace StealthARLibrary
         {
             GameObject objectToStick = PhotonNetwork.GetPhotonView(objectViewID).gameObject;
             origin.MakeContentAppearAt(objectToStick.transform,objectToStick.transform.position,objectToStick.transform.rotation);
+        }
+
+        [PunRPC]
+        private void BuildNavMesh()
+        {
+            levelMash.BuildNavMesh();
         }
     }
 }

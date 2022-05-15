@@ -837,6 +837,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7595853889315084540}
   - component: {fileID: 7595853889315084541}
+  - component: {fileID: 3906795428972877137}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -909,8 +910,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5564729495770036423}
-        m_TargetAssemblyTypeName: ARUIUtilsButtons, Assembly-CSharp
+      - m_Target: {fileID: 3906795428972877137}
+        m_TargetAssemblyTypeName: StealthDemo.UIQuitButton, Assembly-CSharp
         m_MethodName: DisconnectOnClick
         m_Mode: 1
         m_Arguments:
@@ -921,6 +922,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3906795428972877137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7595853889315084543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcb023eb8db176a45ada3577586df0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7595853889355567396
 GameObject:
   m_ObjectHideFlags: 0

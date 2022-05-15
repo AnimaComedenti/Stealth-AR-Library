@@ -2,51 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundDetector : MonoBehaviour
+namespace StealthDemo
 {
-    [SerializeField] private float maxHearDistance;
-    private float distance;
-    private float volumePerDistance;
-    private float objectVolume;
-
-    public GameObject CurrentHearingObject { get; private set; } 
-    // Update is called once per frame
-    void Update()
+    public class SoundDetector : MonoBehaviour
     {
-        doSphereCast();
-    }
+        [SerializeField] private float maxHearDistance;
+        private float distance;
+        private float volumePerDistance;
+        private float objectVolume;
 
-    private void doSphereCast()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, maxHearDistance);
-        if(colliders.Length > 0)
+        public GameObject CurrentHearingObject { get; private set; }
+        // Update is called once per frame
+        void FixedUpdate()
         {
-            foreach(Collider collider in colliders)
-            {
-              
-                //If its himself, return
-                if (collider.gameObject.CompareTag(gameObject.tag)) continue;
+            doSphereCast();
+        }
 
-                if (collider.gameObject.TryGetComponent(out SoundMaker soundMaker))
+        private void doSphereCast()
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, maxHearDistance);
+            if (colliders.Length > 0)
+            {
+                foreach (Collider collider in colliders)
                 {
-                    Vector3 makerPosition = soundMaker.transform.position;
-                    distance = Vector3.Distance(makerPosition,transform.position);
-                    if (soundMaker.Volume() == 0) continue;
-                    volumePerDistance = 0.7f / distance;
-                    objectVolume = soundMaker.Volume() + volumePerDistance;
-                    if (objectVolume >= 1)
+
+                    //If its himself, return
+                    if (collider.gameObject.CompareTag(gameObject.tag)) continue;
+
+                    if (collider.gameObject.TryGetComponent(out SoundMaker soundMaker))
                     {
-                        CurrentHearingObject = collider.gameObject;
-                        return;
-                    }   
+                        Vector3 makerPosition = soundMaker.transform.position;
+                        distance = Vector3.Distance(makerPosition, transform.position);
+                        if (soundMaker.Volume() == 0) continue;
+                        volumePerDistance = 0.7f / distance;
+                        objectVolume = soundMaker.Volume() + volumePerDistance;
+                        if (objectVolume >= 1)
+                        {
+                            CurrentHearingObject = collider.gameObject;
+                            return;
+                        }
+                    }
                 }
             }
+            CurrentHearingObject = null;
         }
-        CurrentHearingObject = null;
-    }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(transform.position,maxHearDistance);
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(transform.position, maxHearDistance);
+        }
     }
 }

@@ -2,55 +2,75 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MyGameManager : MonoBehaviourPun
+
+namespace StealthDemo
 {
-    [SerializeField] private GameObject endGameUI;
-
-    public static MyGameManager Instance
+    public class MyGameManager : MonoBehaviourPun
     {
-        get { return _instance; }
-    }
+        [SerializeField] private GameObject endGameUI;
+        [SerializeField] private Text endGameMessage;
+        [SerializeField] private Text winMassage;
 
-    public bool hasSeekerWon = false;
-    public bool hasHiderWon = false;
-
-    private static MyGameManager _instance = null;
-
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
+        public static MyGameManager Instance
         {
-            Destroy(this.gameObject);
+            get { return _instance; }
         }
-        else
-        {
-            _instance = this;
-        }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (hasSeekerWon)
-        {
-            photonView.RPC("SeekerWon", RpcTarget.All);
-        }
-        else if (hasHiderWon)
-        {
-            photonView.RPC("HiderWon", RpcTarget.All);
-        }
-    }
+        public bool hasSeekerWon = false;
+        public bool hasHiderWon = false;
 
-    [PunRPC]
-    private void HiderWon()
-    {
-        Debug.Log("Hider won");
-    }
+        private static MyGameManager _instance = null;
 
-    [PunRPC]
-    private void SeekerWon()
-    {
-        Debug.Log("Seeker won");
+        private void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (hasSeekerWon)
+            {
+                photonView.RPC("SeekerWon", RpcTarget.All);
+            }
+            else if (hasHiderWon)
+            {
+                photonView.RPC("HiderWon", RpcTarget.All);
+            }
+        }
+
+        [PunRPC]
+        private void HiderWon()
+        {
+            winMassage.text = "Hider has won!";
+            endGameUI.SetActive(true);
+            SetCursorVisble();
+        }
+
+        [PunRPC]
+        private void SeekerWon()
+        {
+            winMassage.text = "Seeker has won!";
+            endGameUI.SetActive(true);
+            SetCursorVisble();
+        }
+
+        private void SetCursorVisble()
+        {
+            if (SystemInfo.deviceType == DeviceType.Desktop)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
     }
 }

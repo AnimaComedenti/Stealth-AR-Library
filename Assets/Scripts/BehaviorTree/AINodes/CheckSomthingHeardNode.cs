@@ -1,31 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BehaviorTree;
 
-public class CheckSomthingHeardNode : Node
+namespace StealthDemo.Nodes
 {
-    private EnemyAI origin;
-    private SoundDetector soundDetector;
-    private GameObject hearedObject;
-
-    public CheckSomthingHeardNode(EnemyAI origin, SoundDetector soundDetector)
+    public class CheckSomthingHeardNode : Node
     {
-        this.origin = origin;
-        this.soundDetector = soundDetector;
-    }
+        private EnemyAI origin;
+        private SoundDetector soundDetector;
+        private GameObject hearedObject;
 
-    public override NodeState Evaluate()
-    {
-        hearedObject = soundDetector.CurrentHearingObject;
-        if(hearedObject != null){
-            origin.LastSeenPlayerPosition = hearedObject.transform.position;
-            return NodeState.FAILURE;    
-        }
-        else
+        public CheckSomthingHeardNode(EnemyAI origin, SoundDetector soundDetector)
         {
-            origin.Player = null;
-            return NodeState.SUCCESS;
+            this.origin = origin;
+            this.soundDetector = soundDetector;
+        }
+
+        public override NodeState Evaluate()
+        {
+            hearedObject = soundDetector.CurrentHearingObject;
+            if (hearedObject != null)
+            {
+                origin.LastSeenPlayerPosition = hearedObject.transform.position;
+                return NodeState.FAILURE;
+            }
+            else
+            {
+                origin.Player = null;
+                return NodeState.SUCCESS;
+            }
         }
     }
 }

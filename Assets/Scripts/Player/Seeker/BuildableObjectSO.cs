@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StealthARLibrary
+
+namespace StealthDemo
 {
     [CreateAssetMenu(menuName ="ScriptableObjects/BuildableObjectsSO")]
     public class BuildableObjectSO : ScriptableObject

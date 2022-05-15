@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace BehaviorTree
+namespace StealthDemo.Nodes
 {
     public class ChasePlayerNode : Node
     {

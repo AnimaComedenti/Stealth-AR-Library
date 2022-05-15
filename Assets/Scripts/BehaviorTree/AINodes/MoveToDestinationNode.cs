@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using Photon.Pun;
 
 
-namespace BehaviorTree
+namespace StealthDemo.Nodes
 {
     public class MoveToDestinationNode : Node
     {

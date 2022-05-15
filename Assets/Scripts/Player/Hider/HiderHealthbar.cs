@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class HiderHealthbar : MonoBehaviour
+namespace StealthDemo
 {
-    private Image healthBar;
-    public float currentHealth;
-    [SerializeField] private float maxHealth;
-
-    [SerializeField] HiderHealthHandler healthHandler;
-
-    private void Start()
+    public class HiderHealthbar : MonoBehaviour
     {
-        healthBar = GetComponent<Image>();
-        maxHealth = currentHealth;
-    }
+        private Image healthBar;
+        private float maxHealth;
 
-    private void Update()
-    {
-        currentHealth = healthHandler.playerHealth;
-        healthBar.fillAmount = currentHealth / maxHealth;
+        [SerializeField] HiderHealthHandler healthHandler;
+
+        private void Start()
+        {
+            healthBar = GetComponent<Image>();
+            maxHealth = healthHandler.playerHealth;
+        }
+
+        private void Update()
+        {
+            float currentHealth = healthHandler.playerHealth;
+            healthBar.fillAmount = currentHealth / maxHealth;
+        }
     }
 }

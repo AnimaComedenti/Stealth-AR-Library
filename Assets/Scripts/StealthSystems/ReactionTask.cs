@@ -3,139 +3,142 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ReactionTask : UiTask
+namespace StealthDemo
 {
-    [Header("UI for Logic")]
-    [SerializeField] private GameObject livesButtons;
-    [SerializeField] private Text feedBackText;
-    [SerializeField] private Text buttonToPressText;
-    [SerializeField] private Image buttonToPressImage;
-
-    private bool isButtonPressed = true;
-    private bool isTimerStarted = false;
-    private bool isLastAnswerWrong = false;
-
-    private string buttonToPress;
-
-    private float timeToClick = 10;
-    private float timeTickMultiply = 1;
-    private float currentTime = 10;
-
-    private float timeForWrongSound = 5;
-    private float wrongAnswerTimer = 0;
-
-    private Image[] lives;
-    private Image currentLive;
-    private int liveCounter = 0;
-
-    //Feedback
-    private string[] dotArray = new string[3] { ".", "..", "..." };
-    private float dotCount = 0;
-
-    protected override void Start()
+    public class ReactionTask : UiTask
     {
-        base.Start();
-        lives = livesButtons.GetComponentsInChildren<Image>();
-        currentLive = lives[0];
-    }
+        [Header("UI for Logic")]
+        [SerializeField] private GameObject livesButtons;
+        [SerializeField] private Text feedBackText;
+        [SerializeField] private Text buttonToPressText;
+        [SerializeField] private Image buttonToPressImage;
 
-    protected override void Update()
-    {
-        base.Update();
-    }
+        private bool isButtonPressed = true;
+        private bool isTimerStarted = false;
+        private bool isLastAnswerWrong = false;
 
-    public override void DoingTask()
-    {
-        DeclareTime();
+        private string buttonToPress;
 
-        if (isLastAnswerWrong)
+        private float timeToClick = 10;
+        private float timeTickMultiply = 1;
+        private float currentTime = 10;
+
+        private float timeForWrongSound = 5;
+        private float wrongAnswerTimer = 0;
+
+        private Image[] lives;
+        private Image currentLive;
+        private int liveCounter = 0;
+
+        //Feedback
+        private string[] dotArray = new string[3] { ".", "..", "..." };
+        private float dotCount = 0;
+
+        protected override void Start()
         {
-            wrongAnswerTimer += Time.deltaTime;
-            if(wrongAnswerTimer <= timeForWrongSound)
+            base.Start();
+            lives = livesButtons.GetComponentsInChildren<Image>();
+            currentLive = lives[0];
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+        }
+
+        public override void DoingTask()
+        {
+            DeclareTime();
+
+            if (isLastAnswerWrong)
             {
-                StopTimerAndSound(Color.yellow);
-                isLastAnswerWrong = false;
+                wrongAnswerTimer += Time.deltaTime;
+                if (wrongAnswerTimer <= timeForWrongSound)
+                {
+                    StopTimerAndSound(Color.yellow);
+                    isLastAnswerWrong = false;
+                }
+            }
+
+            if (isButtonPressed)
+            {
+                buttonToPress = RandomString();
+                buttonToPressText.text = buttonToPress.ToUpper();
+                isButtonPressed = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                isTimerStarted = true;
+            }
+
+            if (isTimerStarted)
+            {
+                if (Input.GetKeyDown(buttonToPress))
+                {
+
+                    isButtonPressed = true;
+                    isTimerStarted = false;
+                    HandelLives(currentTime);
+                }
             }
         }
 
-        if (isButtonPressed)
+        private void DeclareTime()
         {
-            buttonToPress = RandomString();
-            buttonToPressText.text = buttonToPress.ToUpper();
-            isButtonPressed = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isTimerStarted = true;
-        }
-
-        if (isTimerStarted)
-        {
-            if (Input.GetKeyDown(buttonToPress))
+            if (!isTimerStarted)
             {
-                
-                isButtonPressed = true;
-                isTimerStarted = false;
-                HandelLives(currentTime);
+                currentTime = timeToClick;
+                buttonToPressImage.color = Color.red;
+                feedBackText.text = "Space to start task";
+            }
+            else
+            {
+                currentTime -= Time.deltaTime * timeTickMultiply;
+                dotCount += Time.deltaTime;
+                if (dotCount > 3) dotCount = 0;
+                feedBackText.text = "task in progress " + dotArray[(int)dotCount];
+                if (currentTime <= 0) buttonToPressImage.color = Color.green;
             }
         }
-    }
 
-    private void DeclareTime()
-    {
-        if (!isTimerStarted)
+        private void HandelLives(float time)
         {
-            currentTime = timeToClick;
-            buttonToPressImage.color = Color.red;
-            feedBackText.text = "Space to start task";
-        }
-        else
-        {
-            currentTime -= Time.deltaTime * timeTickMultiply;
-            dotCount += Time.deltaTime;
-            if (dotCount > 3) dotCount = 0;
-            feedBackText.text = "task in progress "+dotArray[(int)dotCount];
-            if (currentTime <= 0) buttonToPressImage.color = Color.green;
-        }
-    }
-
-    private void HandelLives(float time)
-    {
-        timeTickMultiply = Random.Range(1,10);
-        timeToClick = Random.Range(5,15);
-        if (time <= 0 && time >= -1.25)
-        {
-            currentLive.color = Color.green;
-            liveCounter++;
-            if(liveCounter == lives.Length)
+            timeTickMultiply = Random.Range(1, 10);
+            timeToClick = Random.Range(5, 15);
+            if (time <= 0 && time >= -1.25)
             {
-                isGameCompleted = true;
-                SetSoundAndLigth(Color.green);
-                CloseUI();
-                return;
+                currentLive.color = Color.green;
+                liveCounter++;
+                if (liveCounter == lives.Length)
+                {
+                    isGameCompleted = true;
+                    SetSoundAndLigth(Color.green);
+                    CloseUI();
+                    return;
+                }
+                currentLive = lives[liveCounter];
             }
-            currentLive = lives[liveCounter];
-        }
-        else
-        {
-            if(currentLive.color == Color.red && liveCounter > 0)
+            else
             {
-                currentLive.color = Color.white;
-                liveCounter--;
+                if (currentLive.color == Color.red && liveCounter > 0)
+                {
+                    currentLive.color = Color.white;
+                    liveCounter--;
+                }
+                currentLive = lives[liveCounter];
+                currentLive.color = Color.red;
+                SetSoundAndLigth(Color.red);
+                wrongAnswerTimer = 0;
+                isLastAnswerWrong = true;
             }
-            currentLive = lives[liveCounter];
-            currentLive.color = Color.red;
-            SetSoundAndLigth(Color.red);
-            wrongAnswerTimer = 0;
-            isLastAnswerWrong = true;
         }
-    }
 
-    private string RandomString()
-    {
-        string keysToPress = "abcdefghijklmnopqrstuvwxyz";
-        int rndNumber = Random.Range(0,keysToPress.Length-1);
-        return keysToPress.Substring(rndNumber,1);
+        private string RandomString()
+        {
+            string keysToPress = "abcdefghijklmnopqrstuvwxyz";
+            int rndNumber = Random.Range(0, keysToPress.Length - 1);
+            return keysToPress.Substring(rndNumber, 1);
+        }
     }
 }

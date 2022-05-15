@@ -2,36 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/SoundSO")]
-public class SoundSO : ScriptableObject
+namespace StealthDemo
 {
-    [SerializeField] private string audioName;
-    [SerializeField] private AudioClip[] audio;
-    [SerializeField] private float volume;
-    [SerializeField] private float detectingVolume;
-    [SerializeField] private float maxHearDistance;
-    [SerializeField] private float minHearDistance;
-    [SerializeField] private bool isLoop;
-
-
-    public string AudioName => audioName;
-    public AudioClip[] Audio => audio;
-    public float Volume => volume;
-    public float DetectingVolume => detectingVolume;
-    public float MaxHearDistance => maxHearDistance;
-    public float MinHearDistance => minHearDistance;
-    public bool IsLoop => isLoop;
-
-    private int lastNumber = 0;
-
-    public AudioClip GetRandomeAudio()
+    [CreateAssetMenu(menuName = "ScriptableObjects/SoundSO")]
+    public class SoundSO : ScriptableObject
     {
-        int randomeNumber = 0;
-        while (randomeNumber == lastNumber)
+        [SerializeField] private string audioName;
+        [SerializeField] private AudioClip[] audio;
+        [SerializeField] private float volume;
+        [SerializeField] private float detectingVolume;
+        [SerializeField] private float maxHearDistance;
+        [SerializeField] private float minHearDistance;
+        [SerializeField] private bool isLoop;
+
+
+        public string AudioName => audioName;
+        public AudioClip[] Audio => audio;
+        public float Volume => volume;
+        public float DetectingVolume => detectingVolume;
+        public float MaxHearDistance => maxHearDistance;
+        public float MinHearDistance => minHearDistance;
+        public bool IsLoop => isLoop;
+
+        private int lastNumber = 0;
+
+        public AudioClip GetRandomeAudio()
         {
-            randomeNumber = Random.Range(0, audio.Length);
+            int randomeNumber = 0;
+            while (randomeNumber == lastNumber)
+            {
+                randomeNumber = Random.Range(0, audio.Length);
+            }
+            lastNumber = randomeNumber;
+            return audio[randomeNumber];
         }
-        lastNumber = randomeNumber;
-        return audio[randomeNumber];
     }
 }

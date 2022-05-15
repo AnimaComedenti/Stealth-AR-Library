@@ -2,49 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectDetection : MonoBehaviour
+namespace StealthDemo
 {
-    public bool IsObjectSeen { get; private set; } = false;
-
-    [SerializeField] private Camera cam;
-    [SerializeField] private string objectTag;
-
-    private GameObject[] objectsFound;
-
-    void Update()
+    public class ObjectDetection : MonoBehaviour
     {
-        SearchObject();
-        if (objectsFound.Length <= 0) return;
+        public bool IsObjectSeen { get; private set; } = false;
 
-        foreach(GameObject searchedObject in objectsFound)
-        {
-            Renderer render = searchedObject.GetComponent<Renderer>();
-            if (render.isVisible)
-            {
-                CheckRendererInSigth(searchedObject.transform.position);
-            }
-        }
-    }
+        [SerializeField] private Camera cam;
+        [SerializeField] private string objectTag;
 
-    private void CheckRendererInSigth(Vector3 objectPosition)
-    {
-        RaycastHit hit;
-        if (Physics.Linecast(cam.transform.position, objectPosition, out hit))
+        private GameObject[] objectsFound = new GameObject[0];
+
+        void Update()
         {
-            if(hit.transform.CompareTag(objectTag))
+            if (SystemInfo.deviceType != DeviceType.Handheld) return;
+
+            if (objectsFound.Length <= 0)
             {
-                Debug.Log("Tracked Object found");
-                IsObjectSeen = true;
+                SearchObject();
                 return;
             }
-            Debug.Log("Tracked Object not found");
-            IsObjectSeen = false;
-            return;
-        }
-    }
 
-    private void SearchObject()
-    {
-        objectsFound = GameObject.FindGameObjectsWithTag(objectTag);
+
+            foreach (GameObject searchedObject in objectsFound)
+            {
+                Renderer render = searchedObject.GetComponent<Renderer>();
+                if (render.isVisible)
+                {
+                    IsObjectSeen = CheckRendererInSigth(searchedObject.transform.position);
+                    return;
+                }
+                else
+                {
+                    IsObjectSeen = false;
+                }
+            } 
+        }
+
+        private bool CheckRendererInSigth(Vector3 objectPosition)
+        {
+            RaycastHit hit;
+            if (Physics.Linecast(cam.transform.position, objectPosition, out hit))
+            {
+                if (hit.transform.CompareTag(objectTag))
+                {
+                    return true;
+
+                }
+            }
+            return false;
+        }
+
+        private void SearchObject()
+        {
+            objectsFound = GameObject.FindGameObjectsWithTag(objectTag);
+        }
     }
 }

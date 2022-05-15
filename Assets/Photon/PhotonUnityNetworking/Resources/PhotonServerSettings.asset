@@ -54,6 +54,12 @@ MonoBehaviour:
   - killBullet
   - HiderWon
   - SeekerWon
+  - CountPressed
+  - LoadLevel
+  - SetLight
+  - LoadeNewScene
+  - ReloadeScene
+  - DamagedPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

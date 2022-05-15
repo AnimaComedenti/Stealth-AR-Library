@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace StealthARLibrary
+namespace StealthDemo
 {
     public class EnemyBuildButton : MonoBehaviour
     {

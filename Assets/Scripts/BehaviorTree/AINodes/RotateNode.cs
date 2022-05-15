@@ -1,46 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
-using BehaviorTree;
 using Photon.Pun;
 using UnityEngine.AI;
 
-public class RotateNode : Node
+namespace StealthDemo.Nodes
 {
-    private Transform origin;
-    private float rotation = 0;
-    private bool hasBeenRotated = false;
-
-    public RotateNode(Transform origin)
+    public class RotateNode : Node
     {
-        this.origin = origin;
-    }
+        private Transform origin;
+        private float rotation = 0;
+        private bool hasBeenRotated = false;
 
-    public override NodeState Evaluate()
-    {
-        return RotateAround();
-    }
-
-    public NodeState RotateAround()
-    {
-
-        if (!hasBeenRotated)
+        public RotateNode(Transform origin)
         {
-            rotation += Time.deltaTime * 0.5f;
-        }
-        else
-        {
-            rotation -= Time.deltaTime * 0.5f;
-        }
-        if (rotation >= 0.5)
-        {
-            hasBeenRotated = true;
-        }
-        else if (rotation <= -0.5)
-        {
-            hasBeenRotated = false;
+            this.origin = origin;
         }
 
-        origin.transform.Rotate(0f, rotation, 0f);
-        return NodeState.SUCCESS;
+        public override NodeState Evaluate()
+        {
+            return RotateAround();
+        }
+
+        public NodeState RotateAround()
+        {
+
+            if (!hasBeenRotated)
+            {
+                rotation += Time.deltaTime * 0.5f;
+            }
+            else
+            {
+                rotation -= Time.deltaTime * 0.5f;
+            }
+            if (rotation >= 0.5)
+            {
+                hasBeenRotated = true;
+            }
+            else if (rotation <= -0.5)
+            {
+                hasBeenRotated = false;
+            }
+
+            origin.transform.Rotate(0f, rotation, 0f);
+            return NodeState.SUCCESS;
+        }
     }
 }
