@@ -7,26 +7,22 @@ namespace StealthDemo
 {
     public abstract class ActivatableObject : MonoBehaviour
     {
-        [SerializeField] protected AbillitySO abillity;
-        [SerializeField] public float cooldownText;
+        public AbillitySO abillity;
+        public float cooldownText;
 
         protected float cnt = 0;
         public bool hasBeenActivated = false;
 
-        //if it is an ability get the count value
-        protected ItemSO item;
-        protected float timesToUse = 0;
+        private float timesToUse = 0;
+
+        public float SetTimesToUse {  get { return timesToUse; }  set { timesToUse = value; } }
+
 
         private void Start()
         {
             cnt = abillity.Cooldown;
-
-            var item = (ItemSO)abillity;
-            if (item != null)
-            {
-                this.item = item;
-                timesToUse = item.ItemCount;
-            }
+            timesToUse = abillity.ActivationCount;
+            if (timesToUse == 0) timesToUse = -1;
         }
 
         protected virtual void FixedUpdate()

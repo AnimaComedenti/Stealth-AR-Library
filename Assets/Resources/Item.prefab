@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3681977663196006799}
   m_Layer: 0
   m_Name: Item
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,5 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abillity: {fileID: 11400000, guid: 3f9cb59f85fa5a64d9d9751f68fb301f, type: 2}
-  cooldownText: {fileID: 0}
+  cooldownText: 0
+  hasBeenActivated: 0
   objectToPlace: {fileID: 8892097039350992226, guid: eeb089b49461da343b0bc70173646b7d, type: 3}

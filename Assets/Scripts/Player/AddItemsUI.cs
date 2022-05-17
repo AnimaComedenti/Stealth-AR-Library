@@ -7,7 +7,7 @@ namespace StealthDemo
     {
         [SerializeField] private CombatButton[] combatButtons;
 
-        [SerializeField] private string itemTag;
+        [SerializeField] private string itemTag = "Item";
 
         [SerializeField] private float radius = 10;
 
@@ -17,56 +17,34 @@ namespace StealthDemo
         // Update is called once per frame
         void Update()
         {
-            if(SystemInfo.deviceType == DeviceType.Handheld)
+            if(SystemInfo.deviceType == DeviceType.Desktop)
             {
-                AddItemsToUIHandheld();
-                return;
+                position = gameObject.transform.position;
+                AddItemsToUI(position);
             }
-
-            if (SystemInfo.deviceType == DeviceType.Handheld)
-            {
-                AddItemsToUIDesktop();
-                return;
-            }
-            
+           
         }
 
-        private void AddItemsToUIHandheld()
-        {
-            position = SeekerPlacementIndicator.Instance.getPlacementPosition.position;
 
+        private void AddItemsToUI(Vector3 positionToCastFrom)
+        {
             Collider[] colliders = Physics.OverlapSphere(position, radius);
 
-            if (colliders.Length < 0)
+            if (colliders.Length > 0)
             {
                 foreach (Collider collider in colliders)
                 {
                     if (!collider.CompareTag(itemTag)) continue;
                     foreach (CombatButton combatButton in combatButtons)
                     {
-                        if (combatButton.getActivatable() == null)
+                        if (combatButton.getActivatable() == collider.GetComponent<ItemCollectBehavior>().GetActivatable())
                         {
-                            combatButton.SetActivatableItem(collider.GetComponent<ItemCollectBehavior>().GetActivatable());
+                            ActivatableObject activatable = combatButton.getActivatable();
+                            activatable.SetTimesToUse = activatable.SetTimesToUse++;
+                            combatButton.SetActivatableItem(activatable);
                             return;
                         }
-                    }
-                }
-            }
-        }
 
-        private void AddItemsToUIDesktop()
-        {
-            position = gameObject.transform.position;
-
-            Collider[] colliders = Physics.OverlapSphere(position, radius);
-
-            if (colliders.Length < 0)
-            {
-                foreach (Collider collider in colliders)
-                {
-                    if (!collider.CompareTag(itemTag)) continue;
-                    foreach (CombatButton combatButton in combatButtons)
-                    {
                         if (combatButton.getActivatable() == null)
                         {
                             combatButton.SetActivatableItem(collider.GetComponent<ItemCollectBehavior>().GetActivatable());

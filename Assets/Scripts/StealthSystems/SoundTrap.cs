@@ -10,6 +10,7 @@ namespace StealthDemo
         [SerializeField] private string playerTag;
         [SerializeField] private Light light;
         [SerializeField] private AudioSource source;
+        [SerializeField] private float radius = 1;
 
         // Update is called once per frame
         void Update()
@@ -25,7 +26,7 @@ namespace StealthDemo
             }
 
 
-            Collider[] colliders = Physics.OverlapSphere(transform.position, transform.localScale.y / 2);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
             if (colliders.Length < 0)
             {

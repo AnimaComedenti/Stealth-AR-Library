@@ -7,7 +7,7 @@ namespace StealthDemo
     public class CombatButton : ARInteractionButtons
     {
         [SerializeField] private ActivatableObject activatable;
-        private Text cooldownTextfield;
+        [SerializeField] private Text cooldownTextfield;
 
         private Button button;
         void Start()
@@ -16,7 +16,6 @@ namespace StealthDemo
             button.onClick.AddListener(delegate { OnClick(); });
 
             AddSpritesToImages(activatable.GetButtonSprite());
-            cooldownTextfield = GetComponentInChildren<Text>();
         }
 
         private void FixedUpdate()
@@ -36,11 +35,8 @@ namespace StealthDemo
 
         public void OnClick()
         {
-            ActivatableObject activatableObject = activatable.OnActivate();
-            if(activatableObject == null)
-            {
-                SetActivatableItem(activatableObject);
-            }
+            ActivatableObject activatable1 =  activatable.OnActivate();
+            if (activatable1 == null) SetActivatableItem(activatable);
         }
 
         public void SetActivatableItem(ActivatableObject activatable)

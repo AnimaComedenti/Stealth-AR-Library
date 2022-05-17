@@ -16,7 +16,11 @@ namespace StealthDemo
                 PhotonNetwork.Instantiate(objectToPlace.name, SeekerPlacementIndicator.Instance.getPlacementPosition.position, Quaternion.identity);
 
                 hasBeenActivated = true;
+                SetTimesToUse = SetTimesToUse--;
+
+                if(SetTimesToUse <= 0) return null;
             }
+
             return this;
         }
     }

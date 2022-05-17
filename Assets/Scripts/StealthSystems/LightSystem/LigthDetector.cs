@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class LigthDetector : MonoBehaviour
 {
     [SerializeField] RenderTexture ligthRenderTexture;
     public float LightLevel {  get; private set; }
     // Start is called before the first frame update
+
 
     private int width;
     private int height;
@@ -15,14 +17,16 @@ public class LigthDetector : MonoBehaviour
     private Texture2D texture2D;
     void Start()
     {
+
         height = ligthRenderTexture.height;
         width = ligthRenderTexture.height;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-         tempRenderTexture = RenderTexture.GetTemporary(width, height,  0, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
+        tempRenderTexture = RenderTexture.GetTemporary(width, height,  0, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
         Graphics.Blit(ligthRenderTexture, tempRenderTexture);
         previous = RenderTexture.active;
         RenderTexture.active = tempRenderTexture;
@@ -41,5 +45,7 @@ public class LigthDetector : MonoBehaviour
         {
             LightLevel += (0.2126f * color.r) + (0.7152f * color.g) + (0.0722f * color.b);
         }
+
+        Debug.Log("Lightlevel "+LightLevel);
     }
 }

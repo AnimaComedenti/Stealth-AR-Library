@@ -17,18 +17,12 @@ namespace StealthDemo
         private float maxShoots;
         private float shootdelay = 0;
         private bool onReloadeCooldown = false;
-        private ItemSO itemStats;
+        private AbillitySO itemStats;
 
         public void Start()
         {
-            var item = (ItemSO) abillity;
-
-            if(item != null)
-            {
-                itemStats = item;
-                maxShoots = itemStats.ItemCount;
-                armo = maxShoots;
-            }
+            maxShoots = itemStats.ActivationCount;
+            armo = maxShoots;
         }
         public void Update()
         {
@@ -36,7 +30,9 @@ namespace StealthDemo
             if (itemStats == null) return;
 
             shootdelay += Time.deltaTime;
+
             if (!onReloadeCooldown) return;
+
             currentTime += Time.deltaTime;
             if (currentTime >= itemStats.Cooldown)
             {
@@ -63,7 +59,6 @@ namespace StealthDemo
                 armo = maxShoots;
                 onReloadeCooldown = true;
             }
-
             return this;
         }
     }

@@ -9,6 +9,7 @@ TagManager:
   - Seeker
   - Enemy
   - Duplicate
+  - Item
   layers:
   - Default
   - TransparentFX

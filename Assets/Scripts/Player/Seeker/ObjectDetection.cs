@@ -13,6 +13,9 @@ namespace StealthDemo
 
         private GameObject[] objectsFound = new GameObject[0];
 
+
+
+
         void Update()
         {
             if (SystemInfo.deviceType != DeviceType.Handheld) return;
@@ -24,12 +27,18 @@ namespace StealthDemo
             }
 
 
+            if (!IsInCameraSigth())
+            {
+                IsObjectSeen = false;
+                return;
+            }
+
             foreach (GameObject searchedObject in objectsFound)
             {
                 Renderer render = searchedObject.GetComponent<Renderer>();
                 if (render.isVisible)
                 {
-                    IsObjectSeen = CheckRendererInSigth(searchedObject.transform.position);
+                    CheckRendererInSigth(searchedObject.transform.position);
                     return;
                 }
                 else
@@ -39,23 +48,36 @@ namespace StealthDemo
             } 
         }
 
-        private bool CheckRendererInSigth(Vector3 objectPosition)
+        private void CheckRendererInSigth(Vector3 objectPosition)
         {
             RaycastHit hit;
             if (Physics.Linecast(cam.transform.position, objectPosition, out hit))
             {
                 if (hit.transform.CompareTag(objectTag))
                 {
-                    return true;
-
+                    IsObjectSeen = true;
+                    return;
                 }
             }
-            return false;
+            IsObjectSeen = false;
         }
 
         private void SearchObject()
         {
             objectsFound = GameObject.FindGameObjectsWithTag(objectTag);
+        }
+
+        private bool IsInCameraSigth()
+        {
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
+            Collider objCollider = GetComponent<Collider>();
+
+            if (GeometryUtility.TestPlanesAABB(planes, objCollider.bounds))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

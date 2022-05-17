@@ -335,8 +335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4765b69a009d6014d92df37cb2c27f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abillity: {fileID: 11400000, guid: 2ff318086bfc47f4c9df37362a1d27da, type: 2}
-  cooldownText: {fileID: 0}
+  abillity: {fileID: 11400000, guid: 39c50ecfc92c4214585575147c7d904f, type: 2}
+  cooldownText: 0
+  hasBeenActivated: 0
   bullet: {fileID: 6964366477986964395, guid: 98104b0f7fd7f4546aa1a4ca790f2902, type: 3}
   shootForce: 20
   objectToShootFrom: {fileID: 4198145642319726343}

@@ -15,6 +15,13 @@ namespace StealthDemo
         [SerializeField] float cooldown;
         [SerializeField] float damage;
 
+        [SerializeField] float activationCount = 0;
+        public float ActivationCount
+        {
+            get { return activationCount; }
+            set {activationCount = value; }
+        }
+
         public Sprite Icon => icon;
         public string Name => name;
         public string Description => description;
