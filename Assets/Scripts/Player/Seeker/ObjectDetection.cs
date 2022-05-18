@@ -13,9 +13,6 @@ namespace StealthDemo
 
         private GameObject[] objectsFound = new GameObject[0];
 
-
-
-
         void Update()
         {
             if (SystemInfo.deviceType != DeviceType.Handheld) return;
@@ -26,26 +23,46 @@ namespace StealthDemo
                 return;
             }
 
+            IsInCameraSigth();
 
-            if (!IsInCameraSigth())
-            {
-                IsObjectSeen = false;
-                return;
-            }
+        }
+
+        #region ObjectDetection
+        private void IsInCameraSigth()
+        {
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
 
             foreach (GameObject searchedObject in objectsFound)
             {
-                Renderer render = searchedObject.GetComponent<Renderer>();
-                if (render.isVisible)
+                Vector3 objectPosition = searchedObject.transform.position;
+
+                foreach (Plane plane in planes)
                 {
-                    CheckRendererInSigth(searchedObject.transform.position);
-                    return;
+                    if (plane.GetDistanceToPoint(objectPosition) < 0)
+                    {
+                        IsObjectSeen = false;
+                        return;
+                    }
                 }
-                else
-                {
-                    IsObjectSeen = false;
-                }
-            } 
+
+                Debug.Log("Found Object in CameraView");
+                CheckVisability(searchedObject);
+                if (IsObjectSeen) return;
+            }
+        }
+
+        private void CheckVisability(GameObject objectToSearch)
+        {
+
+            Renderer render = objectToSearch.GetComponent<Renderer>();
+            if (render.isVisible)
+            {
+                Debug.Log("Found Object Renderer is visible");
+                CheckRendererInSigth(objectToSearch.transform.position);
+                return;
+            }
+
+            IsObjectSeen = false;
         }
 
         private void CheckRendererInSigth(Vector3 objectPosition)
@@ -55,29 +72,18 @@ namespace StealthDemo
             {
                 if (hit.transform.CompareTag(objectTag))
                 {
+                    Debug.Log("Found Object nothing is in the way");
                     IsObjectSeen = true;
                     return;
                 }
             }
             IsObjectSeen = false;
         }
+        #endregion
 
         private void SearchObject()
         {
             objectsFound = GameObject.FindGameObjectsWithTag(objectTag);
-        }
-
-        private bool IsInCameraSigth()
-        {
-            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
-            Collider objCollider = GetComponent<Collider>();
-
-            if (GeometryUtility.TestPlanesAABB(planes, objCollider.bounds))
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }

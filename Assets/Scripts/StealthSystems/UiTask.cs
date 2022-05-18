@@ -26,7 +26,7 @@ namespace StealthDemo
             ligthResource.gameObject.SetActive(false);
         }
 
-        protected virtual void Update()
+        protected virtual void FixedUpdate()
         {
             if (isGameCompleted)
             {
@@ -47,11 +47,11 @@ namespace StealthDemo
                 DoingTask();
 
                 timerToMakeSound += Time.deltaTime;
-                if (timerToMakeSound >= secondsWithSound)
+                if (timerToMakeSound <= secondsWithSound)
                 {
                     SetSoundAndLigth(Color.red);
                 }
-                if (timerToMakeSound >= (secondsWithSound + soundAndLigthDuration))
+                if (timerToMakeSound <= (secondsWithSound + soundAndLigthDuration))
                 {
                     StopTimerAndSound(Color.yellow);
                 }

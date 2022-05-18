@@ -111,7 +111,6 @@ namespace StealthDemo
                 {
                     interact.OnInteract(gameObject);
                 }
-                Debug.Log(hit.collider.gameObject);
             }
         }
 

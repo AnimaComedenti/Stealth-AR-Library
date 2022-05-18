@@ -36,7 +36,6 @@ namespace StealthDemo
 
                 if (Physics.Raycast(screenCenter, out hit))
                 {
-                    Debug.Log("Hit "+hit.collider.tag);
                     if (!hit.collider.CompareTag(itemTag)) return;
 
                     foreach (CombatButton combatButton in combatButtons)

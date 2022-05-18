@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,7 +46,7 @@ public class LigthDetector : MonoBehaviour
         {
             LightLevel += (0.2126f * color.r) + (0.7152f * color.g) + (0.0722f * color.b);
         }
-
+        LightLevel = (float)Math.Round(LightLevel / 10000, 1);
         Debug.Log("Lightlevel "+LightLevel);
     }
 }

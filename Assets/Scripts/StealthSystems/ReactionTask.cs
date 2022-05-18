@@ -41,9 +41,9 @@ namespace StealthDemo
             currentLive = lives[0];
         }
 
-        protected override void Update()
+        protected override void FixedUpdate()
         {
-            base.Update();
+            base.FixedUpdate();
         }
 
         public override void DoingTask()
@@ -53,7 +53,7 @@ namespace StealthDemo
             if (isLastAnswerWrong)
             {
                 wrongAnswerTimer += Time.deltaTime;
-                if (wrongAnswerTimer <= timeForWrongSound)
+                if (wrongAnswerTimer >= timeForWrongSound)
                 {
                     StopTimerAndSound(Color.yellow);
                     isLastAnswerWrong = false;
