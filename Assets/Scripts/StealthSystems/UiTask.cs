@@ -10,7 +10,7 @@ namespace StealthDemo
         [SerializeField] protected Light ligthResource;
         [Header("Timer to tick while doing task")]
         [SerializeField] protected float secondsWithSound = 20;
-        [SerializeField] protected float soundAndLigthDuration = 5;
+        [SerializeField] protected float soundAndLigthDuration = 2;
 
 
         public bool isGameCompleted = false;

@@ -13,14 +13,12 @@ namespace StealthDemo
         private CharacterController characterController;
 
         [Header("PlayerMovement")]
-        [SerializeField]
-        private float movementSpeed = 2;
-        [SerializeField]
-        private float runSpeed = 4;
-        [SerializeField]
-        private float sneakSpeed = 1;
-        [SerializeField]
-        private float jumpHeight = 1f;
+
+        public float movementSpeed = 2;
+        public float runSpeed = 4;
+        public float sneakSpeed = 1;
+        public float jumpHeight = 1f;
+
         [Header("Physics")]
         [SerializeField]
         private Transform groundCheck;
@@ -143,6 +141,13 @@ namespace StealthDemo
         void MoveCharacter(Vector3 moveDirection, float moveSpeed)
         {
             characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+        }
+
+
+        [PunRPC]
+        public void ChangeToInvis(bool isInvisible)
+        {
+            gameObject.layer = isInvisible ?  11: 6;
         }
     }
 }

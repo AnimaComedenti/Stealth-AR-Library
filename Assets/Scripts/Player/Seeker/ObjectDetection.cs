@@ -9,7 +9,8 @@ namespace StealthDemo
         public bool IsObjectSeen { get; private set; } = false;
 
         [SerializeField] private Camera cam;
-        [SerializeField] private string objectTag;
+        [SerializeField] private int objectLayer = 6;
+        [SerializeField] private string objectTag = "Player";
 
         private GameObject[] objectsFound = new GameObject[0];
 
@@ -45,8 +46,7 @@ namespace StealthDemo
                     }
                 }
 
-                Debug.Log("Found Object in CameraView");
-                CheckVisability(searchedObject);
+                CheckRendererInSigth(searchedObject.transform.position);
                 if (IsObjectSeen) return;
             }
         }
@@ -57,7 +57,6 @@ namespace StealthDemo
             Renderer render = objectToSearch.GetComponent<Renderer>();
             if (render.isVisible)
             {
-                Debug.Log("Found Object Renderer is visible");
                 CheckRendererInSigth(objectToSearch.transform.position);
                 return;
             }
@@ -70,7 +69,7 @@ namespace StealthDemo
             RaycastHit hit;
             if (Physics.Linecast(cam.transform.position, objectPosition, out hit))
             {
-                if (hit.transform.CompareTag(objectTag))
+                if (hit.collider.gameObject.layer == objectLayer)
                 {
                     Debug.Log("Found Object nothing is in the way");
                     IsObjectSeen = true;

@@ -10,12 +10,6 @@ namespace StealthDemo
         [SerializeField] private string itemTag = "Item";
         [SerializeField] private CombatButton[] combatButtons;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
         // Update is called once per frame
         void Update()
         {

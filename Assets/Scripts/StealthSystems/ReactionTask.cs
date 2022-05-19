@@ -19,9 +19,9 @@ namespace StealthDemo
 
         private string buttonToPress;
 
-        private float timeToClick = 10;
-        private float timeTickMultiply = 1;
-        private float currentTime = 10;
+        private float timeToClick;
+        private float timeTickMultiply;
+        private float currentTime;
 
         private float timeForWrongSound = 5;
         private float wrongAnswerTimer = 0;
@@ -39,6 +39,7 @@ namespace StealthDemo
             base.Start();
             lives = livesButtons.GetComponentsInChildren<Image>();
             currentLive = lives[0];
+            Reset();
         }
 
         protected override void FixedUpdate()
@@ -48,8 +49,10 @@ namespace StealthDemo
 
         public override void DoingTask()
         {
+            //Count Time
             DeclareTime();
 
+            //Make Sound if wrong Answer
             if (isLastAnswerWrong)
             {
                 wrongAnswerTimer += Time.deltaTime;
@@ -60,18 +63,13 @@ namespace StealthDemo
                 }
             }
 
-            if (isButtonPressed)
-            {
-                buttonToPress = RandomString();
-                buttonToPressText.text = buttonToPress.ToUpper();
-                isButtonPressed = false;
-            }
-
+            //Start Task
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 isTimerStarted = true;
             }
 
+            //Start after Space pressed
             if (isTimerStarted)
             {
                 if (Input.GetKeyDown(buttonToPress))
@@ -79,8 +77,16 @@ namespace StealthDemo
 
                     isButtonPressed = true;
                     isTimerStarted = false;
-                    HandelLives(currentTime);
+                    LivesHandler(currentTime);
                 }
+            }
+
+            //Generate new Randome String after Button Press
+            if (isButtonPressed)
+            {
+                buttonToPress = RandomString();
+                buttonToPressText.text = buttonToPress.ToUpper();
+                isButtonPressed = false;
             }
         }
 
@@ -102,36 +108,19 @@ namespace StealthDemo
             }
         }
 
-        private void HandelLives(float time)
+        private void LivesHandler(float time)
         {
-            timeTickMultiply = Random.Range(1, 10);
-            timeToClick = Random.Range(5, 15);
+
             if (time <= 0 && time >= -1.25)
             {
-                currentLive.color = Color.green;
-                liveCounter++;
-                if (liveCounter == lives.Length)
-                {
-                    isGameCompleted = true;
-                    SetSoundAndLigth(Color.green);
-                    CloseUI();
-                    return;
-                }
-                currentLive = lives[liveCounter];
+                CountHealthUp();
             }
             else
             {
-                if (currentLive.color == Color.red && liveCounter > 0)
-                {
-                    currentLive.color = Color.white;
-                    liveCounter--;
-                }
-                currentLive = lives[liveCounter];
-                currentLive.color = Color.red;
-                SetSoundAndLigth(Color.red);
-                wrongAnswerTimer = 0;
-                isLastAnswerWrong = true;
+                CountHealthDown();
             }
+
+            Reset();
         }
 
         private string RandomString()
@@ -139,6 +128,41 @@ namespace StealthDemo
             string keysToPress = "abcdefghijklmnopqrstuvwxyz";
             int rndNumber = Random.Range(0, keysToPress.Length - 1);
             return keysToPress.Substring(rndNumber, 1);
+        }
+
+        private void Reset()
+        {
+            timeTickMultiply = Random.Range(1, 10);
+            timeToClick = Random.Range(5, 15);
+        }
+
+        private void CountHealthUp()
+        {
+            currentLive.color = Color.green;
+            liveCounter++;
+            if (liveCounter == lives.Length)
+            {
+                isGameCompleted = true;
+                SetSoundAndLigth(Color.green);
+                CloseUI();
+                return;
+            }
+            currentLive = lives[liveCounter];
+        }
+
+        private void CountHealthDown()
+        {
+            if (currentLive.color == Color.red && liveCounter > 0)
+            {
+                currentLive.color = Color.white;
+                liveCounter--;
+            }
+
+            currentLive = lives[liveCounter];
+            currentLive.color = Color.red;
+            SetSoundAndLigth(Color.red);
+            wrongAnswerTimer = 0;
+            isLastAnswerWrong = true;
         }
     }
 }

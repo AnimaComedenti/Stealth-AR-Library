@@ -318,6 +318,7 @@ MonoBehaviour:
   playerTag: Player
   light: {fileID: 5504786769563943660}
   source: {fileID: 8892097039350992224}
+  radius: 1
 --- !u!114 &-1881763486350026045
 MonoBehaviour:
   m_ObjectHideFlags: 0

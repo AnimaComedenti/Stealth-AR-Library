@@ -60,6 +60,9 @@ MonoBehaviour:
   - LoadeNewScene
   - ReloadeScene
   - DamagedPlayer
+  - ShowRenderer
+  - ChangeToInvise
+  - ChangeToInvis
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
