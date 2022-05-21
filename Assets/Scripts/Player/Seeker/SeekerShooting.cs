@@ -12,7 +12,7 @@ namespace StealthDemo
 
         private Vector3 indicatorPosition;
 
-        public override ActivatableObject OnActivate()
+        public override void OnActivate()
         {
             if (!hasBeenActivated)
             {
@@ -36,7 +36,6 @@ namespace StealthDemo
                 hasBeenActivated = true;
             }
 
-            return this;
         }
 
     }

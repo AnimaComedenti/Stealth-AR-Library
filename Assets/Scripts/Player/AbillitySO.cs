@@ -15,8 +15,8 @@ namespace StealthDemo
         [SerializeField] float cooldown;
         [SerializeField] float damage;
 
-        [SerializeField] float activationCount = 0;
-        public float ActivationCount
+        [SerializeField] int activationCount = 1;
+        public int ActivationCount
         {
             get { return activationCount; }
             set {activationCount = value; }

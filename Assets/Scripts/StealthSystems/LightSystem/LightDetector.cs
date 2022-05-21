@@ -20,7 +20,7 @@ public class LightDetector : MonoBehaviour
         width = ligthRenderTexture.height;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (SystemInfo.deviceType == DeviceType.Handheld) return;
 

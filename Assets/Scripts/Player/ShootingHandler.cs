@@ -17,34 +17,30 @@ namespace StealthDemo
         private float maxShoots;
         private float shootdelay = 0;
         private bool onReloadeCooldown = false;
-        private AbillitySO itemStats;
 
         public void Start()
         {
-            maxShoots = itemStats.ActivationCount;
+            maxShoots = abillity.ActivationCount;
             armo = maxShoots;
         }
         public void Update()
         {
-
-            if (itemStats == null) return;
 
             shootdelay += Time.deltaTime;
 
             if (!onReloadeCooldown) return;
 
             currentTime += Time.deltaTime;
-            if (currentTime >= itemStats.Cooldown)
+            if (currentTime >= abillity.Cooldown)
             {
                 onReloadeCooldown = false;
                 currentTime = 0;
             }
         }
-        public override ActivatableObject OnActivate()
+        public override void OnActivate()
         {
-            if (itemStats == null) return this;
 
-            if (onReloadeCooldown) return this;
+            if (onReloadeCooldown) return;
             if (armo > 0 && shootdelay >= 1)
             {
                 armo--;
@@ -59,7 +55,6 @@ namespace StealthDemo
                 armo = maxShoots;
                 onReloadeCooldown = true;
             }
-            return this;
         }
     }
 }

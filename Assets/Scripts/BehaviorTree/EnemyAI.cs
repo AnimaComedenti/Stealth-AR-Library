@@ -22,6 +22,7 @@ namespace StealthDemo
         [SerializeField] private float shootingRange;
         [SerializeField] private float viewDistance;
         [SerializeField] private Light flashLigth;
+        [SerializeField] private string playerTag = "Player";
         [Header("SoundDetection")]
         [SerializeField] private SoundDetector soundDetector;
 
@@ -58,7 +59,7 @@ namespace StealthDemo
 
             //SequenzNode
             CheckSomthingHeardNode somethingHeared = new CheckSomthingHeardNode(this, soundDetector);
-            CheckPlayerSeenNode checkPlayer = new CheckPlayerSeenNode(this, flashLigth, viewDistance);
+            CheckPlayerSeenNode checkPlayer = new CheckPlayerSeenNode(this, flashLigth, viewDistance,playerTag);
             MoveToDestinationNode moveToDestination = new MoveToDestinationNode(agent, movePositions, speedToRotate);
             CheckShootingRangeNode shootingRange = new CheckShootingRangeNode(this);
             ShootingNode shooting = new ShootingNode(this, shootingHandler, speedToRotateIfSeen);

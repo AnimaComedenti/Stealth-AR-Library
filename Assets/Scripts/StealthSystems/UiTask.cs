@@ -28,6 +28,8 @@ namespace StealthDemo
 
         protected virtual void FixedUpdate()
         {
+            if (SystemInfo.deviceType == DeviceType.Handheld) return;
+
             if (isGameCompleted)
             {
                 CloseUI();
@@ -47,11 +49,11 @@ namespace StealthDemo
                 DoingTask();
 
                 timerToMakeSound += Time.deltaTime;
-                if (timerToMakeSound <= secondsWithSound)
+                if (timerToMakeSound >= secondsWithSound)
                 {
                     SetSoundAndLigth(Color.red);
                 }
-                if (timerToMakeSound <= (secondsWithSound + soundAndLigthDuration))
+                if (timerToMakeSound >= (secondsWithSound + soundAndLigthDuration))
                 {
                     StopTimerAndSound(Color.yellow);
                 }
@@ -99,7 +101,6 @@ namespace StealthDemo
         {
             ligthResource.color = new Color(color.x, color.y, color.z, 255);
             ligthResource.gameObject.SetActive(activeState);
-            Debug.Log(ligthResource.color + " active" + ligthResource.gameObject.activeSelf);
         }
     }
 }

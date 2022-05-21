@@ -9,7 +9,7 @@ namespace StealthDemo
     {
         [SerializeField] private GameObject objectToPlace;
 
-        public override ActivatableObject OnActivate()
+        public override void OnActivate()
         {
             if (!hasBeenActivated)
             {
@@ -17,11 +17,7 @@ namespace StealthDemo
 
                 hasBeenActivated = true;
                 SetTimesToUse = SetTimesToUse--;
-
-                if(SetTimesToUse <= 0) return null;
             }
-
-            return this;
         }
     }
 }

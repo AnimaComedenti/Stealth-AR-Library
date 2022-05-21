@@ -8,23 +8,27 @@ namespace StealthDemo
     public class SoundTrap : MonoBehaviourPun
     {
         [SerializeField] private string playerTag;
-        [SerializeField] private Light light;
+        [SerializeField] private Light lightSource;
         [SerializeField] private AudioSource source;
-        [SerializeField] private float radius = 1;
+        [SerializeField] private float radius = 0.5f;
 
-        // Update is called once per frame
+        private bool hasStartedPlaying = false;
+
         void Update()
         {
 
-            if (source.isPlaying)
+            if (hasStartedPlaying)
             {
-                photonView.RPC("SetLight", RpcTarget.All, true);
+                if (source.isPlaying)
+                {
+                    photonView.RPC("SetLight", RpcTarget.All, true);
+                }
+                else
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
+                return;
             }
-            else
-            {
-                photonView.RPC("SetLight", RpcTarget.All, false);
-            }
-
 
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
@@ -34,7 +38,9 @@ namespace StealthDemo
                 {
                     if (collider.CompareTag(playerTag))
                     {
-                        photonView.RPC("SetAudioRemote", RpcTarget.All, "Running");
+                        Debug.Log("Player on it");
+                        photonView.RPC("SetAudioRemote", RpcTarget.AllBuffered, "Running");
+                        hasStartedPlaying = true;
                     }
                 }
             }
@@ -46,11 +52,11 @@ namespace StealthDemo
         {
             if (isLigthActiv)
             {
-                light.gameObject.SetActive(true);
+                lightSource.gameObject.SetActive(true);
             }
             else
             {
-                light.gameObject.SetActive(false);
+                lightSource.gameObject.SetActive(false);
             }
             
         }

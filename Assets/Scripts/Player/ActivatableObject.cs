@@ -13,16 +13,15 @@ namespace StealthDemo
         protected float cnt = 0;
         public bool hasBeenActivated = false;
 
-        private float timesToUse = 0;
+        private int timesToUse = 1;
 
-        public float SetTimesToUse {  get { return timesToUse; }  set { timesToUse = value; } }
+        public int SetTimesToUse {  get { return timesToUse; }  set { timesToUse = value; } }
 
 
         private void Start()
         {
             cnt = abillity.Cooldown;
             timesToUse = abillity.ActivationCount;
-            if (timesToUse == 0) timesToUse = -1;
         }
 
         protected virtual void FixedUpdate()
@@ -41,10 +40,15 @@ namespace StealthDemo
             }
         }
 
-        public  Sprite GetButtonSprite()
+        public Sprite GetButtonSprite()
         {
             return abillity.Icon;
         }
-        public abstract ActivatableObject OnActivate();
+
+        public bool CanBeRemoved()
+        {
+            return timesToUse <= 0;
+        }
+        public abstract void OnActivate();
     }
 }

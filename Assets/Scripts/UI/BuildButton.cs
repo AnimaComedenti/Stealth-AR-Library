@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace StealthDemo
 {
-    public class BuildButton : ARInteractionButtons
+    public class BuildButton : MonoBehaviour
     {
         [SerializeField] private BuildableObjectSO _objectToBuild;
         [SerializeField] private RotationButtons rotationButtons;
@@ -29,6 +29,13 @@ namespace StealthDemo
             rotationButtons.SetObjectToBuild(_objectToBuild);
             UIToggler.Instance.ToggelUIButtons(buildButtons, rotationButtons.gameObject);
         }
+
+        private void AddSpritesToImages(Sprite sprite)
+        {
+            Image image = transform.GetChild(1).GetComponent<Image>();
+            image.sprite = sprite;
+        }
+
     }
 }
 

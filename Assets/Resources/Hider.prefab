@@ -20,9 +20,9 @@ GameObject:
   - component: {fileID: 4074516126749957692}
   - component: {fileID: 1295811302288127844}
   - component: {fileID: 3857823435392918598}
-  - component: {fileID: 309855210837542769}
   - component: {fileID: 3172676442993971301}
   - component: {fileID: 895648146744313572}
+  - component: {fileID: 3469052766761887032}
   m_Layer: 6
   m_Name: Hider
   m_TagString: Player
@@ -318,25 +318,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tasksCompleted: {fileID: 3889593855063334171}
---- !u!114 &309855210837542769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992395841121069272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fbf2f64c782b2443b2f89e6e0748e80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combatButtons:
-  - {fileID: 6593375074927223787}
-  - {fileID: 7378251578663765165}
-  - {fileID: 1416238273771228847}
-  - {fileID: 6750363873724231412}
-  itemTag: Item
-  radius: 10
 --- !u!114 &3172676442993971301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,6 +354,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ligthRenderTexture: {fileID: 8400000, guid: e23e2316be2def842a1e92f16066c3b1, type: 2}
+--- !u!114 &3469052766761887032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992395841121069272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0508ff3848caabb4890304613851d061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpRadius: 0.5
+  objectToCastFrom: {fileID: 1992395841121069272}
+  skillButtons:
+  - {fileID: 7985601520759946921}
+  - {fileID: 3599153638429631106}
+  - {fileID: 7758668403508757492}
+  - {fileID: 8456935788566753172}
 --- !u!1 &3164220344287561979
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1416238273771228847
+--- !u!114 &7758668403508757492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1191,12 +1191,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5986164239943762047}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
+  m_Script: {fileID: 11500000, guid: 94f35d5a051a4324ab85dc74b66cb91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 3132104958619378499}
---- !u!114 &6593375074927223787
+  key: 114
+--- !u!114 &7985601520759946921
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1205,12 +1206,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5986164241108851715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
+  m_Script: {fileID: 11500000, guid: 94f35d5a051a4324ab85dc74b66cb91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 3132104959784501055}
---- !u!114 &7378251578663765165
+  key: 113
+--- !u!114 &3599153638429631106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1219,12 +1221,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5986164241243342049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
+  m_Script: {fileID: 11500000, guid: 94f35d5a051a4324ab85dc74b66cb91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 3132104959918958557}
---- !u!114 &6750363873724231412
+  key: 101
+--- !u!114 &8456935788566753172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1233,11 +1236,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5986164241505517401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
+  m_Script: {fileID: 11500000, guid: 94f35d5a051a4324ab85dc74b66cb91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 3132104960189471845}
+  key: 116
 --- !u!114 &440004100353173359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1250,8 +1254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f35d5a051a4324ab85dc74b66cb91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 49
   skillToActivate: {fileID: 2310417160493350903}
+  cooldownTextfield: {fileID: 3132104960719368775}
+  key: 49
 --- !u!114 &2310417160493350903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1271,17 +1276,3 @@ MonoBehaviour:
   lightDetector: {fileID: -8649169733241475698}
   invisAfterActivation: 10
   lightLevelToReveal: 10
---- !u!114 &8348687894949103351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5986164242069016955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activatable: {fileID: 2310417160493350903}
-  cooldownTextfield: {fileID: 3132104960719368775}

@@ -5,21 +5,22 @@ using UnityEngine.UI;
 
 namespace StealthDemo
 {
-    public class HiderSkillActivation : MonoBehaviour
+    public class HiderSkillActivationButton : SkillButton
     {
         // Start is called before the first frame update
 
         [SerializeField] private KeyCode key;
-        [SerializeField] private ActivatableObject skillToActivate;
-
 
         // Update is called once per frame
-        void Update()
+        protected override void  Update()
         {
+            base.Update();
+
             if (Input.GetKey(key))
             {
                 skillToActivate.OnActivate();
             }
+
         }
     }
 

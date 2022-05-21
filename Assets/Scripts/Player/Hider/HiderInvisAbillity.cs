@@ -49,7 +49,7 @@ namespace StealthDemo
             }
         }
 
-        public override ActivatableObject OnActivate()
+        public override void OnActivate()
         {
             if(!isHiderInvis && !hasBeenActivated)
             {
@@ -59,7 +59,6 @@ namespace StealthDemo
                 hasBeenActivated = true;
             }
 
-            return this;
         }
 
     }

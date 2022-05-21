@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -5270653618446123508}
   m_Layer: 0
   m_Name: HiderItem
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4687064296796770562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.62, y: 0.41, z: 1.828551}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7076349e1da092648bc756868480c0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatableItem: {fileID: 0}
+  activatableItem: {fileID: -5270653618446123508}
   timeToDespawn: 20
 --- !u!114 &-5270653618446123508
 MonoBehaviour:

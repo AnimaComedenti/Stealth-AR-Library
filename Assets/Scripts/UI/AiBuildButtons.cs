@@ -12,10 +12,20 @@ namespace StealthDemo
         [SerializeField] private GameObject pointPrefab;
         [SerializeField] private GameObject buildButtons;
         [SerializeField] private GameObject aiBuildButtons;
+
         private BuildableObjectSO buildableObject;
+        private UIToggler uitoggler;
+        private SeekerPlacementIndicator seekerPlacementIndicator;
+
         public static List<GameObject> points = new List<GameObject>();
         public static List<Vector3> listWithPositions = new List<Vector3>();
 
+
+        private void Start()
+        {
+            uitoggler = UIToggler.Instance;
+            seekerPlacementIndicator = SeekerPlacementIndicator.Instance;
+        }
         public BuildableObjectSO setBuildableObject
         {
             set { buildableObject = value; }
@@ -23,7 +33,7 @@ namespace StealthDemo
 
         public void SetAiPositions()
         {
-            Pose position = SeekerPlacementIndicator.Instance.getPlacementPosition;
+            Pose position = seekerPlacementIndicator.getPlacementPosition;
             GameObject circle = Instantiate(pointPrefab, position.position, Quaternion.identity);
             listWithPositions.Add(position.position);
             points.Add(circle);
@@ -31,36 +41,39 @@ namespace StealthDemo
 
         public void ResetLastPosition()
         {
-
+            //if removing while no positions, close UI
             if (listWithPositions.Count <= 0)
             {
                 Debug.Log("PositionList Empty");
-                UIToggler.Instance.ToggelUIButtons(buildButtons, aiBuildButtons);
+                uitoggler.ToggelUIButtons(buildButtons, aiBuildButtons);
+                return;
             }
-            else
-            {
-                GameObject lastPoint = points[points.Count - 1];
-                Destroy(lastPoint);
-                listWithPositions.RemoveAt(listWithPositions.Count - 1);
-                points.RemoveAt(points.Count - 1);
-            }
+
+            GameObject lastPoint = points[points.Count - 1];
+            Destroy(lastPoint);
+            listWithPositions.RemoveAt(listWithPositions.Count - 1);
+            points.RemoveAt(points.Count - 1);
+
         }
 
         public void ConfirmAIBuild()
         {
+            //Spawn enemy
+            GameObject ai = seekerPlacementIndicator.SpawnObject(buildableObject.Prefab.gameObject, Quaternion.identity);
 
-            GameObject ai = SeekerPlacementIndicator.Instance.SpawnObject(buildableObject.Prefab.gameObject, Quaternion.identity);
+            //Set declared positions to move
             EnemyAI aiScript = ai.GetComponent<EnemyAI>();
             Vector3[] vect3array = listWithPositions.ToArray();
             aiScript.photonV.RPC("AddMovePositions", RpcTarget.AllBuffered, vect3array);
+
+            //Reset everything
             foreach (GameObject point in points)
             {
                 Destroy(point);
             }
-
             listWithPositions.Clear();
             points.Clear();
-            UIToggler.Instance.ToggelUIButtons(buildButtons, aiBuildButtons);
+            uitoggler.ToggelUIButtons(buildButtons, aiBuildButtons);
         }
 
     }

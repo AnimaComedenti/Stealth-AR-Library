@@ -545,6 +545,10 @@ PrefabInstance:
       propertyPath: buildButtons
       value: 
       objectReference: {fileID: 4894830965309181055}
+    - target: {fileID: 1491609748069046332, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1660387412987465843, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: buildButtons
       value: 
@@ -651,7 +655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8301750794439117001, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8301750794439117001, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -813,7 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 8447698890287279946}
 --- !u!114 &8525934726121422261
 MonoBehaviour:
@@ -827,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 6708262102033862803}
 --- !u!114 &5824868414237338231
 MonoBehaviour:
@@ -841,7 +845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 5801165282979658018}
 --- !u!114 &985542126985751653
 MonoBehaviour:
@@ -855,7 +859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 5804998670447454618}
 --- !u!114 &1844016035472203611
 MonoBehaviour:
@@ -869,7 +873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 0}
+  skillToActivate: {fileID: 0}
   cooldownTextfield: {fileID: 5342898950482474402}
 --- !u!114 &2411481238726211897
 MonoBehaviour:
@@ -901,5 +905,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatable: {fileID: 2411481238726211897}
+  skillToActivate: {fileID: 2411481238726211897}
   cooldownTextfield: {fileID: 3468229924349060589}

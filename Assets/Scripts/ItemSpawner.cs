@@ -32,7 +32,7 @@ namespace StealthDemo
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (!SeekerPlacementIndicator.Instance.isLevelPlaced) return;
+            if (SystemInfo.deviceType == DeviceType.Handheld && !SeekerPlacementIndicator.Instance.isLevelPlaced) return;
 
             timer += Time.deltaTime;
 

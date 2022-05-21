@@ -45,7 +45,7 @@ namespace StealthDemo
             hiderController.runSpeed = baseRunSpeed;
             hiderController.sneakSpeed = baseSneakSpeed;
         }
-        public override ActivatableObject OnActivate()
+        public override void OnActivate()
         {
             if (!hasBeenActivated)
             {
@@ -55,10 +55,8 @@ namespace StealthDemo
 
                 isActive = true;
 
-                if (SetTimesToUse <= 0) return null;
             }
 
-            return this;
         }
 
         private void MultiplyStats()

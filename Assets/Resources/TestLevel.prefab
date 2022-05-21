@@ -792,10 +792,10 @@ MonoBehaviour:
   - {fileID: 1613975836094922245, guid: ef6f82f146f7b7d4b9465a1e30b056c0, type: 3}
   - {fileID: 1613975836094922245, guid: ef6f82f146f7b7d4b9465a1e30b056c0, type: 3}
   hiderItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  spawnChance: 0.11
-  timeIntervalToCheck: 10
+  - {fileID: 4687064296796770562, guid: 8d14b7406d8b0f04a816223fb29f3443, type: 3}
+  - {fileID: 4687064296796770562, guid: 8d14b7406d8b0f04a816223fb29f3443, type: 3}
+  spawnChance: 0.25
+  timeIntervalToCheck: 5
 --- !u!1 &8724399226213648685
 GameObject:
   m_ObjectHideFlags: 0

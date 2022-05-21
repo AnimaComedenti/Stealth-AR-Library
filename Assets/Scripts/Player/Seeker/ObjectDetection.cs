@@ -51,19 +51,6 @@ namespace StealthDemo
             }
         }
 
-        private void CheckVisability(GameObject objectToSearch)
-        {
-
-            Renderer render = objectToSearch.GetComponent<Renderer>();
-            if (render.isVisible)
-            {
-                CheckRendererInSigth(objectToSearch.transform.position);
-                return;
-            }
-
-            IsObjectSeen = false;
-        }
-
         private void CheckRendererInSigth(Vector3 objectPosition)
         {
             RaycastHit hit;

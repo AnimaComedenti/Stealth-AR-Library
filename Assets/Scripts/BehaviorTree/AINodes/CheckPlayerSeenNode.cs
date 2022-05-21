@@ -11,12 +11,14 @@ namespace StealthDemo.Nodes
         private Light lightResource;
         private float seeDistance;
         private float viewAngle;
+        private string playerTag;
 
-        public CheckPlayerSeenNode(EnemyAI origin, Light lightResource, float seeDistance)
+        public CheckPlayerSeenNode(EnemyAI origin, Light lightResource, float seeDistance, string playerTag)
         {
             this.lightResource = lightResource;
             this.seeDistance = seeDistance;
             this.origin = origin;
+            this.playerTag = playerTag;
             viewAngle = lightResource.spotAngle;
         }
 
@@ -31,7 +33,7 @@ namespace StealthDemo.Nodes
             if (players.Count == 0) return false;
             foreach (GameObject player in players)
             {
-                
+                if (player.gameObject.CompareTag(playerTag)) continue;
                 if (Vector3.Distance(origin.transform.position, player.transform.position) < seeDistance)
                 {
                     Transform child = origin.transform.GetChild(0);

@@ -111,7 +111,7 @@ namespace StealthDemo
         private void LivesHandler(float time)
         {
 
-            if (time <= 0 && time >= -1.25)
+            if (time <= 0 && time >= -1.7)
             {
                 CountHealthUp();
             }
