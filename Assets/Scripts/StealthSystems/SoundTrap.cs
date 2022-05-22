@@ -10,55 +10,37 @@ namespace StealthDemo
         [SerializeField] private string playerTag;
         [SerializeField] private Light lightSource;
         [SerializeField] private AudioSource source;
-        [SerializeField] private float radius = 0.5f;
 
         private bool hasStartedPlaying = false;
 
         void Update()
         {
+            if (!photonView.IsMine) return;
 
             if (hasStartedPlaying)
             {
-                if (source.isPlaying)
-                {
-                    photonView.RPC("SetLight", RpcTarget.All, true);
-                }
-                else
+                if (!source.isPlaying)
                 {
                     PhotonNetwork.Destroy(gameObject);
-                }
-                return;
-            }
-
-            Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-
-            if (colliders.Length < 0)
-            {
-                foreach (Collider collider in colliders)
-                {
-                    if (collider.CompareTag(playerTag))
-                    {
-                        Debug.Log("Player on it");
-                        photonView.RPC("SetAudioRemote", RpcTarget.AllBuffered, "Running");
-                        hasStartedPlaying = true;
-                    }
                 }
             }
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag(playerTag))
+            {
+                Debug.Log("Player on it");
+                photonView.RPC("SetAudioRemote", RpcTarget.AllBuffered, "Running");
+                photonView.RPC("SetLight", RpcTarget.All);
+                hasStartedPlaying = true;
+            }
+        }
 
         [PunRPC]
-        public void SetLight(bool isLigthActiv)
+        public void SetLight()
         {
-            if (isLigthActiv)
-            {
-                lightSource.gameObject.SetActive(true);
-            }
-            else
-            {
-                lightSource.gameObject.SetActive(false);
-            }
-            
+          lightSource.gameObject.SetActive(true);
         }
 
     }

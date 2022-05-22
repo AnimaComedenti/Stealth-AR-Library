@@ -5,7 +5,6 @@ namespace StealthDemo
 {
     public abstract class UiTask : MonoBehaviour, IInteractable
     {
-        [SerializeField] protected PhotonView pv;
         [SerializeField] protected GameObject ui;
         [SerializeField] protected Light ligthResource;
         [Header("Timer to tick while doing task")]
@@ -16,6 +15,7 @@ namespace StealthDemo
         public bool isGameCompleted = false;
         protected bool isTimerActive = false;
         protected float timerToMakeSound = 0;
+        protected PhotonView pv;
 
         private HiderPlayerController hiderplayer;
 
@@ -23,6 +23,7 @@ namespace StealthDemo
 
         protected virtual void Start()
         {
+            pv = GetComponent<PhotonView>();
             ligthResource.gameObject.SetActive(false);
         }
 
@@ -62,6 +63,7 @@ namespace StealthDemo
 
         public void SetSoundAndLigth(Color color)
         {
+            Debug.Log("Started Sound");
             pv.RPC("SetAudioRemote", RpcTarget.AllBuffered, "Running");
             pv.RPC("SetLigthAndColor", RpcTarget.AllBuffered, new Vector3(color.r, color.g, color.b), true);
 
@@ -70,6 +72,7 @@ namespace StealthDemo
         public void StopTimerAndSound(Color color)
         {
             timerToMakeSound = 0;
+            Debug.Log("Stoped Sound");
             pv.RPC("StopAudio", RpcTarget.AllBuffered);
             pv.RPC("SetLigthAndColor", RpcTarget.AllBuffered, new Vector3(color.r, color.g, color.b), false);
         }

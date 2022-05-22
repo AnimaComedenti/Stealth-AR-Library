@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3047730134554457247
 Transform:
   m_ObjectHideFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4842348426711770287}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &7183736038732222234
 Light:
@@ -127,8 +127,8 @@ Transform:
   m_LocalPosition: {x: 1.4049776, y: 0.153, z: 3.671}
   m_LocalScale: {x: 0.4, y: 1, z: 0.4}
   m_Children:
-  - {fileID: 2904033782883113357}
   - {fileID: 3047730134554457247}
+  - {fileID: 2904033782883113357}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -149,6 +149,7 @@ MonoBehaviour:
   ligthResource: {fileID: 7183736038732222234}
   secondsWithSound: 20
   soundAndLigthDuration: 5
+  isGameCompleted: 0
   livesButtons: {fileID: 4577240737747386035}
   feedBackText: {fileID: 4793072177893052891}
   buttonToPressText: {fileID: 7064490247444872667}
@@ -417,6 +418,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2210296243064530332, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3472068520407444714, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -435,7 +440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -86
+      value: -234
       objectReference: {fileID: 0}
     - target: {fileID: 4056949041501898909, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_Text
@@ -459,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4764970928618587934, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4764970928618587934, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_AnchorMax.x

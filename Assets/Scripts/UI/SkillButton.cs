@@ -6,10 +6,8 @@ namespace StealthDemo
 {
     public abstract class SkillButton : MonoBehaviour
     {
-
         [SerializeField] protected ActivatableObject skillToActivate;
         [SerializeField] protected Text cooldownTextfield;
-
 
         protected virtual void Start()
         {

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6025449579802444333
 Transform:
   m_ObjectHideFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297137592742798348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8892097039350992237}
@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 8892097039350992224}
   - component: {fileID: 8892097039350992227}
   - component: {fileID: -1881763486350026045}
+  - component: {fileID: 898655140329340920}
   m_Layer: 0
   m_Name: Trap
   m_TagString: Untagged
@@ -316,9 +317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  lightSource: {fileID: 0}
+  lightSource: {fileID: 5504786769563943660}
   source: {fileID: 8892097039350992224}
-  radius: 1
 --- !u!114 &-1881763486350026045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,3 +341,16 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!65 &898655140329340920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8892097039350992226}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1, z: 9.742432}
+  m_Center: {x: 0, y: 0, z: 0}

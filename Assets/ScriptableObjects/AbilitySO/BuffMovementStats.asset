@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuffMovementStats
   m_EditorClassIdentifier: 
   name: BuffMovementStats
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7dd1b536888b4e847a6cc1c1c03a24a5, type: 3}
   description: 
   cooldown: 0
   damage: 0

@@ -47,6 +47,7 @@ namespace StealthDemo
         }
         public override void OnActivate()
         {
+            hiderController = GetComponentInParent<HiderPlayerController>();
             if (!hasBeenActivated)
             {
                 MultiplyStats();
@@ -56,7 +57,6 @@ namespace StealthDemo
                 isActive = true;
 
             }
-
         }
 
         private void MultiplyStats()

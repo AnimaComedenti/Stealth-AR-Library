@@ -17,4 +17,4 @@ MonoBehaviour:
   description: 
   cooldown: 60
   damage: 0
-  activationCount: 3
+  activationCount: 1
