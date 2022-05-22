@@ -3,35 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace StealthDemo
+namespace StealthLib
 {
+
+    /*
+     * Klasse welche auf dem Objekt implementiert werden soll, welcher Geräusche absondert.
+     * Diese Klasse besitzt methoden welche von Anderen Klassen aufgerufen werden können.
+     * Diese Methoden spielen die Soundeffekte in der defenierten Audiosource ab.
+     * 
+     * @source: Die Audiosorce-Komponente auf der die Geräsche abgespielt werden sollen
+     */
+
     public class SoundMaker : MonoBehaviour
     {
         [SerializeField] private AudioSource source;
-        private float wholeVolume = 0;
 
-        private void Update()
-        {
-            if (!source.isPlaying)
-            {
-                source.volume = 0;
-                wholeVolume = 0;
-            }
+        /*
+         * Die Gesamtlautstärke die, das Objekt macht
+         */
+        public float Volume { 
+
+            get {
+                if (!source.isPlaying)
+                {
+                   return 0;
+                }
+                return source.volume; 
+            } 
+            private set {
+                source.volume = value; 
+            } 
         }
 
-        public float Volume()
-        {
-            return wholeVolume;
-        }
 
-        public void SetAudio(SoundSO sound)
+
+        /*
+         * Methode welche ein 3D-Sound erstellt und dieses der AudioSource übergibt
+         * @SoundSO: Die SoundKlasse welche abgespielt werden soll
+         */
+        public void SetSoundSOAudio(SoundSO sound)
         {
             source.spatialBlend = 1;
             source.loop = sound.IsLoop;
             source.maxDistance = sound.MaxHearDistance;
             source.minDistance = sound.MinHearDistance;
             source.volume = sound.Volume;
-            wholeVolume = sound.DetectingVolume;
 
             if (!source.isPlaying)
             {
@@ -47,23 +63,59 @@ namespace StealthDemo
             }
         }
 
-        [PunRPC]
-        public void SetAudioRemote(string soundname)
+        /*
+         * Methode welche ein AudioClip abspielt.
+         * Hierbei ist zu achten das die 3D-Sound einstellungen im Audiosource voreingestellt werden müssen.
+         * @SoundSO: Die SoundKlasse welche abgespielt werden soll
+         */
+        public void SetAudioCLipAudio(AudioClip sound, float volume)
         {
-            SoundSO sound = SoundHolder.Instance.GetSoundByName(soundname);
-            if (sound == null)
-            {
-                Debug.Log("Soundname not found");
-                return;
-            }
-            SetAudio(sound);
+            source.volume = volume;
+            source.clip = sound;
+            source.Play();
         }
 
-        [PunRPC]
+
+        /*
+         * Zum Stoppen des Gespielten Sound nötig.
+         * Stoppt die Audio wenn ein AudioClip spielt.
+         */
         public void StopAudio()
         {
             if (source.isPlaying) source.Stop();
         }
+
+
+        #region NetworkingSoundPlaying
+
+        /*
+         * Um hörbare Geräusche Remote hörbar zu machen, können diese Klassen genutzt werden.
+         * Für offline Spiele reichen die Oberen Methoden "SetAudioCLipAudio" und "SetSoundSOAudio" aus
+         */
+
+
+        [PunRPC]
+        public void SetAudioRemoteSoundSO(string soundname)
+        {
+            SoundSO sound = SoundHolder.Instance.GetSoundSOByName(soundname);
+            if (sound == null) return;
+            SetSoundSOAudio(sound);
+        }
+
+        [PunRPC]
+        public void SetAudioRemoteAudioClip(string soundname, int volume)
+        {
+            AudioClip sound = SoundHolder.Instance.GetAudioCLipByName(soundname);
+            if (sound == null) return;
+            SetAudioCLipAudio(sound, volume);
+        }
+
+        [PunRPC]
+        public void StopAudioRemote()
+        {
+            StopAudio();
+        }
+        #endregion
 
     }
 }

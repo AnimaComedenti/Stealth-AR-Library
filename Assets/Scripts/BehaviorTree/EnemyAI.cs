@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using  StealthDemo.Nodes;
 using Photon.Pun;
+using StealthLib;
 
 namespace StealthDemo
 {

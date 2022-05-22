@@ -1,12 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using StealthDemo;
 
-namespace StealthDemo
+namespace StealthLib
 {
+    /*
+     * Diese Klasse ist eine Singelton Klasse und enthält alle Geräusche die das Spiel ausgeben kann.
+     */
     public class SoundHolder : MonoBehaviour
     {
         [SerializeField] List<SoundSO> sounds;
+        [SerializeField] List<AudioClipHolder> audioClips;
+
+        #region AudioClipHolderClass
+        [System.Serializable]
+        public class AudioClipHolder
+        {
+            public AudioClip audio;
+            public string name;
+
+            public AudioClipHolder(AudioClip audio, string name)
+            {
+                this.audio = audio;
+                this.name = name;
+            }
+
+            public AudioClip GetAudio()
+            {
+                return audio;
+            }
+
+            public string GetName()
+            {
+                return name;
+            }
+        }
+        #endregion
 
         private static SoundHolder _instance = null;
         public static SoundHolder Instance
@@ -24,12 +54,31 @@ namespace StealthDemo
                 _instance = this;
             }
         }
-        public SoundSO GetSoundByName(string soundName)
+
+        /*
+         * Gibt das SoundSO-ScriptableObject anhand des Soundnamens zurück
+         */
+        public SoundSO GetSoundSOByName(string soundName)
         {
             foreach (SoundSO sound in sounds)
             {
                 if (sound.AudioName == soundName) return sound;
             }
+            Debug.LogError("Sound with Soundname: "+soundName+ "not Found");
+            return null;
+        }
+
+
+        /*
+         * Gibt den AudioClip anhand des Soundnamens zurück
+         */
+        public AudioClip GetAudioCLipByName(string soundName)
+        {
+            foreach (AudioClipHolder sound in audioClips)
+            {
+                if (sound.GetName() == soundName) return sound.GetAudio();
+            }
+            Debug.LogError("Sound with Soundname: " + soundName + "not Found");
             return null;
         }
     }

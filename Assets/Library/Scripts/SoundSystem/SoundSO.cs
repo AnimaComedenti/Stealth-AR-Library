@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StealthDemo
+namespace StealthLib
 {
+    /*
+     * Bei diesem ScriptableObject können AudioClips mit zusätzlichen Audioeinstellungen erstellt werden.
+     * Diese Einstellungen können beispielsweise für das Einstellen von 3D-Sounds an einem AudioSource-Objektes genutzt werden.
+     */
+
     [CreateAssetMenu(menuName = "ScriptableObjects/SoundSO")]
     public class SoundSO : ScriptableObject
     {
@@ -14,7 +19,6 @@ namespace StealthDemo
         [SerializeField] private float maxHearDistance;
         [SerializeField] private float minHearDistance;
         [SerializeField] private bool isLoop;
-
 
         public string AudioName => audioName;
         public AudioClip[] Audio => audio;

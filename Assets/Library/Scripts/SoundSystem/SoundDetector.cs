@@ -8,27 +8,20 @@ namespace StealthLib
 
     /*
      * Diese Klasse ist für das Hören von Objecten zuständig.
-     * Diese Klasse gibt bei dem errreichen eines Bestimmten Schwellwertes das gehörte Objekt zurück.
-     * Zudem berechnet diese Klasse auch den Abfall der Lautstärke je weiter das Object sich befindet.
-     * Beachte: Das Object welches gelauscht werden soll muss die SoundMakerKlasse implementieren
+     * Diese Klasse gibt bei dem errreichen des Schwellwertes 1 das gehörte Objekt zurück.
+     * Zudem berechnet diese Klasse auch den Abfall und Zuwags der Lautstärke je weiter das Object sich befindet.
+     * Beachte: Das Object welches belauscht werden soll muss die SoundMakerKlasse implementieren
      * 
      * @maxHearDistance: Die maximale Hördistanz.
-     * @dividerPerDistance: Dividierer die pro Distanz abgezogen werden
-     * @maxNoise: Maximaler Schwellenwert der Lautstärke
      * 
      */
     public class SoundDetector : MonoBehaviour
     {
         [SerializeField] private float maxHearDistance;
-        [SerializeField] private float dividerPerDistance = 0.7f;
-        [SerializeField] private float maxNoise =1;
 
         private float distance;
-        private float volumePerDistance;
         private float objectVolume;
-
-        public GameObject CurrentHearingObject { get; private set; }
-        public float VolumeOfObject {  get { return objectVolume; } private set { objectVolume = value; } }
+        public List<GameObject> CurrentHearingObjects { get; private set; }
 
         void FixedUpdate()
         {
@@ -39,7 +32,7 @@ namespace StealthLib
          * DetectHearingObject ist die Methode welche für das Suchen des Objectes welche Laute macht.
          * @return: Gibt das GameObject zurück welches ein Laut gemacht hat.
          */
-        public GameObject DetectHearingObject()
+        private void DetectHearingObject()
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, maxHearDistance);
             if (colliders.Length > 0)
@@ -47,7 +40,7 @@ namespace StealthLib
                 foreach (Collider collider in colliders)
                 {
                     //Wenn er sich selbst hört, return
-                    if (collider.gameObject.CompareTag(gameObject.tag)) continue;
+                    if (collider.gameObject.Equals(this.gameObject)) continue;
 
                     //Überprüfung ob das Gehörte Object über die SoundMaker Klasse verfügt
                     if (collider.gameObject.TryGetComponent(out SoundMaker soundMaker))
@@ -56,31 +49,43 @@ namespace StealthLib
                         Vector3 makerPosition = soundMaker.transform.position;
                         distance = Vector3.Distance(makerPosition, transform.position);
 
-                        if (soundMaker.Volume() == 0) continue;
-
                         //Distance je nach Reichweite errechnen
-                        objectVolume = VolumePerDistance(distance, soundMaker.Volume(), dividerPerDistance);
-                        
-                        if (objectVolume >= maxNoise)
-                        {
-                            CurrentHearingObject = collider.gameObject;
-                            return CurrentHearingObject;
-                        }
+                        objectVolume = VolumePerDistance(distance, soundMaker.Volume);
+
+                        AddHearedObjectToList(collider.gameObject);
                     }
                 }
             }
-            CurrentHearingObject = null;
-            return CurrentHearingObject;
         }
 
         /*
          * Berechnet die Lautstärke der Distanze.
          * Um so näher die Geräuschequelle ist um so größer wird die Laustärke
+         * @return: Die berechnete Lautstärke
          */
-        public float VolumePerDistance(float distance, float volume, float dividerPerDistance)
+        private float VolumePerDistance(float distance, float volume)
         {
-            float volumePerDistance = dividerPerDistance / distance;
-            return volume + volumePerDistance;
+            return volume * (maxHearDistance - distance) / maxHearDistance;
+        }
+
+        /*
+         * Überprüft ob das GameoObjekt gehört werden kann und ob dieses schon in der Liste existiert.
+         * Falls das Object in der Liste existiert und nicht gehört werden kann wird es entfernt.
+         */
+        private void AddHearedObjectToList(GameObject gameObject)
+        {
+            foreach(GameObject obj in CurrentHearingObjects)
+            {
+                if (obj.Equals(gameObject))
+                {
+                    if(objectVolume >= 1) return;
+
+                    CurrentHearingObjects.Remove(obj);
+                    return;
+                } 
+            }
+
+            if(objectVolume >= 1) CurrentHearingObjects.Add(gameObject);
         }
 
     }
