@@ -8,7 +8,6 @@ namespace StealthDemo
     {
 
         [SerializeField] private Camera _cam;
-        [SerializeField] private string itemTag = "Item";
         [SerializeField] private SeekerSkillActivationButton[] combatButtons;
 
         // Update is called once per frame
@@ -31,20 +30,20 @@ namespace StealthDemo
 
                 if (Physics.Raycast(screenCenter, out hit))
                 {
-                    if (!hit.collider.CompareTag(itemTag)) return;
+                    if (!hit.collider.TryGetComponent(out ItemCollectBehavior item)) return;
 
                     foreach (SeekerSkillActivationButton combatButton in combatButtons)
                     {
-                        if (combatButton.getActivatable() == hit.collider.GetComponent<ItemCollectBehavior>().GetActivatable())
+                        if (combatButton.GetAbillity() == hit.collider.GetComponent<ItemCollectBehavior>().GetAbillity())
                         {
-                            AbillitySO activatable = combatButton.getActivatable();
+                            AbillitySO activatable = combatButton.GetAbillity();
                             activatable.ActivationCount = activatable.ActivationCount++;
                             return;
                         }
 
-                        if (combatButton.getActivatable() == null)
+                        if (combatButton.GetAbillity() == null)
                         {
-                            combatButton.SetActivatableItem(hit.collider.GetComponent<ItemCollectBehavior>().GetActivatable());
+                            combatButton.SetActivatableItem(hit.collider.GetComponent<ItemCollectBehavior>().GetAbillity());
                             return;
                         }
                     }

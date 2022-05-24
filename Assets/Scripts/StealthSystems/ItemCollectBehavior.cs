@@ -23,7 +23,7 @@ namespace StealthDemo
             }
 
         }
-        public AbillitySO GetActivatable()
+        public AbillitySO GetAbillity()
         {
             Invoke("DestroyObject", 0.5f);
             return activatableItem;

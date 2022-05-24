@@ -23,9 +23,6 @@ namespace StealthDemo
 
         private float cnt = 0;
 
-        private int timesToUse = 1;
-
-
         private void Start()
         {
              SetStartMethods();
@@ -34,9 +31,6 @@ namespace StealthDemo
         private void FixedUpdate()
         {
             if (abillitySO == null) return;
-
-            timesToUse = abillitySO.ActivationCount;
-
 
             if (abillitySO.HasBeenActivated)
             {
@@ -60,18 +54,22 @@ namespace StealthDemo
 
         public bool CanBeRemoved()
         {
-            return timesToUse <= 0;
+            if (abillitySO == null) return false;
+
+            return abillitySO.ActivationCount <= 0;
+            
         }
         public  void OnActivate() {
 
             abillitySO.OnSkillActivation();
         }
 
+
         private void SetStartMethods()
         {
             if (abillitySO != null)
             {
-                cnt = abillitySO.Cooldown;
+                cnt = 0;
                 skillUpdateable = abillitySO as ISkillUpdateable;
             }
         }

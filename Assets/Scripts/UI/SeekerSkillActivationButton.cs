@@ -16,6 +16,11 @@ namespace StealthDemo
         public void OnClick()
         {
             activatableObject.OnActivate();
+
+            if (activatableObject.CanBeRemoved())
+            {
+                SetActivatableItem(null);
+            }
         }
     }
 }

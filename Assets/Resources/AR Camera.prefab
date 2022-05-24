@@ -313,7 +313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cam: {fileID: 1680569103327749550}
-  itemTag: Item
   combatButtons:
   - {fileID: 3435484374907951212}
   - {fileID: 1844016035472203611}
@@ -513,6 +512,10 @@ PrefabInstance:
       propertyPath: buildButtons
       value: 
       objectReference: {fileID: 4894830965309181055}
+    - target: {fileID: 193821433996874860, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 662544441746675846, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1

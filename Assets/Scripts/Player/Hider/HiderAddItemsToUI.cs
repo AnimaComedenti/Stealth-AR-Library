@@ -31,15 +31,15 @@ namespace StealthDemo
                     {
                        foreach(HiderSkillActivationButton skillButton in skillButtons)
                         {
-                            if (skillButton.getActivatable() == itemCollectBehavior.GetActivatable())
+                            if (skillButton.GetAbillity() == itemCollectBehavior.GetAbillity())
                             {
-                                AbillitySO activatable = skillButton.getActivatable();
+                                AbillitySO activatable = skillButton.GetAbillity();
                                 activatable.ActivationCount = activatable.ActivationCount++;
                                 return;
                             }
-                            if (skillButton.getActivatable() == null)
+                            if (skillButton.GetAbillity() == null)
                             {
-                                skillButton.SetActivatableItem(collider.GetComponent<ItemCollectBehavior>().GetActivatable());
+                                skillButton.SetActivatableItem(collider.GetComponent<ItemCollectBehavior>().GetAbillity());
                                 return;
                             }
                         }

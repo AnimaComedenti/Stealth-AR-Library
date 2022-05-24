@@ -18,6 +18,11 @@ namespace StealthDemo
             if (Input.GetKey(key))
             {
                 activatableObject.OnActivate();
+
+                if (activatableObject.CanBeRemoved())
+                {
+                    SetActivatableItem(null);
+                }
             }
 
             base.Update();

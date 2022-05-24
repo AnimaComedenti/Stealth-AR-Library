@@ -27,12 +27,6 @@ namespace StealthDemo
                 return;
             }
 
-            if (activatableObject.CanBeRemoved())
-            {
-                SetActivatableItem(null);
-            }
-
-
             if (skillToActivate.HasBeenActivated)
             {
                 cooldownTextfield.gameObject.SetActive(true);
@@ -67,7 +61,7 @@ namespace StealthDemo
             image.sprite = sprite;
         }
 
-        public AbillitySO getActivatable()
+        public AbillitySO GetAbillity()
         {
             return skillToActivate;
         }
