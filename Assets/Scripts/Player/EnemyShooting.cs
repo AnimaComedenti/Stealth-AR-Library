@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Photon.Pun;
+using StealthLib;
 
 namespace StealthDemo
 {
-    public class ShootingHandler : ActivatableObject
+    [CreateAssetMenu(menuName = "ScriptableObjects/EnemyShooting")]
+    public class EnemyShooting : AbillitySO, ISkillUpdateable
     {
         [SerializeField] GameObject bullet;
         [SerializeField] float shootForce;
@@ -20,26 +22,12 @@ namespace StealthDemo
 
         public void Start()
         {
-            maxShoots = abillity.ActivationCount;
+            maxShoots = ActivationCount;
             armo = maxShoots;
         }
-        public void Update()
+
+        public override void OnSkillActivation()
         {
-
-            shootdelay += Time.deltaTime;
-
-            if (!onReloadeCooldown) return;
-
-            currentTime += Time.deltaTime;
-            if (currentTime >= abillity.Cooldown)
-            {
-                onReloadeCooldown = false;
-                currentTime = 0;
-            }
-        }
-        public override void OnActivate()
-        {
-
             if (onReloadeCooldown) return;
             if (armo > 0 && shootdelay >= 1)
             {
@@ -54,6 +42,20 @@ namespace StealthDemo
             {
                 armo = maxShoots;
                 onReloadeCooldown = true;
+            }
+        }
+
+        public void OnUpdating()
+        {
+            shootdelay += Time.deltaTime;
+
+            if (!onReloadeCooldown) return;
+
+            currentTime += Time.deltaTime;
+            if (currentTime >= Cooldown)
+            {
+                onReloadeCooldown = false;
+                currentTime = 0;
             }
         }
     }

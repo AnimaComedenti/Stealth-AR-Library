@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Photon.Pun;
+using StealthLib;
 
 namespace StealthDemo
 {
-    public class SeekerShooting : ActivatableObject
+    [CreateAssetMenu(menuName = "ScriptableObjects/SeekerShooting")]
+    public class SeekerShooting : AbillitySO
     {
         [SerializeField] private float radius = 10;
         [SerializeField] private string playerTag;
@@ -12,9 +14,9 @@ namespace StealthDemo
 
         private Vector3 indicatorPosition;
 
-        public override void OnActivate()
+        public override void OnSkillActivation()
         {
-            if (!hasBeenActivated)
+            if (!HasBeenActivated)
             {
                 indicatorPosition = SeekerPlacementIndicator.Instance.getPlacementPosition.position;
 
@@ -24,19 +26,17 @@ namespace StealthDemo
 
                 if (colliders.Length > 0)
                 {
-                    foreach(Collider colider in colliders)
+                    foreach (Collider colider in colliders)
                     {
                         if (colider.CompareTag(playerTag))
                         {
-                            colider.gameObject.GetComponent<HiderHealthHandler>().HitPlayer(abillity.Damage);
+                            colider.gameObject.GetComponent<HiderHealthHandler>().HitPlayer(Damage);
                         }
                     }
                 }
 
-                hasBeenActivated = true;
+                HasBeenActivated = true;
             }
-
         }
-
     }
 }

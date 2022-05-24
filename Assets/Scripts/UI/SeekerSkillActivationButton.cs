@@ -15,8 +15,7 @@ namespace StealthDemo
         }
         public void OnClick()
         {
-            skillToActivate.OnActivate();
-            if (skillToActivate.CanBeRemoved()) SetActivatableItem(null);
+            activatableObject.OnActivate();
         }
     }
 }

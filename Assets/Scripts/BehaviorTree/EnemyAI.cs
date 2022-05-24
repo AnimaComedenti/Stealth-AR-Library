@@ -11,7 +11,7 @@ namespace StealthDemo
     public class EnemyAI : MonoBehaviourPun
     {
         [SerializeField] private PhotonView pv;
-        [SerializeField] private ShootingHandler shootingHandler;
+        [SerializeField] private ActivatableObject shootingHandler;
         [Header("WalkingPath")]
         [SerializeField] private List<Transform> movePositionsPose;
         [Header("Base Stats")]

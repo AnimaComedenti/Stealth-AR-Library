@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using StealthLib;
 
 namespace StealthDemo
 {
@@ -36,8 +37,8 @@ namespace StealthDemo
                     {
                         if (combatButton.getActivatable() == hit.collider.GetComponent<ItemCollectBehavior>().GetActivatable())
                         {
-                            ActivatableObject activatable = combatButton.getActivatable();
-                            activatable.SetTimesToUse = activatable.SetTimesToUse++;
+                            AbillitySO activatable = combatButton.getActivatable();
+                            activatable.ActivationCount = activatable.ActivationCount++;
                             return;
                         }
 

@@ -15,27 +15,38 @@ namespace StealthDemo
 
         void Update()
         {
-            if (!photonView.IsMine) return;
 
             if (hasStartedPlaying)
             {
                 if (!source.isPlaying)
                 {
-                    PhotonNetwork.Destroy(gameObject);
+                    if(photonView.IsMine) PhotonNetwork.Destroy(gameObject);
+                }
+
+                return;
+            }
+
+            FindPlayer();
+        }
+
+        private void FindPlayer()
+        {
+            Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(0.25f, 0.05f, 0.25f), Quaternion.identity);
+
+            if(colliders.Length > 0)
+            {
+                foreach (Collider collider in colliders)
+                {
+                    if (collider.gameObject.CompareTag(playerTag))
+                    {
+                        photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.AllBuffered, "Running");
+                        photonView.RPC("SetLight", RpcTarget.All);
+                        hasStartedPlaying = true;
+                    }
                 }
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.CompareTag(playerTag))
-            {
-                Debug.Log("Player on it");
-                photonView.RPC("SetAudioRemote", RpcTarget.AllBuffered, "Running");
-                photonView.RPC("SetLight", RpcTarget.All);
-                hasStartedPlaying = true;
-            }
-        }
 
         [PunRPC]
         public void SetLight()

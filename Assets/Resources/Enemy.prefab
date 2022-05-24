@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 4733412553255251648}
   - component: {fileID: -1265682301891444919}
   - component: {fileID: 337477422}
-  - component: {fileID: 1110036805648542067}
+  - component: {fileID: 2370783217648055233}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pv: {fileID: 4733412553255251648}
-  shootingHandler: {fileID: 1110036805648542067}
+  shootingHandler: {fileID: 2370783217648055233}
   movePositionsPose: []
   startinghealth: 200
   speedToRotate: 2
@@ -270,6 +270,7 @@ MonoBehaviour:
   shootingRange: 3
   viewDistance: 5
   flashLigth: {fileID: 994832056}
+  playerTag: Player
   soundDetector: {fileID: 337477422}
 --- !u!114 &4733412553255251648
 MonoBehaviour:
@@ -323,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHearDistance: 3
---- !u!114 &1110036805648542067
+--- !u!114 &2370783217648055233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,15 +333,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3213649501757778238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4765b69a009d6014d92df37cb2c27f82, type: 3}
+  m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abillity: {fileID: 11400000, guid: 39c50ecfc92c4214585575147c7d904f, type: 2}
   cooldownText: 0
-  hasBeenActivated: 0
-  bullet: {fileID: 6964366477986964395, guid: 98104b0f7fd7f4546aa1a4ca790f2902, type: 3}
-  shootForce: 20
-  objectToShootFrom: {fileID: 4198145642319726343}
 --- !u!1 &4198145642319726343
 GameObject:
   m_ObjectHideFlags: 0

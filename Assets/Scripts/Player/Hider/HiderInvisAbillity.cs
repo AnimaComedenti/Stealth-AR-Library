@@ -2,36 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using StealthLib;
 
 namespace StealthDemo
 {
-    public class HiderInvisAbillity : ActivatableObject
+    [CreateAssetMenu(menuName = "ScriptableObjects/HiderInvisAbillity")]
+    public class HiderInvisAbillity : AbillitySO, ISkillUpdateable
     {
         [SerializeField] private GameObject hider;
         [SerializeField] private LightDetector lightDetector;
         [SerializeField] private float invisAfterActivation = 2f;
         [SerializeField] private float lightLevelToReveal = 10f;
+        [SerializeField] private PhotonView pv;
 
 
         private bool isHiderInvis = false;
         private bool isLightIgnored = true;
         private float timer = 0;
-        private PhotonView pv;
 
 
-        void Start()
+        public override void OnSkillActivation()
         {
-            pv = hider.GetComponent<PhotonView>();
+            if (!isHiderInvis && !HasBeenActivated)
+            {
+                pv.RPC("ChangeToInvis", RpcTarget.All, true);
+                isHiderInvis = true;
+                isLightIgnored = true;
+                HasBeenActivated = true;
+            }
         }
 
-        // Update is called once per frame
-        protected override void FixedUpdate()
+        public  void OnUpdating()
         {
-            base.FixedUpdate();
             if (isLightIgnored)
             {
                 timer += Time.deltaTime;
-                if(timer >= invisAfterActivation)
+                if (timer >= invisAfterActivation)
                 {
                     timer = 0;
                     isLightIgnored = false;
@@ -44,22 +50,9 @@ namespace StealthDemo
                 {
                     isHiderInvis = false;
 
-                    pv.RPC("ChangeToInvis", RpcTarget.All,false);
+                    pv.RPC("ChangeToInvis", RpcTarget.All, false);
                 }
             }
         }
-
-        public override void OnActivate()
-        {
-            if(!isHiderInvis && !hasBeenActivated)
-            {
-                pv.RPC("ChangeToInvis", RpcTarget.All, true);
-                isHiderInvis = true;
-                isLightIgnored = true;
-                hasBeenActivated = true;
-            }
-
-        }
-
     }
 }

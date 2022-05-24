@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StealthLib;
 
 namespace StealthDemo
 {
@@ -32,8 +33,8 @@ namespace StealthDemo
                         {
                             if (skillButton.getActivatable() == itemCollectBehavior.GetActivatable())
                             {
-                                ActivatableObject activatable = skillButton.getActivatable();
-                                activatable.SetTimesToUse = activatable.SetTimesToUse++;
+                                AbillitySO activatable = skillButton.getActivatable();
+                                activatable.ActivationCount = activatable.ActivationCount++;
                                 return;
                             }
                             if (skillButton.getActivatable() == null)

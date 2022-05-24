@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8353397023513618174}
   - component: {fileID: 8809716998508770013}
   - component: {fileID: 1084915667661132329}
-  - component: {fileID: 3681977663196006799}
   m_Layer: 0
   m_Name: Item
   m_TagString: Item
@@ -109,21 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7076349e1da092648bc756868480c0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatableItem: {fileID: 3681977663196006799}
+  activatableItem: {fileID: 11400000, guid: bf2f60700a5d5e649826f4c7330b6324, type: 2}
   timeToDespawn: 20
---- !u!114 &3681977663196006799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613975836094922245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7974726155458f94688a39633a4a93ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abillity: {fileID: 11400000, guid: 3f9cb59f85fa5a64d9d9751f68fb301f, type: 2}
-  cooldownText: 0
-  hasBeenActivated: 0
-  objectToPlace: {fileID: 8892097039350992226, guid: eeb089b49461da343b0bc70173646b7d, type: 3}

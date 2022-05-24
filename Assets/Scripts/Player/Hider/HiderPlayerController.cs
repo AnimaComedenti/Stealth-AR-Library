@@ -73,23 +73,23 @@ namespace StealthDemo
                 else
                 {
                     isWASDPressed = false;
-                    pv.RPC("StopAudio", RpcTarget.All);
+                    pv.RPC("StopAudioRemote", RpcTarget.All);
                 }
 
                 if (Input.GetKey(KeyCode.LeftShift) && isWASDPressed)
                 {
                     MoveCharacter(moveDirection, runSpeed);
-                    pv.RPC("SetAudioRemote", RpcTarget.All, "Running");
+                    pv.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Running");
                 }
                 else if (Input.GetKey(KeyCode.CapsLock) && isWASDPressed)
                 {
                     MoveCharacter(moveDirection, sneakSpeed);
-                    pv.RPC("SetAudioRemote", RpcTarget.All, "Sneaking");
+                    pv.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Sneaking");
                 }
                 else if (isWASDPressed)
                 {
                     MoveCharacter(moveDirection, movementSpeed);
-                    pv.RPC("SetAudioRemote", RpcTarget.All, "Walking");
+                    pv.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Walking");
                 }
 
                 HandleGravity(velocity);
@@ -130,8 +130,8 @@ namespace StealthDemo
         {
             if (isHiderOnGround && Input.GetButtonDown("Jump"))
             {
-                pv.RPC("StopAudio", RpcTarget.All);
-                pv.RPC("SetAudioRemote", RpcTarget.All, "Jumping");
+                pv.RPC("StopAudioRemote", RpcTarget.All);
+                pv.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Jumping");
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 isHiderOnGround = false;
 

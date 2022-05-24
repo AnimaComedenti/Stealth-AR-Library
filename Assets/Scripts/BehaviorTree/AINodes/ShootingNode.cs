@@ -7,12 +7,12 @@ namespace StealthDemo.Nodes
     public class ShootingNode : Node
     {
         private EnemyAI origin;
-        private ShootingHandler shootingHandler;
+        private ActivatableObject shootingHandler;
         private Transform player;
 
         private RotatingEnemyClass rotate;
 
-        public ShootingNode(EnemyAI origin, ShootingHandler shootingHandler, float rotatingSpeed)
+        public ShootingNode(EnemyAI origin, ActivatableObject shootingHandler, float rotatingSpeed)
         {
             this.origin = origin;
             this.shootingHandler = shootingHandler;

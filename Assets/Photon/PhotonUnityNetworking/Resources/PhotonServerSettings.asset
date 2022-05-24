@@ -63,6 +63,9 @@ MonoBehaviour:
   - ShowRenderer
   - ChangeToInvise
   - ChangeToInvis
+  - SetAudioRemoteAudioClip
+  - SetAudioRemoteSoundSO
+  - StopAudioRemote
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

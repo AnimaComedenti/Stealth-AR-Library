@@ -1,42 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using StealthLib;
 
 namespace StealthDemo
 {
     public abstract class SkillButton : MonoBehaviour
     {
-        [SerializeField] protected ActivatableObject skillToActivate;
+        [SerializeField] protected ActivatableObject activatableObject;
         [SerializeField] protected Text cooldownTextfield;
+
+        protected AbillitySO skillToActivate;
 
         protected virtual void Start()
         {
-            if(skillToActivate != null) AddSpritesToImages(skillToActivate.GetButtonSprite());
+            skillToActivate = activatableObject.abillity;
+            if (skillToActivate != null) AddSpritesToImages(skillToActivate.Icon);
         }
         // Update is called once per frame
         protected virtual void Update()
         {
 
-            if (skillToActivate == null) return;
+            if (skillToActivate == null)
+            {
+                cooldownTextfield.gameObject.SetActive(false);
+                return;
+            }
+
+            if (activatableObject.CanBeRemoved())
+            {
+                SetActivatableItem(null);
+            }
 
 
-            if (skillToActivate.hasBeenActivated)
+            if (skillToActivate.HasBeenActivated)
             {
                 cooldownTextfield.gameObject.SetActive(true);
-                cooldownTextfield.text = skillToActivate.cooldownText + "s";
+                cooldownTextfield.text = activatableObject.cooldownText + "s";
             }
             else
             {
                 cooldownTextfield.gameObject.SetActive(false);
             }
 
-
-            if (skillToActivate.CanBeRemoved()) SetActivatableItem(null);
         }
 
-        public void SetActivatableItem(ActivatableObject activatable)
+        public void SetActivatableItem(AbillitySO activatable)
         {
             skillToActivate = activatable;
+            activatableObject.abillity = activatable;
+            Debug.Log("Item setted "+activatable);
 
             if (activatable == null)
             {
@@ -44,7 +57,7 @@ namespace StealthDemo
                 return;
             }
 
-            AddSpritesToImages(activatable.GetButtonSprite());
+            AddSpritesToImages(activatable.Icon);
             
         }
 
@@ -54,7 +67,7 @@ namespace StealthDemo
             image.sprite = sprite;
         }
 
-        public ActivatableObject getActivatable()
+        public AbillitySO getActivatable()
         {
             return skillToActivate;
         }

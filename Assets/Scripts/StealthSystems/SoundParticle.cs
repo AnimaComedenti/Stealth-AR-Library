@@ -13,7 +13,7 @@ namespace StealthDemo
         // Start is called before the first frame update
         void Start()
         {
-            photonView.RPC("SetAudioRemote", RpcTarget.All, musicToPlay);
+            photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.All, musicToPlay);
         }
 
         // Update is called once per frame

@@ -12,15 +12,15 @@ namespace StealthDemo
         [SerializeField] private KeyCode key;
 
         // Update is called once per frame
-        protected override void  Update()
+        protected override void Update()
         {
-            base.Update();
 
             if (Input.GetKey(key))
             {
-                skillToActivate.OnActivate();
+                activatableObject.OnActivate();
             }
 
+            base.Update();
         }
     }
 

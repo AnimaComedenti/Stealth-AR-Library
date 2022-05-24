@@ -557,9 +557,17 @@ PrefabInstance:
       propertyPath: buildButtons
       value: 
       objectReference: {fileID: 4894830965309181055}
+    - target: {fileID: 3841810242464290678, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4364640562107065639, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: arSession
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595853888973057851, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7595853889355567396, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: m_Name
@@ -653,6 +661,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7595853889798541726, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8301750794439117001, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -693,6 +705,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 662544441746675844, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
   m_PrefabInstance: {fileID: 4716443508969119317}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5342898950482474402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 815686068834511863, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+  m_PrefabInstance: {fileID: 4716443508969119317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3468229924349060589 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8166588377227443128, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
@@ -709,17 +732,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8301750794439117003, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
   m_PrefabInstance: {fileID: 4716443508969119317}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5342898950482474402 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 815686068834511863, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
-  m_PrefabInstance: {fileID: 4716443508969119317}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2946965362917595678 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7607025088765379659, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
@@ -805,6 +817,20 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7595853889355567397, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
   m_PrefabInstance: {fileID: 4716443508969119317}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &721191079285475455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961546104942955638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abillitySO: {fileID: 0}
+  cooldownText: 0
 --- !u!114 &7386749979045239159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -817,8 +843,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillToActivate: {fileID: 0}
+  activatableObject: {fileID: 721191079285475455}
   cooldownTextfield: {fileID: 8447698890287279946}
+--- !u!114 &3332511035010698407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2701263277206303663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abillitySO: {fileID: 0}
+  cooldownText: 0
 --- !u!114 &8525934726121422261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,8 +871,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillToActivate: {fileID: 0}
+  activatableObject: {fileID: 3332511035010698407}
   cooldownTextfield: {fileID: 6708262102033862803}
+--- !u!114 &3543559525068784069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946965362917595678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abillitySO: {fileID: 0}
+  cooldownText: 0
 --- !u!114 &5824868414237338231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,8 +899,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillToActivate: {fileID: 0}
+  activatableObject: {fileID: 3543559525068784069}
   cooldownTextfield: {fileID: 5801165282979658018}
+--- !u!114 &570495483506928895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948494345820654246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abillitySO: {fileID: 0}
+  cooldownText: 0
 --- !u!114 &985542126985751653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,7 +927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillToActivate: {fileID: 0}
+  activatableObject: {fileID: 570495483506928895}
   cooldownTextfield: {fileID: 5804998670447454618}
 --- !u!114 &1844016035472203611
 MonoBehaviour:
@@ -873,9 +941,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillToActivate: {fileID: 0}
+  activatableObject: {fileID: 4693139985127266012}
   cooldownTextfield: {fileID: 5342898950482474402}
---- !u!114 &2411481238726211897
+--- !u!114 &4693139985127266012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3621336366594479774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abillitySO: {fileID: 0}
+  cooldownText: 0
+--- !u!114 &3020923457285237440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -884,15 +966,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5207842086857295569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aa2e480200ff5749b7b86d008ddaf2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abillity: {fileID: 11400000, guid: cc9d12ef7a8e2494c8f61bfb88d2d427, type: 2}
+  abillitySO: {fileID: 11400000, guid: 2cdf4c6c770c5eb4e99629f11037a395, type: 2}
   cooldownText: 0
-  hasBeenActivated: 0
-  radius: 0.3
-  playerTag: Player
-  soundParticle: {fileID: 3114437231185202565, guid: 94b8ffd81775cba4eab4c587d7c63faa, type: 3}
 --- !u!114 &3435484374907951212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,5 +983,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec5319635a07e43a71effe1bceb285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillToActivate: {fileID: 2411481238726211897}
+  activatableObject: {fileID: 3020923457285237440}
   cooldownTextfield: {fileID: 3468229924349060589}

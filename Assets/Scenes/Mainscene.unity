@@ -247,6 +247,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 687481232e6b7b8468af3bd8a0ecac88, type: 2}
   - {fileID: 11400000, guid: f5a81a84831a44f42be66dc90b578b52, type: 2}
   - {fileID: 11400000, guid: 8580bfdefec03f3498eae23e736f88e9, type: 2}
+  audioClips:
+  - audio: {fileID: 0}
+    name: 
+  - audio: {fileID: 0}
+    name: 
 --- !u!114 &184914624
 MonoBehaviour:
   m_ObjectHideFlags: 0

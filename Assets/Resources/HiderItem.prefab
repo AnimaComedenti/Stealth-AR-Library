@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2240428933581657138}
   - component: {fileID: 3237475279986680794}
   - component: {fileID: -8544291463187874801}
-  - component: {fileID: -5270653618446123508}
   m_Layer: 0
   m_Name: HiderItem
   m_TagString: Item
@@ -109,24 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7076349e1da092648bc756868480c0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatableItem: {fileID: -5270653618446123508}
+  activatableItem: {fileID: 11400000, guid: a3861214090ff2d439ad479501fda688, type: 2}
   timeToDespawn: 20
---- !u!114 &-5270653618446123508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687064296796770562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bb6f0cab315fa247b4a2eb222996bce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abillity: {fileID: 11400000, guid: 64824c555fbf4bf47bb1336db4bddb27, type: 2}
-  cooldownText: 0
-  hasBeenActivated: 0
-  hiderController: {fileID: 728910374161486690, guid: dc23cc7cc08095b45bd571fe70d98ecd, type: 3}
-  speedMultiplyer: 1.5
-  jumpMultiplyer: 1.5
-  duration: 5

@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace StealthDemo
+namespace StealthLib
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/AbillitySO")]
 
-    public class AbillitySO : ScriptableObject
+    public abstract class  AbillitySO : ScriptableObject
     {
-        [SerializeField] string name;
-        [SerializeField] Sprite icon;
-        [SerializeField] string description;
-        [SerializeField] float cooldown;
-        [SerializeField] float damage;
+        [Header("AbillityDefault")]
+        [SerializeField] protected string name;
+        [SerializeField] protected Sprite icon;
+        [SerializeField] protected string description;
+        [SerializeField] protected float cooldown;
+        [SerializeField] protected float damage;
+        [SerializeField] protected int activationCount = 1;
+        [SerializeField] protected bool hasbeenActivated;
 
-        [SerializeField] int activationCount = 1;
         public int ActivationCount
         {
             get { return activationCount; }
@@ -27,5 +28,15 @@ namespace StealthDemo
         public string Description => description;
         public float Cooldown => cooldown;
         public float Damage => damage;
+
+        public bool HasBeenActivated
+        {
+            get { return hasbeenActivated; }
+            set { hasbeenActivated = value; }
+        }
+
+
+        public abstract void OnSkillActivation();
+
     }
 }

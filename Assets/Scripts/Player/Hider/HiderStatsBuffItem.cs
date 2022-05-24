@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
+using StealthLib;
 
 namespace StealthDemo
 {
-    public class HiderStatsBuffItem : ActivatableObject
+    [CreateAssetMenu(menuName = "ScriptableObjects/HiderStatsBuffItem")]
+    public class HiderStatsBuffItem : AbillitySO, ISkillUpdateable
     {
         [SerializeField] private HiderPlayerController hiderController;
         [SerializeField] private float speedMultiplyer = 1.5f;
@@ -25,40 +27,6 @@ namespace StealthDemo
             baseSneakSpeed = hiderController.sneakSpeed;
         }
 
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-
-            if (isActive)
-            {
-                durationTimer += Time.deltaTime;
-                if (durationTimer >= duration)
-                {
-                    isActive = false;
-                    durationTimer = 0;
-                }
-                return;
-            }
-
-            hiderController.movementSpeed = baseMovementSpeed;
-            hiderController.jumpHeight = basejumpHightSpeed;
-            hiderController.runSpeed = baseRunSpeed;
-            hiderController.sneakSpeed = baseSneakSpeed;
-        }
-        public override void OnActivate()
-        {
-            hiderController = GetComponentInParent<HiderPlayerController>();
-            if (!hasBeenActivated)
-            {
-                MultiplyStats();
-                hasBeenActivated = true;
-                SetTimesToUse = SetTimesToUse--;
-
-                isActive = true;
-
-            }
-        }
-
         private void MultiplyStats()
         {
 
@@ -66,6 +34,39 @@ namespace StealthDemo
             hiderController.jumpHeight = basejumpHightSpeed * jumpMultiplyer;
             hiderController.runSpeed = baseRunSpeed * speedMultiplyer;
             hiderController.sneakSpeed = baseSneakSpeed * speedMultiplyer;
+        }
+
+        private void SetDefaultStats()
+        {
+            hiderController.movementSpeed = baseMovementSpeed;
+            hiderController.jumpHeight = basejumpHightSpeed;
+            hiderController.runSpeed = baseRunSpeed;
+            hiderController.sneakSpeed = baseSneakSpeed;
+        }
+
+        public override void OnSkillActivation()
+        {
+            if (!HasBeenActivated)
+            {
+                MultiplyStats();
+                activationCount--;
+                isActive = true;
+            }
+        }
+
+        public void OnUpdating()
+        {
+            if (isActive)
+            {
+                durationTimer += Time.deltaTime;
+                if (durationTimer >= duration)
+                {
+                    isActive = false;
+                    durationTimer = 0;
+                    SetDefaultStats();
+                }
+                return;
+            }
         }
     }
 }

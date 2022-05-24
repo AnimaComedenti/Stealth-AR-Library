@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
+using StealthLib;
 
 namespace StealthDemo
 {
     public class ItemCollectBehavior : MonoBehaviour
     {
-        [SerializeField] private ActivatableObject activatableItem;
+        [SerializeField] private AbillitySO activatableItem;
 
         [SerializeField] private float timeToDespawn = 20;
 
@@ -22,10 +23,15 @@ namespace StealthDemo
             }
 
         }
-        public ActivatableObject GetActivatable()
+        public AbillitySO GetActivatable()
+        {
+            Invoke("DestroyObject", 0.5f);
+            return activatableItem;
+        }
+
+        private void DestroyObject()
         {
             Destroy(gameObject);
-            return activatableItem;
         }
     }
 }

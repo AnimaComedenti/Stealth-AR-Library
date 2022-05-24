@@ -2,53 +2,78 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using StealthLib;
 
 namespace StealthDemo
 {
-    public abstract class ActivatableObject : MonoBehaviour
+    public class ActivatableObject : MonoBehaviour
     {
-        public AbillitySO abillity;
+        [SerializeField] AbillitySO abillitySO;
+        public AbillitySO abillity
+        {
+            get { return abillitySO; }
+            set {
+                abillitySO = value;
+                SetStartMethods();
+            }
+        }
         public float cooldownText;
 
-        protected float cnt = 0;
-        public bool hasBeenActivated = false;
+        private ISkillUpdateable skillUpdateable;
+
+        private float cnt = 0;
 
         private int timesToUse = 1;
-
-        public int SetTimesToUse {  get { return timesToUse; }  set { timesToUse = value; } }
 
 
         private void Start()
         {
-            cnt = abillity.Cooldown;
-            timesToUse = abillity.ActivationCount;
+             SetStartMethods();
         }
 
-        protected virtual void FixedUpdate()
+        private void FixedUpdate()
         {
+            if (abillitySO == null) return;
 
-            if (hasBeenActivated)
+            timesToUse = abillitySO.ActivationCount;
+
+
+            if (abillitySO.HasBeenActivated)
             {
                 cnt -= Time.deltaTime;
                 if (cnt <= 0)
                 {
                     cnt = abillity.Cooldown;
-                    hasBeenActivated = false;
+                    abillity.HasBeenActivated = false;
                 }
 
                 cooldownText= (int)cnt;
             }
+
+            if (skillUpdateable != null) skillUpdateable.OnUpdating();
         }
 
         public Sprite GetButtonSprite()
         {
-            return abillity.Icon;
+            return abillitySO.Icon;
         }
 
         public bool CanBeRemoved()
         {
             return timesToUse <= 0;
         }
-        public abstract void OnActivate();
+        public  void OnActivate() {
+
+            abillitySO.OnSkillActivation();
+        }
+
+        private void SetStartMethods()
+        {
+            if (abillitySO != null)
+            {
+                cnt = abillitySO.Cooldown;
+                skillUpdateable = abillitySO as ISkillUpdateable;
+            }
+        }
     }
 }
