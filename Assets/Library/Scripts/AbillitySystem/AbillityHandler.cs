@@ -13,39 +13,36 @@ namespace StealthLib
     public class AbillityHandler : MonoBehaviour
     {
         //Fähigkeit die Verarbeitet werden soll
-        [SerializeField] private AbillitySO abillitySO;
-
-        //Public int welcher von außen genutzt werden kann
-        public int CooldownText { get; private set; }
+        [SerializeField] protected AbillitySO abillitySO;
 
         // Falls eine Fähigkeit über eine Update- oder Aktivierungsmethoden verfügen soll, so muss dieses Interface implementiert werden.
-        private IUpdateableAbillity skillUpdateable;
-        private IActivatableAbillity activatableAbillity;
+        protected IUpdateableAbillity skillUpdateable;
+        protected IActivatableAbillity activatableAbillity;
 
-        private float cnt = 0;
-
-        //Bool zum überprüfen ob die Fähigkeit bereits gewirkt wurde
-        private bool hasBeenActivated = false;
+        protected float cnt = 0;
 
         private void Start()
         {
             ResetDefault();
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
-            if (abillitySO == null) return;
+            if (abillitySO == null)
+            {
+                return;
+            }
 
             //Wenn die Fähigkeit aktiviert wurde, beginne mit dem ru7nterzählen der Abklingszeit
-            if (hasBeenActivated)
+            if (HasBeenActivated)
             {
                 cnt -= Time.deltaTime;
                 if (cnt <= 0)
                 {
                     cnt = abillitySO.Cooldown;
-                    hasBeenActivated = false;
+                    HasBeenActivated = false;
                 }
-                CooldownText = (int)cnt;
+                Cooldown = (int)cnt;
             }
 
             //Falls die Abillitie über eine Update-Methode verfügt, führe sie aus
@@ -55,10 +52,10 @@ namespace StealthLib
         public void OnActivate()
         {
             //Falls die Abklingszeit noch läuft und die Fähigkeit nochmal aktiviert wurde, return
-            if (hasBeenActivated || activatableAbillity == null) return;
+            if (HasBeenActivated || activatableAbillity == null) return;
 
             activatableAbillity.Activate();
-            hasBeenActivated = true;
+            HasBeenActivated = true;
         }
 
 
@@ -68,7 +65,7 @@ namespace StealthLib
             if (abillitySO != null)
             {
                 cnt = 0;
-                hasBeenActivated = false;
+                HasBeenActivated = false;
 
                 //Casten in die möglichen Fähigkeitstypen.
                 skillUpdateable = abillitySO as IUpdateableAbillity;
@@ -87,6 +84,13 @@ namespace StealthLib
             return abillitySO.ActivationCount < 1;
         }
 
+        #region Getter & Setter
+
+        //Public int welcher von außen genutzt werden kann
+        public int Cooldown { get; private set; }
+
+        //Bool zum überprüfen ob die Fähigkeit bereits gewirkt wurde
+        public bool HasBeenActivated { get; private set; } = false;
         public AbillitySO Abillity
         {
             get { return abillitySO; }
@@ -96,6 +100,7 @@ namespace StealthLib
                 ResetDefault();
             }
         }
+        #endregion
     }
 
 }

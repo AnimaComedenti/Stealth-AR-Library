@@ -22,7 +22,6 @@ namespace StealthLib
         // Update is called once per frame
         void FixedUpdate()
         {
-
             if (hasItemTaken) Destroy(gameObject);
 
             cnt += Time.deltaTime;
@@ -32,11 +31,22 @@ namespace StealthLib
             }
 
         }
-        public AbillitySO GetAbillity()
+        #region Getter & Setter
+        public float TimeToDespawn { get => timeToDespawn; set => timeToDespawn = value; }
+
+        public AbillitySO Abillity
         {
-            hasItemTaken = true;
-            return abillity;
+            get { 
+                hasItemTaken = true;
+                return abillity;
+            }
+
+            private set {
+                abillity = value;
+            }
+
         }
+        #endregion
     }
 }
 

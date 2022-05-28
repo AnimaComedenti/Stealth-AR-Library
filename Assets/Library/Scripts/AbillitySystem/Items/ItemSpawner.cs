@@ -59,5 +59,16 @@ namespace StealthLib
                 Instantiate(itemsToSpawn[rndIndex], itemSpawnPositions[rndIndex2].position, Quaternion.identity);
             }
         }
+
+
+        #region Getter & Setter
+        public Transform[] ItemSpawnPositions { get => itemSpawnPositions; set => itemSpawnPositions = value; }
+        public GameObject[] SeekerItems { get => seekerItems; set => seekerItems = value; }
+        public GameObject[] HiderItems { get => hiderItems; set => hiderItems = value; }
+        public float SpawnChance { get => spawnChance; set => spawnChance = value; }
+        public float TimeIntervalToCheck { get => timeIntervalToCheck; set => timeIntervalToCheck = value; }
+        public float CurrentItemspawnTime { get => timer; set => timer = value; }
+
+        #endregion
     }
 }

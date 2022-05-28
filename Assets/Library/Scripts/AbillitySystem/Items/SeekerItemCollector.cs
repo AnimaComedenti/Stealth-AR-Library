@@ -9,7 +9,7 @@ namespace StealthLib
     * Hierbei wird ein Raycast erzeugt welche Items Objekte, die vom Ihm getroffen wurden, in eine Liste schreibt.
     * Diese Liste wird für die außenstehende Objekte zur Verfügung gestellt.
     */
-    public class SeekerItemCollector : MonoBehaviour
+    public class SeekerItemCollector : ItemCollector
     {
         [SerializeField] private Camera cam;
 
@@ -26,9 +26,9 @@ namespace StealthLib
         /*
          * Diese Methode erkennt einen "Touch" auf den Touchscreen.
          * Hierbei wird anhand des erkannten Touch-Befehles und der Kameraposition des Smartphones ein Raycast gebildet.
-         * Trifft der Raycast ein Item so wir es überprüft ob es sich wirklich um ein Item handelt und der Liste hinzugefügt
+         * Trifft der Raycast ein Item so wird überprüft ob es sich dabei wirklich um ein Item handelt, falls Erfolg wird es der Liste hinzugefügt
          */
-        private void SearchItem()
+        public override void SearchItem()
         {
             if (Input.touchCount > 0)
             {
@@ -47,29 +47,9 @@ namespace StealthLib
             }
         }
 
-        /*
-         * Diese Methode ist für das hinzufügen der Items in die Abillity-Liste zuständig.
-         * Hierbei wird geprüft ob das Item bereits in der Liste ist, falls ja wird die Anzahl der Aktivierungen hoch gezählt anstatt ein neues Item hinzuzufügen.
-         */
-        public void AddItemToList(ItemBehaviour itemBehaviour)
-        {
-            if (Items.Count <= 0) Items.Add(itemBehaviour.GetAbillity());
 
-            foreach (AbillitySO item in Items)
-            {
-                if (item == itemBehaviour.GetAbillity())
-                {
-                    item.ActivationCount += item.ActivationCount;
-                    return;
-                }
-            }
-            Items.Add(itemBehaviour.GetAbillity());
-        }
-
-        public void RemoveItemFromList(AbillitySO abillity)
-        {
-            Items.Remove(abillity);
-        }
+        #region Getter & Setter
+        public Camera SeekerCam { get => cam; set => cam = value; }
+        #endregion
     }
-}
 }
