@@ -17,7 +17,7 @@ namespace StealthDemo
         public float movementSpeed = 2;
         public float runSpeed = 4;
         public float sneakSpeed = 1;
-        public float jumpHeight = 1f;
+        public float jumpHeight = 1;
 
         [Header("Physics")]
         [SerializeField]

@@ -19,9 +19,13 @@ namespace StealthLib
     {
         [SerializeField] private float maxHearDistance;
 
+        //SoundLevel ab dem ein Geräusch gehört wird. Muss zischen 0 und 1 Liegen. Diser wert sollte so groß sein wie die minimale Lautstärke die gehört werden soll.
+        //Bsp. Soll das schleichen eines Spielers gehört werden, dessen Sound 0.6 beträgt, so sollte dieser wert 0.5 sein
+        [SerializeField] private float soundLevelToHear = 0.5f;
+
         private float distance;
         private float objectVolume;
-        public List<GameObject> CurrentHearingObjects { get; private set; }
+        public List<GameObject> CurrentHearingObjects { get; private set; } = new List<GameObject>();
 
         void FixedUpdate()
         {
@@ -60,12 +64,13 @@ namespace StealthLib
 
         /*
          * Berechnet die Lautstärke der Distanze.
-         * Um so näher die Geräuschequelle ist um so größer wird die Laustärke
+         * Die Lautstärke wird hierbei je nach größe der Distanz verringert. Ab einer Distanz von 0 ist die Lautstärke so laut wie ihr default Wert und zwar 100%.
+         * Bsp. Lautstärke von 0.2 ist bei einer Distanz von 0 genau 0.2 Laut, ist die Distanz größer als 0 so ist die Lautstärke < 0.2.
          * @return: Die berechnete Lautstärke
          */
         private float VolumePerDistance(float distance, float volume)
         {
-            return volume * (maxHearDistance - distance) / maxHearDistance;
+            return  volume * (maxHearDistance - distance) / maxHearDistance;
         }
 
         /*
@@ -74,18 +79,24 @@ namespace StealthLib
          */
         private void AddHearedObjectToList(GameObject gameObject)
         {
+            if(CurrentHearingObjects.Count < 0)
+            {
+                CurrentHearingObjects.Add(gameObject);
+                return;
+            }
+
             foreach(GameObject obj in CurrentHearingObjects)
             {
                 if (obj.Equals(gameObject))
                 {
-                    if(objectVolume >= 1) return;
+                    if(objectVolume >= soundLevelToHear) return;
 
                     CurrentHearingObjects.Remove(obj);
                     return;
                 } 
             }
 
-            if(objectVolume >= 1) CurrentHearingObjects.Add(gameObject);
+            if(objectVolume >= soundLevelToHear) CurrentHearingObjects.Add(gameObject);
         }
 
     }

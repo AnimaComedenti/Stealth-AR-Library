@@ -6,14 +6,14 @@ using StealthLib;
 
 namespace StealthDemo
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/HiderInvisAbillity")]
-    public class HiderInvisAbillity : AbillitySO, ISkillUpdateable
+    [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/HiderInvisabillity")]
+    public class HiderInvisAbillity : Abillity, ISkillUpdateable
     {
         [SerializeField] private GameObject hider;
         [SerializeField] private LightDetector lightDetector;
         [SerializeField] private float invisAfterActivation = 2f;
         [SerializeField] private float lightLevelToReveal = 10f;
-        [SerializeField] private PhotonView pv;
+        private PhotonView pv;
 
 
         private bool isHiderInvis = false;
@@ -25,7 +25,9 @@ namespace StealthDemo
         {
             if (!isHiderInvis && !HasBeenActivated)
             {
+                pv = hider.GetComponent<PhotonView>();
                 pv.RPC("ChangeToInvis", RpcTarget.All, true);
+
                 isHiderInvis = true;
                 isLightIgnored = true;
                 HasBeenActivated = true;
@@ -46,7 +48,7 @@ namespace StealthDemo
             else
             {
                 if (!isHiderInvis) return;
-                if (lightDetector.currentLightLevel >= lightLevelToReveal)
+                if (lightDetector.CurrentLightLevel >= lightLevelToReveal)
                 {
                     isHiderInvis = false;
 

@@ -15,8 +15,7 @@ MonoBehaviour:
   audioName: Jumping
   audio:
   - {fileID: 8300000, guid: eec53751c4e79a7469fc34e774360128, type: 3}
-  volume: 0.3
-  detectingVolume: 0.3
+  volume: 0.7
   maxHearDistance: 2
   minHearDistance: 1
   isLoop: 0

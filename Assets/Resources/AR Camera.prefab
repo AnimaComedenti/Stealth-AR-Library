@@ -516,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 193821434213665203, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 662544441746675846, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -972,7 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abillitySO: {fileID: 11400000, guid: 2cdf4c6c770c5eb4e99629f11037a395, type: 2}
+  abillitySO: {fileID: 11400000, guid: 9e33e19f661850d4e84a6773bb3d603c, type: 2}
   cooldownText: 0
 --- !u!114 &3435484374907951212
 MonoBehaviour:

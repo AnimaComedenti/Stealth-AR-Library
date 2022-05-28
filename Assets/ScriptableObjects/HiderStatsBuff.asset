@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bb6f0cab315fa247b4a2eb222996bce, type: 3}
-  m_Name: HiderStatBuff
+  m_Name: HiderStatsBuff
   m_EditorClassIdentifier: 
-  name: HiderStatBuff
+  name: HiderBuff
   icon: {fileID: 21300000, guid: 7dd1b536888b4e847a6cc1c1c03a24a5, type: 3}
   description: 
-  cooldown: 10
+  cooldown: 15
   damage: 0
   activationCount: 1
   hasbeenActivated: 0
-  hiderController: {fileID: 728910374161486690, guid: dc23cc7cc08095b45bd571fe70d98ecd, type: 3}
+  hider: {fileID: 1992395841121069272, guid: dc23cc7cc08095b45bd571fe70d98ecd, type: 3}
   speedMultiplyer: 1.5
   jumpMultiplyer: 1.5
   duration: 5

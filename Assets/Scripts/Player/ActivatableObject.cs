@@ -8,8 +8,8 @@ namespace StealthDemo
 {
     public class ActivatableObject : MonoBehaviour
     {
-        [SerializeField] AbillitySO abillitySO;
-        public AbillitySO abillity
+        [SerializeField] Abillity abillitySO;
+        public Abillity abillity
         {
             get { return abillitySO; }
             set {
@@ -59,7 +59,7 @@ namespace StealthDemo
             return abillitySO.ActivationCount <= 0;
             
         }
-        public  void OnActivate() {
+        public void OnActivate() {
 
             abillitySO.OnSkillActivation();
         }

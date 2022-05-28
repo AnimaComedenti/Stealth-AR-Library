@@ -18,8 +18,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6154d2d90f91ac743a30a16a58f9fa32, type: 3}
   - {fileID: 8300000, guid: 4544cd1f9b0d00a498e3602ecfffcacc, type: 3}
   - {fileID: 8300000, guid: 2921c47b0bdded540b5b813c1e60001c, type: 3}
-  volume: 0.2
-  detectingVolume: 0.1
+  volume: 0.6
   maxHearDistance: 1.01
   minHearDistance: 1
   isLoop: 0

@@ -4,10 +4,10 @@ using StealthLib;
 
 namespace StealthDemo
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/HiderStatsBuffItem")]
-    public class HiderStatsBuffItem : AbillitySO, ISkillUpdateable
+    [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/StatsBuff")]
+    public class HiderStatsBuffItem : Abillity, ISkillUpdateable
     {
-        [SerializeField] private HiderPlayerController hiderController;
+        [SerializeField] private GameObject hider;
         [SerializeField] private float speedMultiplyer = 1.5f;
         [SerializeField] private float jumpMultiplyer = 1.5f;
         [SerializeField] private float duration = 5f;
@@ -19,38 +19,39 @@ namespace StealthDemo
         private float durationTimer = 0;
         private bool isActive = false;
 
-        private void Start()
-        {
-            baseMovementSpeed = hiderController.movementSpeed;
-            basejumpHightSpeed = hiderController.jumpHeight;
-            baseRunSpeed = hiderController.runSpeed;
-            baseSneakSpeed = hiderController.sneakSpeed;
-        }
+        private HiderPlayerController playerController;
 
         private void MultiplyStats()
         {
 
-            hiderController.movementSpeed = baseMovementSpeed * speedMultiplyer;
-            hiderController.jumpHeight = basejumpHightSpeed * jumpMultiplyer;
-            hiderController.runSpeed = baseRunSpeed * speedMultiplyer;
-            hiderController.sneakSpeed = baseSneakSpeed * speedMultiplyer;
+            playerController.movementSpeed *= speedMultiplyer;
+            playerController.jumpHeight *=  jumpMultiplyer;
+            playerController.runSpeed *= speedMultiplyer;
+            playerController.sneakSpeed *= speedMultiplyer;
         }
 
         private void SetDefaultStats()
         {
-            hiderController.movementSpeed = baseMovementSpeed;
-            hiderController.jumpHeight = basejumpHightSpeed;
-            hiderController.runSpeed = baseRunSpeed;
-            hiderController.sneakSpeed = baseSneakSpeed;
+            playerController.movementSpeed = baseMovementSpeed;
+            playerController.jumpHeight = basejumpHightSpeed;
+            playerController.runSpeed = baseRunSpeed;
+            playerController.sneakSpeed = baseSneakSpeed;
         }
 
         public override void OnSkillActivation()
         {
+            Debug.Log("HiderBuff activated " + HasBeenActivated);
             if (!HasBeenActivated)
             {
+                if (isActive) return;
+
+                Debug.Log("HiderBuff loool ");
+                playerController = hider.GetComponentInParent<HiderPlayerController>();
+                SetDefaultStats();
                 MultiplyStats();
-                activationCount--;
                 isActive = true;
+                HasBeenActivated = true;
+                Debug.Log("HiderBuff playercontroller " + isActive);
             }
         }
 
@@ -59,11 +60,13 @@ namespace StealthDemo
             if (isActive)
             {
                 durationTimer += Time.deltaTime;
+
                 if (durationTimer >= duration)
                 {
-                    isActive = false;
-                    durationTimer = 0;
                     SetDefaultStats();
+                    isActive = false;
+                    activationCount--;
+                    durationTimer = 0;
                 }
                 return;
             }

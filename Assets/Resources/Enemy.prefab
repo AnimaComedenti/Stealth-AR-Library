@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: -1265682301891444919}
   - component: {fileID: 337477422}
   - component: {fileID: 2370783217648055233}
+  - component: {fileID: 2791666431760109159}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -324,6 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHearDistance: 3
+  soundLevelToHear: 0.5
 --- !u!114 &2370783217648055233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,8 +338,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abillity: {fileID: 11400000, guid: 39c50ecfc92c4214585575147c7d904f, type: 2}
+  abillitySO: {fileID: 2791666431760109159}
   cooldownText: 0
+--- !u!114 &2791666431760109159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3213649501757778238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4765b69a009d6014d92df37cb2c27f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: EnemyShooting
+  icon: {fileID: 0}
+  description: 
+  cooldown: 30
+  damage: 0.02
+  activationCount: 80
+  hasbeenActivated: 0
+  bullet: {fileID: 152888, guid: 5624ee9da9d10514ea7b808e83979c85, type: 3}
+  shootForce: 10
+  objectToShootFrom: {fileID: 4198145642319726343}
 --- !u!1 &4198145642319726343
 GameObject:
   m_ObjectHideFlags: 0

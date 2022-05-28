@@ -30,21 +30,23 @@ namespace StealthDemo
 
                 if (Physics.Raycast(screenCenter, out hit))
                 {
-                    if (!hit.collider.TryGetComponent(out ItemCollectBehavior item)) return;
-
-                    foreach (SeekerSkillActivationButton combatButton in combatButtons)
+                    if (hit.collider.TryGetComponent(out ItemCollectBehavior itemCollectBehavior))
                     {
-                        if (combatButton.GetAbillity() == hit.collider.GetComponent<ItemCollectBehavior>().GetAbillity())
-                        {
-                            AbillitySO activatable = combatButton.GetAbillity();
-                            activatable.ActivationCount = activatable.ActivationCount++;
-                            return;
-                        }
 
-                        if (combatButton.GetAbillity() == null)
+                        foreach (SeekerSkillActivationButton combatButton in combatButtons)
                         {
-                            combatButton.SetActivatableItem(hit.collider.GetComponent<ItemCollectBehavior>().GetAbillity());
-                            return;
+                            if (combatButton.GetAbillity() == itemCollectBehavior.GetAbillity())
+                            {
+                                Abillity activatable = combatButton.GetAbillity();
+                                activatable.ActivationCount = activatable.ActivationCount++;
+                                return;
+                            }
+
+                            if (combatButton.GetAbillity() == null)
+                            {
+                                combatButton.SetActivatableItem(itemCollectBehavior.GetAbillity());
+                                return;
+                            }
                         }
                     }
                 }

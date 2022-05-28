@@ -5,8 +5,8 @@ using StealthLib;
 
 namespace StealthDemo
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/EnemyShooting")]
-    public class EnemyShooting : AbillitySO, ISkillUpdateable
+    [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/EnemyShooting")]
+    public class EnemyShooting : Abillity, ISkillUpdateable
     {
         [SerializeField] GameObject bullet;
         [SerializeField] float shootForce;

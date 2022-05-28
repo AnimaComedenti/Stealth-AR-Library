@@ -108,5 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7076349e1da092648bc756868480c0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatableItem: {fileID: 11400000, guid: bf2f60700a5d5e649826f4c7330b6324, type: 2}
+  activatableItem: {fileID: 11400000, guid: b0413e7b46fddc343a6db915683494ca, type: 2}
   timeToDespawn: 20

@@ -33,13 +33,13 @@ namespace StealthDemo
                         {
                             if (skillButton.GetAbillity() == itemCollectBehavior.GetAbillity())
                             {
-                                AbillitySO activatable = skillButton.GetAbillity();
+                                Abillity activatable = skillButton.GetAbillity();
                                 activatable.ActivationCount = activatable.ActivationCount++;
                                 return;
                             }
                             if (skillButton.GetAbillity() == null)
                             {
-                                skillButton.SetActivatableItem(collider.GetComponent<ItemCollectBehavior>().GetAbillity());
+                                skillButton.SetActivatableItem(itemCollectBehavior.GetAbillity());
                                 return;
                             }
                         }

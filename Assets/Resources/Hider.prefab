@@ -331,7 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObservedComponentsFoldoutOpen: 1
   Group: 0
-  prefixField: -1
+  prefixField: 0
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
@@ -860,19 +860,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1249764704362442612, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_Color.a
-      value: 0.23529412
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1249764704362442612, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_Color.b
-      value: 0.29411766
+      value: 0.3764706
       objectReference: {fileID: 0}
     - target: {fileID: 1249764704362442612, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_Color.g
-      value: 0.29411766
+      value: 0.3764706
       objectReference: {fileID: 0}
     - target: {fileID: 1249764704362442612, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_Color.r
-      value: 0.29411766
+      value: 0.3764706
       objectReference: {fileID: 0}
     - target: {fileID: 1249764705231917469, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -916,19 +916,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1249764705611643618, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_Color.a
-      value: 0.23529412
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1249764705611643618, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_Color.b
-      value: 0.29411766
+      value: 0.37647063
       objectReference: {fileID: 0}
     - target: {fileID: 1249764705611643618, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_Color.g
-      value: 0.29411766
+      value: 0.37647063
       objectReference: {fileID: 0}
     - target: {fileID: 1249764705611643618, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_Color.r
-      value: 0.29411766
+      value: 0.37647063
       objectReference: {fileID: 0}
     - target: {fileID: 3489305072522369545, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_FontData.m_MaxSize
@@ -1076,6 +1076,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8827474388545092235, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
       propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827474388939173371, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9077723403942992161, guid: 9b36d6915bee4814a9ccc2e4f6de2ea2, type: 3}
@@ -1498,5 +1502,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2754800ffdd18cd49b0aca08410d1bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abillitySO: {fileID: 11400000, guid: e24a391a05d25f145ba06d2229c11717, type: 2}
+  abillitySO: {fileID: 11400000, guid: 023996afb654b6a46a22f1f35bdf782c, type: 2}
   cooldownText: 0

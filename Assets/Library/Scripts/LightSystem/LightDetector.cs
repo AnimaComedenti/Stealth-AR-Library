@@ -19,7 +19,7 @@ namespace StealthLib
         private float lightLevel;
 
         // Lichtlevel das zurück gegeben wird
-        public float currentLightLevel { get; private set; }
+        public float CurrentLightLevel { get; private set; }
 
         private int width;
         private int height;
@@ -74,9 +74,9 @@ namespace StealthLib
                 lightLevel += (0.2126f * color.r) + (0.7152f * color.g) + (0.0722f * color.b);
             }
 
-            //Lichtlevel verkleinern für bessere Nutzung 
+            //Lichtlevel verkleinern für bessere Nutzung --> Werte sind dann XX,X Zahlen
             lightLevel = (float)Math.Round(lightLevel / 10000, 1);
-            currentLightLevel = lightLevel;
+            CurrentLightLevel = lightLevel;
 
             //Texture2D wieder löschen wegen Memory-Verlust
             Destroy(texture2D);

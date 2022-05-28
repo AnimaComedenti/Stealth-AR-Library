@@ -10,7 +10,7 @@ namespace StealthDemo
         [SerializeField] protected ActivatableObject activatableObject;
         [SerializeField] protected Text cooldownTextfield;
 
-        protected AbillitySO skillToActivate;
+        protected Abillity skillToActivate;
 
         protected virtual void Start()
         {
@@ -39,15 +39,15 @@ namespace StealthDemo
 
         }
 
-        public void SetActivatableItem(AbillitySO activatable)
+        public void SetActivatableItem(Abillity activatable)
         {
             skillToActivate = activatable;
             activatableObject.abillity = activatable;
-            Debug.Log("Item setted "+activatable);
 
             if (activatable == null)
             {
                 AddSpritesToImages(null);
+                Debug.Log("Item Removed");
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace StealthDemo
             image.sprite = sprite;
         }
 
-        public AbillitySO GetAbillity()
+        public Abillity GetAbillity()
         {
             return skillToActivate;
         }

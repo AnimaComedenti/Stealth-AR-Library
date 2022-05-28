@@ -33,7 +33,8 @@ namespace StealthDemo.Nodes
             if (players.Count == 0) return false;
             foreach (GameObject player in players)
             {
-                if (player.gameObject.CompareTag(playerTag)) continue;
+                if (player.gameObject.layer == 11) continue;
+
                 if (Vector3.Distance(origin.transform.position, player.transform.position) < seeDistance)
                 {
                     Transform child = origin.transform.GetChild(0);
@@ -44,7 +45,7 @@ namespace StealthDemo.Nodes
                         RaycastHit hit;
                         if(Physics.Linecast(child.position, player.transform.position, out hit))
                         {
-                            if (hit.collider.gameObject.CompareTag("Player"))
+                            if (hit.collider.gameObject.CompareTag(playerTag))
                             {
                                 lightResource.color = Color.red;
                                 origin.LastSeenPlayerPosition = player.transform.position;
@@ -66,7 +67,7 @@ namespace StealthDemo.Nodes
             Collider[] hitColliders = Physics.OverlapSphere(origin.transform.position, seeDistance);
             foreach (Collider player in hitColliders)
             {
-                if (player.gameObject.tag == "Player") players.Add(player.gameObject);
+                if (player.gameObject.CompareTag(playerTag)) players.Add(player.gameObject);
             }
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace StealthLib
 {
 
-    public abstract class  AbillitySO : ScriptableObject
+    public abstract class  Abillity : ScriptableObject
     {
         [Header("AbillityDefault")]
         [SerializeField] protected string name;

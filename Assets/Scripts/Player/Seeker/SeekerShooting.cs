@@ -5,8 +5,8 @@ using StealthLib;
 
 namespace StealthDemo
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/SeekerShooting")]
-    public class SeekerShooting : AbillitySO
+    [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/SeekerShooting")]
+    public class SeekerShooting : Abillity
     {
         [SerializeField] private float radius = 10;
         [SerializeField] private string playerTag;

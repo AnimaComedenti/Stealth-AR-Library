@@ -6,15 +6,19 @@ namespace StealthDemo
 {
     public class ItemCollectBehavior : MonoBehaviour
     {
-        [SerializeField] private AbillitySO activatableItem;
+        [SerializeField] private Abillity activatableItem;
 
         [SerializeField] private float timeToDespawn = 20;
 
+        private bool hasItemTaken = false;
         private float cnt = 0;
 
         // Update is called once per frame
         void FixedUpdate()
         {
+
+            if(hasItemTaken) Destroy(gameObject); 
+
             cnt += Time.deltaTime;
 
             if (cnt == timeToDespawn)
@@ -23,15 +27,10 @@ namespace StealthDemo
             }
 
         }
-        public AbillitySO GetAbillity()
+        public Abillity GetAbillity()
         {
-            Invoke("DestroyObject", 0.5f);
+            hasItemTaken = true;
             return activatableItem;
-        }
-
-        private void DestroyObject()
-        {
-            Destroy(gameObject);
         }
     }
 }

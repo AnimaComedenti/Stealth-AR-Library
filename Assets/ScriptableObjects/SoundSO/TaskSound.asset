@@ -15,8 +15,7 @@ MonoBehaviour:
   audioName: TaskSound
   audio:
   - {fileID: 8300000, guid: 2921c47b0bdded540b5b813c1e60001c, type: 3}
-  volume: 0.4
-  detectingVolume: 0
+  volume: 0.7
   maxHearDistance: 3
   minHearDistance: 1
   isLoop: 1

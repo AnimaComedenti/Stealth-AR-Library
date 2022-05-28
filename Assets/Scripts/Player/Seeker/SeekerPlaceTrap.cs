@@ -7,8 +7,8 @@ using StealthLib;
 
 namespace StealthDemo
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/SeekerPlaceTrap")]
-    public class SeekerPlaceTrap: AbillitySO
+    [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/PlaceTrap")]
+    public class SeekerPlaceTrap: Abillity
     {
         [SerializeField] private GameObject objectToPlace;
 
