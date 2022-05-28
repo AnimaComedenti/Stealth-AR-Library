@@ -7,7 +7,7 @@ using Photon.Pun;
 namespace StealthLib
 {
     /*
-     * Diese Klasse finden anhand eines RenderTextures das Lichtlevel dieses ObjeKtes.
+     * Diese Klasse finden anhand eines RenderTextures das Lichtlevel des ObjeKtes, welche das Script implementiert.
      * Hierzu muss das Objekt welches den LigthRenderer besitzt über eine zweite Kamera verfügen, welche das Objekt sowie das genutzte RenderTexture beobachtet.
      * 
      * Code by Bospear Programming
