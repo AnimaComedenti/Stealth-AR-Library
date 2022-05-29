@@ -8,20 +8,16 @@ using StealthLib;
 namespace StealthDemo
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/PlaceTrap")]
-    public class SeekerPlaceTrap: Abillity
+    public class SeekerPlaceTrap: AbillitySO, IActivatableAbillity
     {
         [SerializeField] private GameObject objectToPlace;
 
-        public override void OnSkillActivation()
+        public void Activate()
         {
-            if (!HasBeenActivated)
-            {
-                PhotonNetwork.Instantiate(objectToPlace.name, SeekerPlacementIndicator.Instance.getPlacementPosition.position, Quaternion.identity);
-
-                HasBeenActivated = true;
-                activationCount--;
-            }
+            PhotonNetwork.Instantiate(objectToPlace.name, SeekerPlacementIndicator.Instance.getPlacementPosition.position, Quaternion.identity);
+            activationCount--;
         }
+
     }
 }
 

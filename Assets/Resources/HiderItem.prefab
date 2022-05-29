@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6190871306773842905}
   - component: {fileID: 2240428933581657138}
   - component: {fileID: 3237475279986680794}
-  - component: {fileID: -8544291463187874801}
+  - component: {fileID: 7571322592534161512}
   m_Layer: 0
   m_Name: HiderItem
   m_TagString: Item
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-8544291463187874801
+--- !u!114 &7571322592534161512
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4687064296796770562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7076349e1da092648bc756868480c0c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 334860aa8a70abd4cb894d7c36c8824b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatableItem: {fileID: 11400000, guid: 7d1ad55841562a24ca45a86b0d3e8d4c, type: 2}
+  abillity: {fileID: 11400000, guid: 7d1ad55841562a24ca45a86b0d3e8d4c, type: 2}
   timeToDespawn: 20

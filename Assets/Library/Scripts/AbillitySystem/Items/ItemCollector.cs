@@ -15,7 +15,10 @@ namespace StealthLib
         */
         public void AddItemToList(ItemBehaviour itemBehaviour)
         {
-            if (Items.Count <= 0) Items.Add(itemBehaviour.Abillity);
+            if (Items.Count <= 0) {
+                Items.Add(itemBehaviour.Abillity);
+                return;
+            }
 
             foreach (AbillitySO item in Items)
             {

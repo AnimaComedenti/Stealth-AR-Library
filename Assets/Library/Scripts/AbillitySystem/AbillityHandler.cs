@@ -46,7 +46,7 @@ namespace StealthLib
             }
 
             //Falls die Abillitie über eine Update-Methode verfügt, führe sie aus
-            if (skillUpdateable != null) skillUpdateable.Update();
+            if (skillUpdateable != null) skillUpdateable.SkillUpdate();
         }
 
         public void OnActivate()

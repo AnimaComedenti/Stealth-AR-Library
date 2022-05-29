@@ -7,7 +7,7 @@ using StealthLib;
 namespace StealthDemo
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/HiderInvisabillity")]
-    public class HiderInvisAbillity : Abillity, ISkillUpdateable
+    public class HiderInvisAbillity : AbillitySO, IUpdateableAbillity, IActivatableAbillity
     {
         [SerializeField] private GameObject hider;
         [SerializeField] private LightDetector lightDetector;
@@ -20,21 +20,21 @@ namespace StealthDemo
         private bool isLightIgnored = true;
         private float timer = 0;
 
-
-        public override void OnSkillActivation()
+        public void Activate()
         {
-            if (!isHiderInvis && !HasBeenActivated)
+            if (!isHiderInvis)
             {
                 pv = hider.GetComponent<PhotonView>();
                 pv.RPC("ChangeToInvis", RpcTarget.All, true);
 
                 isHiderInvis = true;
                 isLightIgnored = true;
-                HasBeenActivated = true;
             }
+
         }
 
-        public  void OnUpdating()
+
+        public void SkillUpdate()
         {
             if (isLightIgnored)
             {

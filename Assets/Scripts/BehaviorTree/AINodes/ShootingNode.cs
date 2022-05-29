@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StealthLib;
 
 namespace StealthDemo.Nodes
 {
     public class ShootingNode : Node
     {
         private EnemyAI origin;
-        private ActivatableObject shootingHandler;
+        private AbillityHandler shootingHandler;
         private Transform player;
 
         private RotatingEnemyClass rotate;
 
-        public ShootingNode(EnemyAI origin, ActivatableObject shootingHandler, float rotatingSpeed)
+        public ShootingNode(EnemyAI origin, AbillityHandler shootingHandler, float rotatingSpeed)
         {
             this.origin = origin;
             this.shootingHandler = shootingHandler;

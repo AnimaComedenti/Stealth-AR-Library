@@ -14,7 +14,6 @@ namespace StealthLib
         [SerializeField] private Camera cam;
 
         //Item-Liste die von außen genutzt werden kann.
-        public List<AbillitySO> Items { get; private set; } = new List<AbillitySO> { };
         void Update()
         {
             if (SystemInfo.deviceType == DeviceType.Handheld)

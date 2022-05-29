@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 259059905844110932}
   - component: {fileID: 8353397023513618174}
   - component: {fileID: 8809716998508770013}
-  - component: {fileID: 1084915667661132329}
+  - component: {fileID: 6783903708379088379}
   m_Layer: 0
-  m_Name: Item
+  m_Name: SeekerItem
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1084915667661132329
+--- !u!114 &6783903708379088379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1613975836094922245}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7076349e1da092648bc756868480c0c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 334860aa8a70abd4cb894d7c36c8824b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activatableItem: {fileID: 11400000, guid: b0413e7b46fddc343a6db915683494ca, type: 2}
+  abillity: {fileID: 11400000, guid: b0413e7b46fddc343a6db915683494ca, type: 2}
   timeToDespawn: 20

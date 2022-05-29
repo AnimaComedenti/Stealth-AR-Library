@@ -5,7 +5,7 @@ using StealthLib;
 namespace StealthDemo
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/StatsBuff")]
-    public class HiderStatsBuffItem : Abillity, ISkillUpdateable
+    public class HiderStatsBuffItem : AbillitySO, IUpdateableAbillity, IActivatableAbillity
     {
         [SerializeField] private GameObject hider;
         [SerializeField] private float speedMultiplyer = 1.5f;
@@ -38,24 +38,7 @@ namespace StealthDemo
             playerController.sneakSpeed = baseSneakSpeed;
         }
 
-        public override void OnSkillActivation()
-        {
-            Debug.Log("HiderBuff activated " + HasBeenActivated);
-            if (!HasBeenActivated)
-            {
-                if (isActive) return;
-
-                Debug.Log("HiderBuff loool ");
-                playerController = hider.GetComponentInParent<HiderPlayerController>();
-                SetDefaultStats();
-                MultiplyStats();
-                isActive = true;
-                HasBeenActivated = true;
-                Debug.Log("HiderBuff playercontroller " + isActive);
-            }
-        }
-
-        public void OnUpdating()
+        public void SkillUpdate()
         {
             if (isActive)
             {
@@ -71,5 +54,14 @@ namespace StealthDemo
                 return;
             }
         }
+
+        public void Activate()
+        {
+            if (isActive) return;
+            playerController = hider.GetComponentInParent<HiderPlayerController>();
+            SetDefaultStats();
+            MultiplyStats();
+            isActive = true;
+         }
     }
 }

@@ -7,7 +7,7 @@ namespace StealthLib
     public class SkillButton : MonoBehaviour
     {
         [SerializeField] protected AbillityHandler abillityHandler;
-        [SerializeField] protected Image image;
+        [SerializeField] protected Image imageGameObject;
         [SerializeField] protected Text cooldownTextfield;
 
         private AbillitySO skillToActivate;
@@ -46,13 +46,13 @@ namespace StealthLib
 
             skillToActivate = activatable;
             abillityHandler.Abillity = activatable;
-            image.sprite = activatable.Icon;
+            imageGameObject.sprite = activatable.Icon;
 
         }
 
         #region Getter & Setter
 
-        public Image Image { get => image; set => image = value; }
+        public Image Image { get => imageGameObject; set => imageGameObject = value; }
         public Text CooldownText { get => cooldownTextfield; set => cooldownTextfield = value; }
         public AbillityHandler AbillityHandler { get => abillityHandler; set => abillityHandler = value; }
         public AbillitySO SkillToActivate{ get => skillToActivate; set => skillToActivate = value; }

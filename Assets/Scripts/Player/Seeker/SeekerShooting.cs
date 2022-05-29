@@ -6,7 +6,7 @@ using StealthLib;
 namespace StealthDemo
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/SeekerShooting")]
-    public class SeekerShooting : Abillity
+    public class SeekerShooting : AbillitySO, IActivatableAbillity
     {
         [SerializeField] private float radius = 10;
         [SerializeField] private string playerTag;
@@ -14,28 +14,21 @@ namespace StealthDemo
 
         private Vector3 indicatorPosition;
 
-        public override void OnSkillActivation()
+        public void Activate()
         {
-            if (!HasBeenActivated)
+            indicatorPosition = SeekerPlacementIndicator.Instance.getPlacementPosition.position;
+            PhotonNetwork.Instantiate(soundParticle.name, indicatorPosition, Quaternion.identity);
+            Collider[] colliders = Physics.OverlapSphere(indicatorPosition, radius);
+
+            if (colliders.Length > 0)
             {
-                indicatorPosition = SeekerPlacementIndicator.Instance.getPlacementPosition.position;
-
-                PhotonNetwork.Instantiate(soundParticle.name, indicatorPosition, Quaternion.identity);
-
-                Collider[] colliders = Physics.OverlapSphere(indicatorPosition, radius);
-
-                if (colliders.Length > 0)
+                foreach (Collider colider in colliders)
                 {
-                    foreach (Collider colider in colliders)
+                    if (colider.CompareTag(playerTag))
                     {
-                        if (colider.CompareTag(playerTag))
-                        {
-                            colider.gameObject.GetComponent<HiderHealthHandler>().HitPlayer(Damage);
-                        }
+                        colider.gameObject.GetComponent<HiderHealthHandler>().HitPlayer(Damage);
                     }
                 }
-
-                HasBeenActivated = true;
             }
         }
     }

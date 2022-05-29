@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 6560087167108000413}
   - component: {fileID: -1376114430495905105}
   - component: {fileID: 467666623452369726}
-  - component: {fileID: 5741034738418663528}
+  - component: {fileID: 6570630705417881912}
   m_Layer: 3
   m_Name: TestLevel
   m_TagString: Level
@@ -771,7 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyOnRemoval: 1
---- !u!114 &5741034738418663528
+--- !u!114 &6570630705417881912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7531032446152815330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 307637366b77e574fbe7edfc3e8f959e, type: 3}
+  m_Script: {fileID: 11500000, guid: 79cafab30cb355c4db9f2fd56b3b2381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemSpawnPositions:
@@ -790,12 +790,10 @@ MonoBehaviour:
   - {fileID: 7091821208033352811}
   seekerItems:
   - {fileID: 1613975836094922245, guid: ef6f82f146f7b7d4b9465a1e30b056c0, type: 3}
-  - {fileID: 1613975836094922245, guid: ef6f82f146f7b7d4b9465a1e30b056c0, type: 3}
   hiderItems:
   - {fileID: 4687064296796770562, guid: 8d14b7406d8b0f04a816223fb29f3443, type: 3}
-  - {fileID: 4687064296796770562, guid: 8d14b7406d8b0f04a816223fb29f3443, type: 3}
   spawnChance: 0.25
-  timeIntervalToCheck: 5
+  timeIntervalToCheck: 10
 --- !u!1 &8724399226213648685
 GameObject:
   m_ObjectHideFlags: 0

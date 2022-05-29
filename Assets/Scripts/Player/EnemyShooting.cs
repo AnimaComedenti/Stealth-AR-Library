@@ -6,7 +6,7 @@ using StealthLib;
 namespace StealthDemo
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/EnemyShooting")]
-    public class EnemyShooting : Abillity, ISkillUpdateable
+    public class EnemyShooting : AbillitySO, IUpdateableAbillity, IActivatableAbillity
     {
         [SerializeField] GameObject bullet;
         [SerializeField] float shootForce;
@@ -26,7 +26,21 @@ namespace StealthDemo
             armo = maxShoots;
         }
 
-        public override void OnSkillActivation()
+        public void SkillUpdate()
+        {
+            shootdelay += Time.deltaTime;
+
+            if (!onReloadeCooldown) return;
+
+            currentTime += Time.deltaTime;
+            if (currentTime >= Cooldown)
+            {
+                onReloadeCooldown = false;
+                currentTime = 0;
+            }
+        }
+
+        public void Activate()
         {
             if (onReloadeCooldown) return;
             if (armo > 0 && shootdelay >= 1)
@@ -42,20 +56,6 @@ namespace StealthDemo
             {
                 armo = maxShoots;
                 onReloadeCooldown = true;
-            }
-        }
-
-        public void OnUpdating()
-        {
-            shootdelay += Time.deltaTime;
-
-            if (!onReloadeCooldown) return;
-
-            currentTime += Time.deltaTime;
-            if (currentTime >= Cooldown)
-            {
-                onReloadeCooldown = false;
-                currentTime = 0;
             }
         }
     }

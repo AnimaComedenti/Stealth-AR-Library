@@ -8,6 +8,6 @@ namespace StealthLib
      */
     public interface IUpdateableAbillity 
     {
-        public void Update();
+        public void SkillUpdate();
     }
 }
