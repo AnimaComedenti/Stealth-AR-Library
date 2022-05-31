@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StealthDemo
+namespace StealthLib
 {
-    public class MouseLook : MonoBehaviour
+    public class HiderMouseLook : MonoBehaviour
     {
 
         public float mouseSensitivity = 100f;

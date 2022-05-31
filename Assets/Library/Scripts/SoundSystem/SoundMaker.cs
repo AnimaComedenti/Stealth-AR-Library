@@ -14,7 +14,7 @@ namespace StealthLib
      * @source: Die Audiosorce-Komponente auf der die Geräsche abgespielt werden sollen
      */
 
-    public class SoundMaker : MonoBehaviour
+    public class SoundMaker : MonoBehaviourPun
     {
         [SerializeField] private AudioSource source;
 
@@ -68,7 +68,7 @@ namespace StealthLib
          * Hierbei ist zu achten das die 3D-Sound einstellungen im Audiosource voreingestellt werden müssen.
          * @SoundSO: Die SoundKlasse welche abgespielt werden soll
          */
-        public void SetAudioCLipAudio(AudioClip sound, float volume)
+        public void SetAudioClipAudio(AudioClip sound, float volume)
         {
             source.volume = volume;
             source.clip = sound;
@@ -107,7 +107,7 @@ namespace StealthLib
         {
             AudioClip sound = SoundHolder.Instance.GetAudioCLipByName(soundname);
             if (sound == null) return;
-            SetAudioCLipAudio(sound, volume);
+            SetAudioClipAudio(sound, volume);
         }
 
         [PunRPC]

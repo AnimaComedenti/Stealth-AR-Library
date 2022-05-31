@@ -35,6 +35,7 @@ namespace StealthLib
                     if (collider.TryGetComponent(out ItemBehaviour itemBehaviour))
                     {
                         AddItemToList(itemBehaviour);
+                        return;
                     }    
                 }
             }

@@ -7,10 +7,9 @@ namespace StealthDemo
     [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/StatsBuff")]
     public class HiderStatsBuffItem : AbillitySO, IUpdateableAbillity, IActivatableAbillity
     {
-        [SerializeField] private GameObject hider;
         [SerializeField] private float speedMultiplyer = 1.5f;
         [SerializeField] private float jumpMultiplyer = 1.5f;
-        [SerializeField] private float duration = 5f;
+        [SerializeField] private float duration = 15f;
 
         private float baseMovementSpeed;
         private float basejumpHightSpeed;
@@ -18,6 +17,7 @@ namespace StealthDemo
         private float baseSneakSpeed;
         private float durationTimer = 0;
         private bool isActive = false;
+        private bool firstTimeActive = true;
 
         private HiderPlayerController playerController;
 
@@ -32,12 +32,20 @@ namespace StealthDemo
 
         private void SetDefaultStats()
         {
-            playerController.movementSpeed = baseMovementSpeed;
-            playerController.jumpHeight = basejumpHightSpeed;
-            playerController.runSpeed = baseRunSpeed;
-            playerController.sneakSpeed = baseSneakSpeed;
+            baseMovementSpeed = playerController.movementSpeed;
+            basejumpHightSpeed = playerController.jumpHeight;
+            baseRunSpeed = playerController.runSpeed;
+            baseSneakSpeed = playerController.sneakSpeed;
         }
 
+
+        private void ResetValues()
+        {
+           playerController.movementSpeed = baseMovementSpeed;
+           playerController.jumpHeight = basejumpHightSpeed;
+           playerController.runSpeed = baseRunSpeed;
+           playerController.sneakSpeed = baseSneakSpeed;
+        }
         public void SkillUpdate()
         {
             if (isActive)
@@ -46,9 +54,9 @@ namespace StealthDemo
 
                 if (durationTimer >= duration)
                 {
-                    SetDefaultStats();
+                    ResetValues();
                     isActive = false;
-                    activationCount--;
+                    ActivationCount--;
                     durationTimer = 0;
                 }
                 return;
@@ -57,10 +65,20 @@ namespace StealthDemo
 
         public void Activate()
         {
-            if (isActive) return;
-            playerController = hider.GetComponentInParent<HiderPlayerController>();
-            SetDefaultStats();
+            if (playerController == null)
+            {
+                playerController = FindObjectOfType<HiderPlayerController>();
+            }
+
+            if (firstTimeActive)
+            {
+                SetDefaultStats();
+                firstTimeActive = false;
+            }
+
+            ResetValues();
             MultiplyStats();
+            durationTimer = 0;
             isActive = true;
          }
     }

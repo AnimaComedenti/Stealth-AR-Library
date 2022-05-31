@@ -41,6 +41,7 @@ namespace StealthLib
                     if (hit.collider.TryGetComponent(out ItemBehaviour itemBehaviour))
                     {
                         AddItemToList(itemBehaviour);
+                        return;
                     }
                 }
             }

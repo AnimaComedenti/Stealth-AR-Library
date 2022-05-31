@@ -1,18 +1,20 @@
-﻿using UnityEngine;
 using System.Collections;
-using Photon.Pun;
+using System.Collections.Generic;
+using UnityEngine;
 using StealthLib;
+using Photon.Pun;
 
 namespace StealthDemo
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/EnemyShooting")]
-    public class EnemyShooting : AbillitySO, IUpdateableAbillity, IActivatableAbillity
+    public class EnemyShootingHandler : MonoBehaviour
     {
+        [SerializeField] GameObject objectToShootFrom;
+
+        [SerializeField] protected int munition = 80;
+        [SerializeField] protected float cooldown;
+        [SerializeField] protected float damage;
         [SerializeField] GameObject bullet;
         [SerializeField] float shootForce;
-        //Optional if not spawned by network
-        [Header("Optional")]
-        [SerializeField] GameObject objectToShootFrom;
 
         private float currentTime = 0;
         private float armo = 0;
@@ -20,11 +22,37 @@ namespace StealthDemo
         private float shootdelay = 0;
         private bool onReloadeCooldown = false;
 
-        public void Start()
+        protected float cnt = 0;
+
+        private void Start()
         {
-            maxShoots = ActivationCount;
+            maxShoots = munition;
             armo = maxShoots;
+            cnt = cooldown;
         }
+
+        private void FixedUpdate()
+        {
+            if (HasBeenActivated)
+            {
+                cnt -= Time.deltaTime;
+                if (cnt <= 0)
+                {
+                    cnt = cooldown;
+                    HasBeenActivated = false;
+                }
+                Cooldown = (int)cnt;
+            }
+            SkillUpdate();
+        }
+
+        public void OnActivate()
+        {
+            if (HasBeenActivated) return;
+            Activate();
+            HasBeenActivated = true;
+        }
+
 
         public void SkillUpdate()
         {
@@ -33,7 +61,7 @@ namespace StealthDemo
             if (!onReloadeCooldown) return;
 
             currentTime += Time.deltaTime;
-            if (currentTime >= Cooldown)
+            if (currentTime >= cooldown)
             {
                 onReloadeCooldown = false;
                 currentTime = 0;
@@ -58,5 +86,10 @@ namespace StealthDemo
                 onReloadeCooldown = true;
             }
         }
+
+        #region Getter & Setter
+        public int Cooldown { get; private set; }
+        public bool HasBeenActivated { get; private set; } = false;
+        #endregion
     }
 }

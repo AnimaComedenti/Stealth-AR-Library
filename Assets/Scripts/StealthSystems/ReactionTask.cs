@@ -2,10 +2,12 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Linq;
+using StealthLib;
+using Photon.Pun;
 
 namespace StealthDemo
 {
-    public class ReactionTask : UiTask
+    public class ReactionTask : UITask
     {
         [Header("UI for Logic")]
         [SerializeField] private GameObject livesButtons;
@@ -13,19 +15,28 @@ namespace StealthDemo
         [SerializeField] private Text buttonToPressText;
         [SerializeField] private Image buttonToPressImage;
 
+        [Header("Componets for Sound and Light")]
+        [SerializeField] private NoiseAndSoundMaker noiseAndSoundMaker;
+        [SerializeField] private string soundname;
+
+        [Header("Others")]
+        public bool isGameCompleted = false;
+
         private bool isButtonPressed = true;
         private bool isTimerStarted = false;
         private bool isLastAnswerWrong = false;
 
+        //Gamebutton
         private string buttonToPress;
 
+        //Timers
         private float timeToClick;
         private float timeTickMultiply;
         private float currentTime;
-
         private float timeForWrongSound = 5;
         private float wrongAnswerTimer = 0;
 
+        //Lives
         private Image[] lives;
         private Image currentLive;
         private int liveCounter = 0;
@@ -34,17 +45,38 @@ namespace StealthDemo
         private string[] dotArray = new string[3] { ".", "..", "..." };
         private float dotCount = 0;
 
-        protected override void Start()
+        private  void Start()
         {
-            base.Start();
             lives = livesButtons.GetComponentsInChildren<Image>();
             currentLive = lives[0];
             Reset();
         }
 
-        protected override void FixedUpdate()
+        private  void FixedUpdate()
         {
-            base.FixedUpdate();
+            if (isGameCompleted || !isUIOpen)
+            {
+                CloseUI();
+                return;
+            }
+
+            CloseUI();
+
+            if (isUIOpen)
+            {
+                DoingTask();
+
+                if (noiseAndSoundMaker.SoundAndLightTimer())
+                {
+                    photonView.RPC("SetLightAndColor", RpcTarget.AllBuffered, new Vector3(Color.red.r, Color.red.g, Color.red.b), true);
+                    photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.AllBuffered, soundname);
+                }
+                else
+                {
+                    photonView.RPC("SetLightAndColor", RpcTarget.AllBuffered, new Vector3(Color.yellow.r, Color.yellow.g, Color.yellow.b), false);
+                    photonView.RPC("StopAudioRemote", RpcTarget.AllBuffered);
+                }
+            }
         }
 
         public override void DoingTask()
@@ -58,7 +90,8 @@ namespace StealthDemo
                 wrongAnswerTimer += Time.deltaTime;
                 if (wrongAnswerTimer >= timeForWrongSound)
                 {
-                    StopTimerAndSound(Color.yellow);
+                    photonView.RPC("SetLightAndColor", RpcTarget.AllBuffered, new Vector3(Color.yellow.r, Color.yellow.g, Color.yellow.b), false);
+                    photonView.RPC("StopAudioRemote", RpcTarget.AllBuffered);
                     isLastAnswerWrong = false;
                 }
             }
@@ -143,7 +176,7 @@ namespace StealthDemo
             if (liveCounter == lives.Length)
             {
                 isGameCompleted = true;
-                SetSoundAndLigth(Color.green);
+                photonView.RPC("SetLightAndColor", RpcTarget.AllBuffered, new Vector3(Color.green.r, Color.green.g, Color.green.b), true);
                 CloseUI();
                 return;
             }
@@ -160,7 +193,8 @@ namespace StealthDemo
 
             currentLive = lives[liveCounter];
             currentLive.color = Color.red;
-            SetSoundAndLigth(Color.red);
+            photonView.RPC("SetLightAndColor", RpcTarget.AllBuffered, new Vector3(Color.red.r, Color.red.g, Color.red.b), true);
+            photonView.RPC("SetAudioRemoteSoundSO",RpcTarget.AllBuffered, soundname);
             wrongAnswerTimer = 0;
             isLastAnswerWrong = true;
         }

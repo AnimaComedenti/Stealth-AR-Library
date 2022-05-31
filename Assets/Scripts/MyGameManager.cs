@@ -38,6 +38,8 @@ namespace StealthDemo
         // Update is called once per frame
         void Update()
         {
+            CheckLivingHiders();
+
             if (hasSeekerWon)
             {
                 photonView.RPC("SeekerWon", RpcTarget.All);
@@ -46,6 +48,13 @@ namespace StealthDemo
             {
                 photonView.RPC("HiderWon", RpcTarget.All);
             }
+        }
+
+        private void CheckLivingHiders()
+        {
+            HiderPlayerController[] hiders = FindObjectsOfType<HiderPlayerController>();
+
+            if (hiders.Length <= 0 && SeekerPlacementIndicator.Instance.isLevelPlaced && PhotonNetwork.PlayerList.Length >= 2) hasHiderWon = true; 
         }
 
         [PunRPC]

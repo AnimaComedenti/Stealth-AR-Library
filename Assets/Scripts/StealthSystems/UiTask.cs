@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Photon.Pun;
+using StealthLib;
 
 namespace StealthDemo
 {
@@ -63,8 +64,8 @@ namespace StealthDemo
 
         public void SetSoundAndLigth(Color color)
         {
-            Debug.Log("Started Sound");
-            pv.RPC("SetAudioRemote", RpcTarget.AllBuffered, "Running");
+
+            pv.RPC("SetAudioRemoteSoundSO", RpcTarget.AllBuffered, "Running");
             pv.RPC("SetLigthAndColor", RpcTarget.AllBuffered, new Vector3(color.r, color.g, color.b), true);
 
         }
@@ -72,8 +73,7 @@ namespace StealthDemo
         public void StopTimerAndSound(Color color)
         {
             timerToMakeSound = 0;
-            Debug.Log("Stoped Sound");
-            pv.RPC("StopAudio", RpcTarget.AllBuffered);
+            pv.RPC("StopAudioRemote", RpcTarget.AllBuffered);
             pv.RPC("SetLigthAndColor", RpcTarget.AllBuffered, new Vector3(color.r, color.g, color.b), false);
         }
 
@@ -104,6 +104,11 @@ namespace StealthDemo
         {
             ligthResource.color = new Color(color.x, color.y, color.z, 255);
             ligthResource.gameObject.SetActive(activeState);
+        }
+
+        public void OnInteract()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

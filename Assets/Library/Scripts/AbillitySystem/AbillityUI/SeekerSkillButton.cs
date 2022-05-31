@@ -12,7 +12,7 @@ namespace StealthLib
 
             if (abillityHandler.CanBeRemoved())
             {
-                SetActivatableItem(null);
+                abillityHandler.Abillity = null;
             }
         }
     }

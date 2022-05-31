@@ -14,11 +14,12 @@ namespace StealthLib
 
         protected virtual void Start()
         {
-            SetActivatableItem(abillityHandler.Abillity);
+            SetSkillToActivate(abillityHandler.Abillity);
         }
         // Update is called once per frame
         protected virtual void Update()
         {
+            SetSkillToActivate(abillityHandler.Abillity);
             HandleCooldowntextField();
         }
 
@@ -35,19 +36,24 @@ namespace StealthLib
                 cooldownTextfield.gameObject.SetActive(false);
                 return;
             }
-
-            cooldownTextfield.gameObject.SetActive(true);
-            cooldownTextfield.text = abillityHandler.Cooldown + "s";
+            else
+            {
+                cooldownTextfield.gameObject.SetActive(true);
+                cooldownTextfield.text = abillityHandler.Cooldown + "s";
+            }
         }
 
-        public void SetActivatableItem(AbillitySO activatable)
+        public void SetSkillToActivate(AbillitySO skill)
         {
-            if (skillToActivate == null && activatable == null) return;
+            skillToActivate = skill;
 
-            skillToActivate = activatable;
-            abillityHandler.Abillity = activatable;
-            imageGameObject.sprite = activatable.Icon;
+            if(skill == null)
+            {
+                imageGameObject.sprite = null;
+                return;
+            }
 
+            imageGameObject.sprite = skill.Icon;
         }
 
         #region Getter & Setter

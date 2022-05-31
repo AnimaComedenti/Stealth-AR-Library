@@ -24,7 +24,7 @@ namespace StealthLib
             {
                 if (item == itemBehaviour.Abillity)
                 {
-                    item.ActivationCount += item.ActivationCount;
+                    item.ActivationCount++;
                     return;
                 }
             }

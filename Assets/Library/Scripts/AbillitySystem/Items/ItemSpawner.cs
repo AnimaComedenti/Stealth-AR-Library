@@ -18,7 +18,7 @@ namespace StealthLib
         private float timer = 0;
 
         //Toggler um das Erzeugen der Items von außen zu starten/stopen
-        public bool ShouldSpawnItems { get; set; } = false;
+        public bool ShouldSpawnItems { get; set; } = true;
 
         void Start()
         {
@@ -35,7 +35,7 @@ namespace StealthLib
 
         void FixedUpdate()
         {
-            if (ShouldSpawnItems) return;
+            if (!ShouldSpawnItems) return;
             timer += Time.deltaTime;
 
             if (timer <= timeIntervalToCheck) return;

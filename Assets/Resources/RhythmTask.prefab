@@ -103,12 +103,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4842348426711770287}
   - component: {fileID: 2709991496279614447}
-  - component: {fileID: 654896685475972793}
   - component: {fileID: 4842348426711770280}
   - component: {fileID: 4842348426711770281}
   - component: {fileID: 4842348426711770282}
   - component: {fileID: 4599344148827306098}
   - component: {fileID: 8978481308677297360}
+  - component: {fileID: 7114148393855825868}
   m_Layer: 8
   m_Name: RhythmTask
   m_TagString: Untagged
@@ -144,29 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1bbd7a5e35caeb4789b5ea1b9083d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pv: {fileID: 8978481308677297360}
   ui: {fileID: 8327123284887262734}
-  ligthResource: {fileID: 7183736038732222234}
-  secondsWithSound: 20
-  soundAndLigthDuration: 5
-  isGameCompleted: 0
+  closeUIButton: 27
+  isUIOpen: 0
   livesButtons: {fileID: 4577240737747386035}
   feedBackText: {fileID: 4793072177893052891}
   buttonToPressText: {fileID: 7064490247444872667}
   buttonToPressImage: {fileID: 2547819518907676109}
---- !u!114 &654896685475972793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4842348426711770283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 029f86dd4dbd079419a991cbcbdb9ff0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 4599344148827306098}
+  noiseAndSoundMaker: {fileID: 7114148393855825868}
+  soundname: Running
+  isGameCompleted: 0
 --- !u!33 &4842348426711770280
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -347,6 +334,22 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7114148393855825868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842348426711770283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3137bbd6703792c4db85327b1966ee27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 4599344148827306098}
+  lightRessource: {fileID: 7183736038732222234}
+  timeInterval: 15
+  soundAndLightDuration: 2
 --- !u!1001 &7668962240302980755
 PrefabInstance:
   m_ObjectHideFlags: 0

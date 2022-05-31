@@ -9,12 +9,12 @@ namespace StealthDemo
     [CreateAssetMenu(menuName = "ScriptableObjects/Abillities/HiderInvisabillity")]
     public class HiderInvisAbillity : AbillitySO, IUpdateableAbillity, IActivatableAbillity
     {
-        [SerializeField] private GameObject hider;
-        [SerializeField] private LightDetector lightDetector;
         [SerializeField] private float invisAfterActivation = 2f;
         [SerializeField] private float lightLevelToReveal = 10f;
-        private PhotonView pv;
 
+        private PhotonView pv;
+        private GameObject hider;
+        private LightDetector lightDetector;
 
         private bool isHiderInvis = false;
         private bool isLightIgnored = true;
@@ -24,7 +24,13 @@ namespace StealthDemo
         {
             if (!isHiderInvis)
             {
-                pv = hider.GetComponent<PhotonView>();
+                if(hider == null)
+                {
+                    hider = FindObjectOfType<HiderPlayerController>().gameObject;
+                    pv = hider.GetPhotonView();
+                    lightDetector = hider.GetComponent<LightDetector>();
+                }
+
                 pv.RPC("ChangeToInvis", RpcTarget.All, true);
 
                 isHiderInvis = true;

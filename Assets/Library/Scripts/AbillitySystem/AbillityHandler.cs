@@ -53,18 +53,17 @@ namespace StealthLib
         {
             //Falls die Abklingszeit noch läuft und die Fähigkeit nochmal aktiviert wurde, return
             if (HasBeenActivated || activatableAbillity == null) return;
-
             activatableAbillity.Activate();
             HasBeenActivated = true;
         }
 
 
         //Das Reseten der Werte zum Default
-        private void ResetDefault()
+        protected virtual void ResetDefault()
         {
             if (abillitySO != null)
             {
-                cnt = 0;
+                cnt = abillitySO.Cooldown;
                 HasBeenActivated = false;
 
                 //Casten in die möglichen Fähigkeitstypen.
@@ -81,7 +80,9 @@ namespace StealthLib
         {
             if (abillitySO == null) return false;
 
-            return abillitySO.ActivationCount < 1;
+            Debug.Log("ActovationCount "+abillitySO.ActivationCount);
+
+            return abillitySO.ActivationCount <= 0;
         }
 
         #region Getter & Setter

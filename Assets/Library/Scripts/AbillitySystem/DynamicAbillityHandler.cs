@@ -10,12 +10,20 @@ namespace StealthLib
 
         protected override void FixedUpdate()
         {
+            if (itemCollector.Items.Count <=  itemSlot) return;
+
             if (abillitySO == null)
             {
-                abillitySO = itemCollector.Items[itemSlot];
+                Abillity = itemCollector.Items[itemSlot];
             }
 
             base.FixedUpdate();
+        }
+        protected override void ResetDefault()
+        {
+            base.ResetDefault();
+
+            if (abillitySO == null && itemCollector.Items.Count > itemSlot) itemCollector.Items.Remove(itemCollector.Items[itemSlot]);
         }
 
 

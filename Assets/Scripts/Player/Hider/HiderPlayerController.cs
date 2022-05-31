@@ -2,37 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using StealthLib;
 
 namespace StealthDemo
 {
-    public class HiderPlayerController : MonoBehaviourPun
+    public class HiderPlayerController : HiderMovementFunctions
     {
-        [SerializeField]
-        private GameObject face;
-        [SerializeField]
-        private CharacterController characterController;
-
         [Header("PlayerMovement")]
-
         public float movementSpeed = 2;
         public float runSpeed = 4;
         public float sneakSpeed = 1;
-        public float jumpHeight = 1;
 
-        [Header("Physics")]
-        [SerializeField]
-        private Transform groundCheck;
-        [SerializeField]
-        private float gravity = -9.81f;
-        [SerializeField]
-        private float groundCheckDistance = 0.2f;
-        [SerializeField]
-        private Camera myCam;
+        [Header("Buttons")]
 
-        private PhotonView pv;
-        private Vector3 velocity;
-        private bool isHiderOnGround = true;
-        private bool isWASDPressed = false;
+        [SerializeField] private KeyCode runButton = KeyCode.LeftShift;
+        [SerializeField] private KeyCode sneakButton = KeyCode.CapsLock;
+        [SerializeField] private KeyCode jumpButton = KeyCode.Space;
+        [SerializeField] private KeyCode interactButton = KeyCode.F;
+
+        [Header("Others")]
+        [SerializeField]private Camera myCam;
 
         public bool isMovementDisabled { get; set; } = false;
 
@@ -41,11 +30,10 @@ namespace StealthDemo
             if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
             {
                 myCam.gameObject.SetActive(true);
-                pv = photonView;
             }
         }
 
-        void Update()
+        void FixedUpdate()
         {
             HandelPlayerMovement();
         }
@@ -55,94 +43,53 @@ namespace StealthDemo
             if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
             {
                 if (isMovementDisabled) return;
-                if (Input.GetKey(KeyCode.F))
+
+                if (Input.GetKey(interactButton))
                 {
                     Interact();
                 }
 
-                //Get inputvalues
-                float x = Input.GetAxis("Horizontal");
-                float z = Input.GetAxis("Vertical");
-
-                Vector3 moveDirection = transform.right * x + transform.forward * z;
-
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
                 {
-                    isWASDPressed = true;
+                    MoveCharacter();
                 }
                 else
                 {
-                    isWASDPressed = false;
-                    pv.RPC("StopAudioRemote", RpcTarget.All);
+                    photonView.RPC("StopAudioRemote", RpcTarget.All);
                 }
 
-                if (Input.GetKey(KeyCode.LeftShift) && isWASDPressed)
+               
+                if (Input.GetKey(jumpButton))
                 {
-                    MoveCharacter(moveDirection, runSpeed);
-                    pv.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Running");
-                }
-                else if (Input.GetKey(KeyCode.CapsLock) && isWASDPressed)
-                {
-                    MoveCharacter(moveDirection, sneakSpeed);
-                    pv.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Sneaking");
-                }
-                else if (isWASDPressed)
-                {
-                    MoveCharacter(moveDirection, movementSpeed);
-                    pv.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Walking");
+                    photonView.RPC("StopAudioRemote", RpcTarget.All);
+                    photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Jumping");
+                    Jump();
                 }
 
                 HandleGravity(velocity);
-
+                
                 characterController.Move(velocity * Time.deltaTime);
             }
         }
 
-        void Interact()
+        private void MoveCharacter()
         {
-            RaycastHit hit;
-
-            if (Physics.Raycast(face.transform.position, face.transform.forward, out hit, 0.5f))
+            if (Input.GetKey(runButton))
             {
-
-                if (hit.collider.TryGetComponent(out IInteractable interact))
-                {
-                    interact.OnInteract(gameObject);
-                }
+                Move(runSpeed);
+                photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Running");
+                return;
             }
-        }
-
-        void HandleGravity(Vector3 currentVelocity)
-        {
-            isHiderOnGround = Physics.CheckSphere(groundCheck.position, groundCheckDistance);
-
-            if (isHiderOnGround && velocity.y < 0)
+            if (Input.GetKey(sneakButton))
             {
-                velocity.y = -2f;
+                Move(sneakSpeed);
+                photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Sneaking");
+                return;
             }
 
-            PerformJump();
-
-            velocity.y += gravity * Time.deltaTime;
+            Move(movementSpeed);
+            photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Walking");
         }
-
-        void PerformJump()
-        {
-            if (isHiderOnGround && Input.GetButtonDown("Jump"))
-            {
-                pv.RPC("StopAudioRemote", RpcTarget.All);
-                pv.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Jumping");
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                isHiderOnGround = false;
-
-            }
-        }
-
-        void MoveCharacter(Vector3 moveDirection, float moveSpeed)
-        {
-            characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-        }
-
 
         [PunRPC]
         public void ChangeToInvis(bool isInvisible)

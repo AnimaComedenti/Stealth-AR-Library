@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace StealthDemo
+namespace StealthLib
 {
     interface IInteractable
     {
-        public void OnInteract(GameObject player);
+        public void OnInteract();
     }
 }
 
