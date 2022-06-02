@@ -18,7 +18,7 @@ namespace StealthLib
         // Falls eine Fähigkeit über eine Update- oder Aktivierungsmethoden verfügen soll, so muss dieses Interface implementiert werden.
         protected IUpdateableAbillity skillUpdateable;
         protected IActivatableAbillity activatableAbillity;
-
+        protected int activationLeft = 1;
         protected float cnt = 0;
 
         private void Start()
@@ -53,6 +53,8 @@ namespace StealthLib
         {
             //Falls die Abklingszeit noch läuft und die Fähigkeit nochmal aktiviert wurde, return
             if (HasBeenActivated || activatableAbillity == null) return;
+            if (abillitySO.IsItem) activationLeft--;
+
             activatableAbillity.Activate();
             HasBeenActivated = true;
         }
@@ -64,6 +66,7 @@ namespace StealthLib
             if (abillitySO != null)
             {
                 cnt = abillitySO.Cooldown;
+                activationLeft = abillitySO.ActivationCount;
                 HasBeenActivated = false;
 
                 //Casten in die möglichen Fähigkeitstypen.
@@ -94,6 +97,12 @@ namespace StealthLib
             get { return abillitySO; }
             set
             {
+                if(abillitySO == value)
+                {
+                    activationLeft++;
+                    return;
+                }
+
                 abillitySO = value;
                 ResetDefault();
             }

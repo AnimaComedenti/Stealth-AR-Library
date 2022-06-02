@@ -12,7 +12,6 @@ namespace StealthLib
      */
     public abstract class AbillitySO : ScriptableObject
     {
-
         [Header("Abillity Visualisierung")]
         [SerializeField] protected string abillityName;
         [SerializeField] protected Sprite icon;
@@ -21,6 +20,7 @@ namespace StealthLib
         [Header("Abillity Defaultwerte")]
         [SerializeField] protected float cooldown;
         [SerializeField] protected float damage;
+        [SerializeField] protected bool isItem;
 
         //Aktivierungsanzahl der Fähigkeit. Gibt an wie oft eine Fähigkeit aktiviert werden kann.
         [SerializeField] protected int activationCount = 1;
@@ -31,12 +31,9 @@ namespace StealthLib
         public string Description => description;
         public float Cooldown => cooldown;
         public float Damage => damage;
+        public bool IsItem => isItem;
+        public int ActivationCount => activationCount;
 
-        public int ActivationCount
-        {
-            get { return activationCount; }
-            set { activationCount = value; }
-        }
 
         #endregion
 

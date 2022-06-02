@@ -32,12 +32,19 @@ namespace StealthLib
 
         public void HitPlayer(float damage)
         {
+            if (damage < 0)
+            {
+                damage *= -1;
+            }
             photonView.RPC("ChangePlayerHealth", RpcTarget.All, damage);
         }
 
         public void HealPlayer(float healAmount)
         {
-            healAmount *= -1;
+            if(healAmount > 0)
+            {
+                healAmount *= -1;
+            }
             photonView.RPC("ChangePlayerHealth", RpcTarget.All, healAmount);
         }
 

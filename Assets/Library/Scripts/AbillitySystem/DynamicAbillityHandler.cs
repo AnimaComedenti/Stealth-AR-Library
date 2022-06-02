@@ -8,6 +8,11 @@ namespace StealthLib
         [SerializeField] protected ItemCollector itemCollector;
         [SerializeField] protected int itemSlot;
 
+        private void Start()
+        {
+            itemCollector.OnDuplicated += OnDuplicateAbility;
+        }
+
         protected override void FixedUpdate()
         {
             if (itemCollector.Items.Count <=  itemSlot) return;
@@ -24,6 +29,12 @@ namespace StealthLib
             base.ResetDefault();
 
             if (abillitySO == null && itemCollector.Items.Count > itemSlot) itemCollector.Items.Remove(itemCollector.Items[itemSlot]);
+        }
+
+        private void OnDuplicateAbility(AbillitySO item)
+        {
+            if (abillitySO == null || abillitySO != item) return;
+            Abillity = item;
         }
 
 

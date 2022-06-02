@@ -56,7 +56,6 @@ namespace StealthDemo
                 {
                     ResetValues();
                     isActive = false;
-                    ActivationCount--;
                     durationTimer = 0;
                 }
                 return;

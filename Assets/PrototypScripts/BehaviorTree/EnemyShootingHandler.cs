@@ -11,73 +11,41 @@ namespace StealthDemo
         [SerializeField] GameObject objectToShootFrom;
 
         [SerializeField] protected int munition = 80;
-        [SerializeField] protected float cooldown;
+        [SerializeField] protected float reloadeCooldown;
         [SerializeField] protected float damage;
         [SerializeField] GameObject bullet;
         [SerializeField] float shootForce;
+        [SerializeField] int shootDelay = 1;
 
         private float currentTime = 0;
         private float armo = 0;
         private float maxShoots;
         private float shootdelay = 0;
-        private bool onReloadeCooldown = false;
+        private float shootDelayCount;
 
-        protected float cnt = 0;
+        private bool onReloadeCooldown = false;
 
         private void Start()
         {
             maxShoots = munition;
             armo = maxShoots;
-            cnt = cooldown;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            if (HasBeenActivated)
-            {
-                cnt -= Time.deltaTime;
-                if (cnt <= 0)
-                {
-                    cnt = cooldown;
-                    HasBeenActivated = false;
-                }
-                Cooldown = (int)cnt;
-            }
             SkillUpdate();
         }
 
         public void OnActivate()
         {
-            if (HasBeenActivated) return;
-            Activate();
-            HasBeenActivated = true;
-        }
-
-
-        public void SkillUpdate()
-        {
-            shootdelay += Time.deltaTime;
-
-            if (!onReloadeCooldown) return;
-
-            currentTime += Time.deltaTime;
-            if (currentTime >= cooldown)
-            {
-                onReloadeCooldown = false;
-                currentTime = 0;
-            }
-        }
-
-        public void Activate()
-        {
             if (onReloadeCooldown) return;
-            if (armo > 0 && shootdelay >= 1)
+            if (armo > 0 && shootDelayCount >= shootDelay)
             {
                 armo--;
                 GameObject spawnedBullet = PhotonNetwork.Instantiate(bullet.name, objectToShootFrom.transform.position, Quaternion.identity);
                 spawnedBullet.GetComponent<Rigidbody>().AddForce(objectToShootFrom.transform.forward * shootForce, ForceMode.Impulse);
                 currentTime = 0;
-                shootdelay = 0;
+                shootDelayCount = 0;
             }
 
             if (armo <= 0)
@@ -86,6 +54,22 @@ namespace StealthDemo
                 onReloadeCooldown = true;
             }
         }
+
+
+        public void SkillUpdate()
+        {
+            shootDelayCount += Time.deltaTime;
+
+            if (!onReloadeCooldown) return;
+
+            currentTime += Time.deltaTime;
+            if (currentTime >= reloadeCooldown)
+            {
+                onReloadeCooldown = false;
+                currentTime = 0;
+            }
+        }
+
 
         #region Getter & Setter
         public int Cooldown { get; private set; }

@@ -25,7 +25,7 @@ namespace StealthLib
 
         protected void HandleCooldowntextField()
         {
-            if (skillToActivate == null && cooldownTextfield.IsActive())
+            if (skillToActivate == null)
             {
                 cooldownTextfield.gameObject.SetActive(false);
                 return;

@@ -48,7 +48,6 @@ namespace StealthLib
         {
             isHiderOnGround = Physics.CheckSphere(groundCheck.position, checkRaduis,groundmask);
 
-            Debug.Log(isHiderOnGround);
             if (isHiderOnGround && velocity.y < 0)
             {
                 velocity.y = -2f;
