@@ -15,6 +15,7 @@ namespace StealthLib
         */
         public void AddItemToList(ItemBehaviour itemBehaviour)
         {
+
             if (Items.Count <= 0) {
                 Items.Add(itemBehaviour.Abillity);
                 return;
@@ -34,6 +35,12 @@ namespace StealthLib
         public void RemoveItemFromList(AbillitySO abillity)
         {
             Items.Remove(abillity);
+        }
+
+        public void AddItemAndDestroy(ItemBehaviour itemBehaviour)
+        {
+            AddItemToList(itemBehaviour);
+            Destroy(itemBehaviour.gameObject);
         }
 
         #region Overide-Methods

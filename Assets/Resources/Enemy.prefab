@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pv: {fileID: 4733412553255251648}
-  shootingHandler: {fileID: 0}
+  shootingHandler: {fileID: 1977541487064700898}
   movePositionsPose: []
   startinghealth: 200
   speedToRotate: 2
@@ -337,12 +337,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e973a12de4d05343a01855aa9f6e4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 6964366477986964395, guid: 98104b0f7fd7f4546aa1a4ca790f2902, type: 3}
-  shootForce: 20
   objectToShootFrom: {fileID: 4198145642319726343}
+  munition: 80
   cooldown: 30
   damage: 0.01
-  activationCount: 80
+  bullet: {fileID: 6964366477986964395, guid: 98104b0f7fd7f4546aa1a4ca790f2902, type: 3}
+  shootForce: 20
 --- !u!1 &4198145642319726343
 GameObject:
   m_ObjectHideFlags: 0

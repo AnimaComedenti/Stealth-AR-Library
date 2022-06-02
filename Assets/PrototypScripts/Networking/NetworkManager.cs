@@ -49,9 +49,9 @@ namespace StealthDemo
                 photonView.RPC("AttachParentOnSpawn", RpcTarget.AllBuffered, seekerCamera.GetComponent<PhotonView>().ViewID);
                 Camera cam = seekerCamera.GetComponent<Camera>();
                 GameObject seekerIndi = seekerCamera.transform.GetChild(0).gameObject;
-                SeekerPlacementIndicator.Instance.cam = cam;
+                SeekerPlacementIndicator.Instance.Cam = cam;
                 arSessionOrigin.camera = cam;
-                SeekerPlacementIndicator.Instance.placementIdicator = seekerIndi;
+                SeekerPlacementIndicator.Instance.PlacementIdicator = seekerIndi;
             }
         }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StealthLib;
 
 
 namespace StealthDemo
@@ -33,7 +34,7 @@ namespace StealthDemo
         void Update()
         {
             if (buildObjectDouble == null) return;
-            buildObjectDouble.transform.position = seekerPlacement.getPlacementPosition.position;
+            buildObjectDouble.transform.position = seekerPlacement.PlacementPosition.position;
         }
 
         public void RotateObjectLeft()

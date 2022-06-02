@@ -38,7 +38,7 @@ namespace StealthDemo
         // Update is called once per frame
         void Update()
         {
-            CheckLivingHiders();
+            //CheckLivingHiders();
 
             if (hasSeekerWon)
             {

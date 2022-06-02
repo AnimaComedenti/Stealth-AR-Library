@@ -17,13 +17,13 @@ namespace StealthDemo
         void Start()
         {
             maxHealth = healthHandler.playerHealth;
-            currentHealth = maxHealth;
         }
 
         // Update is called once per frame
         void Update()
         {
             if (SystemInfo.deviceType == DeviceType.Handheld) return;
+            currentHealth = healthHandler.playerHealth;
             uiHealthbar.fillAmount = currentHealth / maxHealth;
         }
     }

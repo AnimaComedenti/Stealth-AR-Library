@@ -777,6 +777,7 @@ GameObject:
   - component: {fileID: 1064870947}
   - component: {fileID: 1064870946}
   - component: {fileID: 1064870945}
+  - component: {fileID: 1064870951}
   - component: {fileID: 1064870950}
   m_Layer: 0
   m_Name: AR Session Origin
@@ -797,10 +798,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a42106f0652544085f892ead565e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTag: Level
+  _placementIndicator: {fileID: 0}
+  _cam: {fileID: 0}
   aRRaycastManager: {fileID: 1064870946}
-  origin: {fileID: 1064870948}
-  levelMash: {fileID: 2042275408}
+  buildHandler: {fileID: 1064870951}
 --- !u!114 &1064870946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,6 +878,20 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1064870951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064870944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48628e7265ed2e4da4d8be9d1578ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  origin: {fileID: 1064870948}
+  levelMash: {fileID: 2042275408}
 --- !u!1 &1323697643
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ namespace StealthLib
     {
         [SerializeField] private float pickUpRadius = 0.5f;
 
-        void Update()
+        void FixedUpdate()
         {
             if (SystemInfo.deviceType == DeviceType.Desktop)
             {
@@ -34,7 +34,7 @@ namespace StealthLib
                 {
                     if (collider.TryGetComponent(out ItemBehaviour itemBehaviour))
                     {
-                        AddItemToList(itemBehaviour);
+                        AddItemAndDestroy(itemBehaviour);
                         return;
                     }    
                 }

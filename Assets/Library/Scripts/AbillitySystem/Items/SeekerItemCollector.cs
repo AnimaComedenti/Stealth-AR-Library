@@ -14,7 +14,7 @@ namespace StealthLib
         [SerializeField] private Camera cam;
 
         //Item-Liste die von außen genutzt werden kann.
-        void Update()
+        void FixedUpdate()
         {
             if (SystemInfo.deviceType == DeviceType.Handheld)
             {
@@ -40,7 +40,7 @@ namespace StealthLib
                 {
                     if (hit.collider.TryGetComponent(out ItemBehaviour itemBehaviour))
                     {
-                        AddItemToList(itemBehaviour);
+                        AddItemAndDestroy(itemBehaviour);
                         return;
                     }
                 }

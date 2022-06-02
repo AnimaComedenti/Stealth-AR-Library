@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using StealthLib;
 
 namespace StealthDemo
 {
@@ -11,21 +12,19 @@ namespace StealthDemo
     {
         [SerializeField] private Text tasksCompleted;
 
-        private UiTask[] tasks;
+        private UITask[] tasks;
         private int tasksCount = 0;
         private int completedTasks = 0;
 
         private MyGameManager gameManager;
 
-        // Start is called before the first frame update
         void Start()
         {
-            tasks = FindObjectsOfType<UiTask>();
+            tasks = FindObjectsOfType<UITask>();
             tasksCount = tasks.Length;
             gameManager = MyGameManager.Instance;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (tasks.Length <= 0)
@@ -38,7 +37,7 @@ namespace StealthDemo
                 if (tasks[i].isGameCompleted == true)
                 {
                     completedTasks++;
-                    tasks = tasks.Except(new UiTask[] { tasks[i] }).ToArray();
+                    tasks = tasks.Except(new UITask[] { tasks[i] }).ToArray();
                 }
             }
 

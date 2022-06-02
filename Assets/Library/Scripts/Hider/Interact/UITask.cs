@@ -9,6 +9,8 @@ namespace StealthLib
         [SerializeField] protected GameObject ui;
         [SerializeField] protected KeyCode closeUIButton = KeyCode.Escape;
 
+        public bool isGameCompleted = false;
+
         public bool isUIOpen = false;
         public abstract void DoingTask();
 

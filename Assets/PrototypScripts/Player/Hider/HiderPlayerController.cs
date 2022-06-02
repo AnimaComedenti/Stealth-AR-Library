@@ -17,19 +17,21 @@ namespace StealthDemo
 
         [SerializeField] private KeyCode runButton = KeyCode.LeftShift;
         [SerializeField] private KeyCode sneakButton = KeyCode.CapsLock;
-        [SerializeField] private KeyCode jumpButton = KeyCode.Space;
         [SerializeField] private KeyCode interactButton = KeyCode.F;
+        [SerializeField] private KeyCode jumpButton = KeyCode.Space;
 
         [Header("Others")]
         [SerializeField]private Camera myCam;
 
         public bool isMovementDisabled { get; set; } = false;
+        private UITask[] tasks;
 
         private void Start()
         {
             if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
             {
                 myCam.gameObject.SetActive(true);
+                tasks = FindObjectsOfType<UITask>();
             }
         }
 
@@ -42,7 +44,7 @@ namespace StealthDemo
         {
             if (SystemInfo.deviceType == DeviceType.Desktop && photonView.IsMine)
             {
-                if (isMovementDisabled) return;
+                if (CheckIfUIOpen()) return;
 
                 if (Input.GetKey(interactButton))
                 {
@@ -58,18 +60,28 @@ namespace StealthDemo
                     photonView.RPC("StopAudioRemote", RpcTarget.All);
                 }
 
-               
+
+                HandleGravity(velocity);
+
                 if (Input.GetKey(jumpButton))
                 {
-                    photonView.RPC("StopAudioRemote", RpcTarget.All);
-                    photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Jumping");
                     Jump();
                 }
 
-                HandleGravity(velocity);
-                
                 characterController.Move(velocity * Time.deltaTime);
             }
+        }
+
+        private bool CheckIfUIOpen()
+        {
+            foreach(UITask task in tasks)
+            {
+                if (task.isUIOpen)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void MoveCharacter()
@@ -89,6 +101,16 @@ namespace StealthDemo
 
             Move(movementSpeed);
             photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Walking");
+        }
+
+        public override void Jump()
+        {
+            base.Jump();
+            if(isHiderOnGround && Input.GetKey(jumpButton))
+            {
+                photonView.RPC("StopAudioRemote", RpcTarget.All);
+                photonView.RPC("SetAudioRemoteSoundSO", RpcTarget.All, "Jumping");
+            }
         }
 
         [PunRPC]

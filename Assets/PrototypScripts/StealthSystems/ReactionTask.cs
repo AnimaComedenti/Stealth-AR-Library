@@ -19,10 +19,10 @@ namespace StealthDemo
         [SerializeField] private NoiseAndSoundMaker noiseAndSoundMaker;
         [SerializeField] private string soundname;
 
-        [Header("Others")]
-        public bool isGameCompleted = false;
+        [Header("Other")]
+        [SerializeField] private float reaktionTime = 1.7f;
 
-        private bool isButtonPressed = true;
+
         private bool isTimerStarted = false;
         private bool isLastAnswerWrong = false;
 
@@ -49,14 +49,23 @@ namespace StealthDemo
         {
             lives = livesButtons.GetComponentsInChildren<Image>();
             currentLive = lives[0];
+
+            reaktionTime *= -1;
+
+            buttonToPress = RandomString();
+            buttonToPressText.text = buttonToPress.ToUpper();
+
             Reset();
         }
 
         private  void FixedUpdate()
         {
-            if (isGameCompleted || !isUIOpen)
+            if (!isUIOpen) return;
+
+            if (isGameCompleted)
             {
-                CloseUI();
+                isUIOpen = false;
+                ui.SetActive(false);
                 return;
             }
 
@@ -108,18 +117,12 @@ namespace StealthDemo
                 if (Input.GetKeyDown(buttonToPress))
                 {
 
-                    isButtonPressed = true;
                     isTimerStarted = false;
                     LivesHandler(currentTime);
-                }
-            }
 
-            //Generate new Randome String after Button Press
-            if (isButtonPressed)
-            {
-                buttonToPress = RandomString();
-                buttonToPressText.text = buttonToPress.ToUpper();
-                isButtonPressed = false;
+                    buttonToPress = RandomString();
+                    buttonToPressText.text = buttonToPress.ToUpper();
+                }
             }
         }
 
@@ -128,23 +131,34 @@ namespace StealthDemo
             if (!isTimerStarted)
             {
                 currentTime = timeToClick;
-                buttonToPressImage.color = Color.red;
+                buttonToPressImage.color = Color.white;
                 feedBackText.text = "Space to start task";
+                return;
             }
-            else
+
+            
+            dotCount += Time.deltaTime;
+            if (dotCount > 3) dotCount = 0;
+            feedBackText.text = "task in progress " + dotArray[(int)dotCount];
+
+            currentTime -= Time.deltaTime * timeTickMultiply;
+
+            if (currentTime < reaktionTime)
             {
-                currentTime -= Time.deltaTime * timeTickMultiply;
-                dotCount += Time.deltaTime;
-                if (dotCount > 3) dotCount = 0;
-                feedBackText.text = "task in progress " + dotArray[(int)dotCount];
-                if (currentTime <= 0) buttonToPressImage.color = Color.green;
+                buttonToPressImage.color = Color.red;
+                LivesHandler(currentTime);
+                return;
             }
+
+            if (currentTime <= 0) buttonToPressImage.color = Color.green;
+
+
         }
 
         private void LivesHandler(float time)
         {
 
-            if (time <= 0 && time >= -1.7)
+            if (time <= 0 && time >= reaktionTime)
             {
                 CountHealthUp();
             }
@@ -175,9 +189,9 @@ namespace StealthDemo
             liveCounter++;
             if (liveCounter == lives.Length)
             {
-                isGameCompleted = true;
                 photonView.RPC("SetLightAndColor", RpcTarget.AllBuffered, new Vector3(Color.green.r, Color.green.g, Color.green.b), true);
                 CloseUI();
+                isGameCompleted = true;
                 return;
             }
             currentLive = lives[liveCounter];

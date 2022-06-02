@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StealthDemo
+namespace StealthLib
 {
     public class ObjectDetection : MonoBehaviour
     {
@@ -23,9 +23,7 @@ namespace StealthDemo
                 SearchObject();
                 return;
             }
-
             IsInCameraSigth();
-
         }
 
         #region ObjectDetection

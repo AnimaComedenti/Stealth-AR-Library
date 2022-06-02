@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace StealthDemo
+namespace StealthLib
 {
     [CreateAssetMenu(menuName ="ScriptableObjects/BuildableObjectsSO")]
     public class BuildableObjectSO : ScriptableObject

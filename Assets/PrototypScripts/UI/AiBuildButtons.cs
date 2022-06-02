@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using StealthDemo.Nodes;
+using StealthLib;
 
 
 namespace StealthDemo
@@ -20,7 +21,6 @@ namespace StealthDemo
         public static List<GameObject> points = new List<GameObject>();
         public static List<Vector3> listWithPositions = new List<Vector3>();
 
-
         private void Start()
         {
             uitoggler = UIToggler.Instance;
@@ -33,7 +33,7 @@ namespace StealthDemo
 
         public void SetAiPositions()
         {
-            Pose position = seekerPlacementIndicator.getPlacementPosition;
+            Pose position = seekerPlacementIndicator.PlacementPosition;
             GameObject circle = Instantiate(pointPrefab, position.position, Quaternion.identity);
             listWithPositions.Add(position.position);
             points.Add(circle);

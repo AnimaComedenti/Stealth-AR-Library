@@ -16,7 +16,7 @@ namespace StealthDemo
 
         public void Activate()
         {
-            indicatorPosition = SeekerPlacementIndicator.Instance.getPlacementPosition.position;
+            indicatorPosition = SeekerPlacementIndicator.Instance.PlacementPosition.position;
             PhotonNetwork.Instantiate(soundParticle.name, indicatorPosition, Quaternion.identity);
             Collider[] colliders = Physics.OverlapSphere(indicatorPosition, radius);
 
@@ -27,6 +27,7 @@ namespace StealthDemo
                     if (colider.CompareTag(playerTag))
                     {
                         colider.gameObject.GetComponent<HiderHealthHandler>().HitPlayer(Damage);
+                        return;
                     }
                 }
             }

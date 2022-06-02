@@ -22,7 +22,6 @@ namespace StealthLib
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (hasItemTaken) Destroy(gameObject);
 
             cnt += Time.deltaTime;
             if (cnt == timeToDespawn)

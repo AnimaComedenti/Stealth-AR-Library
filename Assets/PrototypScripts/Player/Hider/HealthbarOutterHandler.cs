@@ -7,7 +7,7 @@ namespace StealthDemo
     public class HealthbarOutterHandler : MonoBehaviour
     {
         [SerializeField] private HiderHealthHandler healthHandler;
-        [SerializeField] private Transform healthBar;
+        [SerializeField] private GameObject healthBar;
         [SerializeField] private float timeToReavealHealth = 2;
 
         private float currentHealth;
@@ -21,7 +21,7 @@ namespace StealthDemo
             healthBeforeChange = currentHealth;
         }
 
-        void Update()
+        void FixedUpdate()
         {
             currentHealth = healthHandler.playerHealth;
 
@@ -36,8 +36,8 @@ namespace StealthDemo
 
         private void UpdateHealthBar()
         {
-            Vector3 oldScale = healthBar.localScale;
-            healthBar.localScale = new Vector3(currentHealth, oldScale.y, oldScale.z);
+            Vector3 oldScale = healthBar.transform.localScale;
+            healthBar.transform.localScale = new Vector3(currentHealth, oldScale.y, oldScale.z);
             healthBeforeChange = currentHealth;
         }
 
@@ -47,15 +47,15 @@ namespace StealthDemo
             {
                 timer += Time.deltaTime;
 
-                if (timer <= timeToReavealHealth)
+                if (timer >= timeToReavealHealth)
                 {
-                    healthBar.gameObject.SetActive(false);
+                    healthBar.SetActive(false);
                     hasHealthChanged = false;
                     timer = 0;
                     return;
                 }
 
-                healthBar.gameObject.SetActive(true);
+                healthBar.SetActive(true);
             }
         }
     }

@@ -153,7 +153,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Close
+  m_Text: 'ESC
+
+    to
+
+    Close'
 --- !u!1 &1865125783412033693
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4764970928618587934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -601,7 +605,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: F
+  m_Text: 
 --- !u!1 &6542847067074703035
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,7 +767,7 @@ MonoBehaviour:
 
     - Wrong click -1 Point
 
-    - 5 Points
+    - 3 Points
     = task completed
 
     - Press Space to start'
@@ -803,7 +807,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -129, y: -521}
+  m_AnchoredPosition: {x: -135, y: -171}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.4999999, y: 0.50000006}
 --- !u!222 &8009502180890104780
@@ -887,7 +891,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2899335498590500922}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UiTask, Assembly-CSharp
+        m_MethodName: CloseUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8296782834488918662
 GameObject:
   m_ObjectHideFlags: 0

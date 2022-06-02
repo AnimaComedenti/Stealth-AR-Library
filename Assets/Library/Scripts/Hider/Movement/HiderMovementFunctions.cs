@@ -15,15 +15,17 @@ namespace StealthLib
         [SerializeField]
         protected Transform groundCheck;
         [SerializeField]
-        protected float gravity = -9.81f;
+        protected float checkRaduis = 0.2f;
         [SerializeField]
-        protected float groundCheckDistance = 0.2f;
+        protected LayerMask groundmask;
+        [SerializeField]
+        protected float gravity = -9.81f;
 
         protected Vector3 velocity;
         protected bool isHiderOnGround = true;
 
 
-        public void Move(float speed)
+        public virtual void Move(float speed)
         {
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
@@ -32,7 +34,7 @@ namespace StealthLib
             characterController.Move(moveDirection * speed * Time.deltaTime);
         }
 
-        public void Jump()
+        public virtual void Jump()
         {
             if (isHiderOnGround)
             {
@@ -42,10 +44,11 @@ namespace StealthLib
         }
 
 
-        public void HandleGravity(Vector3 currentVelocity)
+        public virtual void HandleGravity(Vector3 currentVelocity)
         {
-            isHiderOnGround = Physics.CheckSphere(groundCheck.position, groundCheckDistance);
+            isHiderOnGround = Physics.CheckSphere(groundCheck.position, checkRaduis,groundmask);
 
+            Debug.Log(isHiderOnGround);
             if (isHiderOnGround && velocity.y < 0)
             {
                 velocity.y = -2f;
@@ -54,7 +57,7 @@ namespace StealthLib
             velocity.y += gravity * Time.deltaTime;
         }
 
-        protected void Interact()
+        protected virtual void Interact()
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 0.5f))

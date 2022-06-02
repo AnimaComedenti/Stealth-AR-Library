@@ -15,14 +15,16 @@ namespace StealthLib
         public bool SoundAndLightTimer()
         {
             timer += Time.deltaTime;
-            if (timer >= timeInterval)
-            {
-                return true;
-            }
+
             if (timer >= (timeInterval + soundAndLightDuration))
             {
                 timer = 0;
                 return false;
+            }
+
+            if (timer >= timeInterval)
+            {
+                return true;
             }
             return false;
         }

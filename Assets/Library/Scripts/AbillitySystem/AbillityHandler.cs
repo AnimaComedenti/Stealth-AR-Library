@@ -79,9 +79,6 @@ namespace StealthLib
         public bool CanBeRemoved()
         {
             if (abillitySO == null) return false;
-
-            Debug.Log("ActovationCount "+abillitySO.ActivationCount);
-
             return abillitySO.ActivationCount <= 0;
         }
 
