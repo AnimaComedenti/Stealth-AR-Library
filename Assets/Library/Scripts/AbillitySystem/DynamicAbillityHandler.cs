@@ -3,6 +3,14 @@ using UnityEngine;
 
 namespace StealthLib
 {
+    /*
+     * Der DynamicAbillityHandler erweitert den AbillityHandler und ermöglicht es dynamisch Items hinzuzufügen oder löschen zu können.
+     * Somit ist diese Klasse nicht an einer Fähigkeit (Abillity) gebunden und kann diese per Runtime bestimmen.
+     * Hierbei lauscht diese Klasse die Liste des ItemCollectors und nimmt sich aus diesem die Items heraus.
+     * 
+     * itemCollector: Der ItemCollector welcher über die Item-Likste verfügt und beobachtet wird
+     * itemSlot: Die Positions auf welche Stelle der Item-Liste gelauscht wird.
+     */
     public class DynamicAbillityHandler : AbillityHandler
     {
         [SerializeField] protected ItemCollector itemCollector;
@@ -10,6 +18,7 @@ namespace StealthLib
 
         private void Start()
         {
+            //Binden des Duplicate-Events
             itemCollector.OnDuplicated += OnDuplicateAbility;
         }
 
@@ -31,6 +40,8 @@ namespace StealthLib
             if (abillitySO == null && itemCollector.Items.Count > itemSlot) itemCollector.Items.Remove(itemCollector.Items[itemSlot]);
         }
 
+        //Falls ein Duplicate gefunden wurde wird das Item wieder Gesetzt.
+        //Ist das Item gleich so wird anhand der Setter-Methode "Abillity" der AktivierungsCount der Abillity hochgezählt anstatt dieses neu hinzuzufügen 
         private void OnDuplicateAbility(AbillitySO item)
         {
             if (abillitySO == null || abillitySO != item) return;

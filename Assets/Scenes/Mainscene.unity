@@ -662,6 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2223b3c2c521c40b3835e39e93f727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pvCache: {fileID: 0}
   endGameUI: {fileID: 303897225}
   endGameMessage: {fileID: 235284503}
   winMassage: {fileID: 760563716}
@@ -802,6 +803,7 @@ MonoBehaviour:
   _cam: {fileID: 0}
   aRRaycastManager: {fileID: 1064870946}
   buildHandler: {fileID: 1064870951}
+  levelTag: Level
 --- !u!114 &1064870946
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,8 +7,10 @@ namespace StealthLib
 {
     /*
      * Der AbillitieHandler wird für das verarbeiten der Fähigkeiten benötigt.
-     * Diese Klasse nimmt eine AbillitySO entgegen und verarbeitet dessen Abklingszeit und Update-Methoden.
-     * In dieser Klasse kann die Fähigkeit auch null sein und hat somit den Vorteil diese per Runtime hinzufügen und entfernen zu können
+     * Diese Klasse nimmt eine AbillitySO entgegen und verarbeitet dessen Abklingszeiten, Update-Methoden sowie Aktivierungsfunktionen.
+     * Zudem bestimtm diese Klasse ob eine Abillity entfernt werden kann
+     * 
+     * abillitySO: Die abillity welche verarbeitet werden soll.
      */
     public class AbillityHandler : MonoBehaviour
     {
@@ -53,6 +55,8 @@ namespace StealthLib
         {
             //Falls die Abklingszeit noch läuft und die Fähigkeit nochmal aktiviert wurde, return
             if (HasBeenActivated || activatableAbillity == null) return;
+
+            //Falls es sich bei der Abillity um ein Item handelt, zähl deren Aktivierung runter.
             if (abillitySO.IsItem) activationLeft--;
 
             activatableAbillity.Activate();

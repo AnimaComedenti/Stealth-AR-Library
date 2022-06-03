@@ -2,7 +2,18 @@
 using UnityEngine;
 
 namespace StealthLib
-{
+{   
+    /*
+     * Eine Klasse welche das Spawnen bzw. erzeugen von Items handelt.
+     * Diese Klasse nimmt die Seeke- und Hider-Items auf und unterscheidet anhan Endgerät aus welchem der beiden Item-Pools gespawnt werden soll
+     * Zusätzlich verfügt diese Klasse über SpawnPositions, einem SpawnChance und TimeInterval.
+     * 
+     * TimeInterval: Gibt an in welche Interval das Erzeugen der Items überprüft wird.
+     * SpawnChance: Gibt an wie hoch die Chance ist das ein Item spawnt.
+     * itemSpawnPositions: Dies sind die Positionen auf dennen Items erzeugt werden sollen.
+     * seekerItems: Item-Pool des Seekers (Smartphone-Spielers).
+     * hiderItems: Item-Pool des Hiders (PC-Spielers).
+     */
     public class ItemSpawner : MonoBehaviour
     {
         [SerializeField] private Transform[] itemSpawnPositions;
@@ -46,6 +57,7 @@ namespace StealthLib
 
         /*
          * Methode die für das Erzeugen der Items zuständig ist.
+         * Bestimmt zusätzlich auf welche zufällige Position das Item gespawnt werden soll.
          */
         private void SpawnRandomeItem()
         {

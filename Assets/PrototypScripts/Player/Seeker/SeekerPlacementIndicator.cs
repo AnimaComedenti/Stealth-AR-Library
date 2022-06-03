@@ -14,25 +14,9 @@ namespace StealthDemo
     {
         [SerializeField] private BuildHandler buildHandler;
         [SerializeField] private string levelTag = "Level";
-        private static SeekerPlacementIndicator _instance = null;
 
-        public static SeekerPlacementIndicator Instance
-        {
-            get { return _instance; }
-        }
         public bool isLevelPlaced { get; private set; } = false;
 
-        void Awake()
-        {
-            if (_instance != null && _instance != this)
-            {
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                _instance = this;
-            }
-        }
 
         public void FixedUpdate()
         {
@@ -53,7 +37,7 @@ namespace StealthDemo
             }
         }
 
-        public GameObject SpawnObject(GameObject obj, Quaternion quaternion)
+        public override GameObject SpawnObject(GameObject obj, Quaternion quaternion)
         {
             GameObject objToBuild;
             if (!isPlacementValid) return null;

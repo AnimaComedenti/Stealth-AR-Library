@@ -8,6 +8,8 @@ namespace StealthLib
     * Diese Klasse verarbeitet das Aufsammeln der Items für den Seeker.
     * Hierbei wird ein Raycast erzeugt welche Items Objekte, die vom Ihm getroffen wurden, in eine Liste schreibt.
     * Diese Liste wird für die außenstehende Objekte zur Verfügung gestellt.
+    * 
+    * cam: Die Kamera des Seekers.
     */
     public class SeekerItemCollector : ItemCollector
     {
@@ -24,8 +26,8 @@ namespace StealthLib
 
         /*
          * Diese Methode erkennt einen "Touch" auf den Touchscreen.
-         * Hierbei wird anhand des erkannten Touch-Befehles und der Kameraposition des Smartphones ein Raycast gebildet.
-         * Trifft der Raycast ein Item so wird überprüft ob es sich dabei wirklich um ein Item handelt, falls Erfolg wird es der Liste hinzugefügt
+         * Hierbei wird anhand des erkannten Touch-Befehles und der Kameraposition des Smartphones, ein Raycast gebildet.
+         * Trifft der Raycast ein Item so wird überprüft ob es sich dabei wirklich um ein Item handelt, falls Erfolgreich, wird es der Liste hinzugefügt
          */
         public override void SearchItem()
         {

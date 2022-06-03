@@ -16,13 +16,13 @@ namespace StealthDemo
         private int tasksCount = 0;
         private int completedTasks = 0;
 
-        private MyGameManager gameManager;
+        private GameManager gameManager;
 
         void Start()
         {
             tasks = FindObjectsOfType<UITask>();
             tasksCount = tasks.Length;
-            gameManager = MyGameManager.Instance;
+            gameManager = GameManager.Instance;
         }
 
         void Update()

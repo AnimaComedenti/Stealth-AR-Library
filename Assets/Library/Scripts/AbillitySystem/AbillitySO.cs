@@ -9,6 +9,14 @@ namespace StealthLib
      * Dieser Klassentyp wird für Fähigkeiten sowie Items genutzt.
      * Um die Klasse ausführen zu können existiert ein AbillityHandler, welcher die Abklingszeit der jeweiligen Fähigkeit regelt und somit über eine Update-Methode verfügt.
      * Um der Klasse Funktionalitäten zu geben wie das Aktivieren der Fähigkeit oder das sekündliche Updaten einer Methode, müssen hierfür zusätzlich die entsprechenden Interfaces implementiert werden.
+     * 
+     * abillityName: Name der Fähigkeit
+     * icon: Bild bzw. Icon der Fähigkeit
+     * description: Beschreibung der Fähigkeit
+     * cooldown: Abklingszeit der Fähigkeit
+     * damage: Schaden die, die Fähgikeit macht
+     * isItem: Unterscheidung ob es sich bei der Fähigkeit um eine Item handelt
+     * activationCount: Angabe wie oft eine Fähigkeit aktiviert werden kann ohne auf Abklingszeit zu gehen
      */
     public abstract class AbillitySO : ScriptableObject
     {

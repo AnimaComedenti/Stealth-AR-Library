@@ -17,5 +17,6 @@ MonoBehaviour:
   description: 
   cooldown: 15
   damage: 0
+  isItem: 1
   activationCount: 1
   objectToPlace: {fileID: 8892097039350992226, guid: eeb089b49461da343b0bc70173646b7d, type: 3}

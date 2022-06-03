@@ -6,8 +6,10 @@ namespace StealthLib
 {
     /*
      * Diese Klasse verarbeitet das Aufsammeln der Items für den Hider.
-     * Hierbei wird ein OverlapSpeher erzeugt welche Items Objekte in der nähe in eine Liste schreibt.
+     * Hierbei wird ein OverlapSpeher erzeugt welche Items-Objekte in der nähe in eine Liste schreibt.
      * Aus dieser Liste werden die Items gefiltert und in eine Liste geschrieben, welche von außen zugegriffen werden kann.
+     * 
+     * pickUpRadius: Der Radius der genutzt wird um ein Item aufzuheben. Wird für den OverlapSphere genutzt.
      */
     public class HiderItemCollector : ItemCollector
     {
@@ -23,6 +25,7 @@ namespace StealthLib
 
         /*
          * Erzeugt ein Overlapsphere und iteriert duch die gefunden Objekte zur überprüfen ob ein Item in den Objekten vorhanden ist.
+         * Ist ein Item vorhanden, füge es der Liste hinzu.
          */
         public override void SearchItem()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+using StealthLib.BehaviourNodes;
 
 namespace StealthDemo.Nodes
 {

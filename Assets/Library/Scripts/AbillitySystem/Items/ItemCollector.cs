@@ -5,6 +5,13 @@ using UnityEngine;
 
 namespace StealthLib
 {
+    /*
+     * Diese Klasse ist für die Verarbeitung des Aufsammelna der Items zuständig.
+     * Hierbei werden gefundene Items in einer Liste hinzugeffügt, auf welche von außen zugegriffen werden kann.
+     * 
+     * Items: Liste der aufgehobenen Items
+     * OnDuplicate: Ein Event das bei einem doppeltem Item ausgeführt wird
+     */
     public abstract class ItemCollector : MonoBehaviour
     {
         //Item-Liste die von außen genutzt werden kann.
@@ -33,11 +40,13 @@ namespace StealthLib
             Items.Add(itemBehaviour.Abillity);
         }
 
+        //Methode um vorhandene Items in der Liste zu entfernen
         public void RemoveItemFromList(AbillitySO abillity)
         {
             Items.Remove(abillity);
         }
 
+        //Methode um das Item zu zerstören, wenn es aufgesammelt wurde
         public void AddItemAndDestroy(ItemBehaviour itemBehaviour)
         {
             AddItemToList(itemBehaviour);

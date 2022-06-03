@@ -5,17 +5,14 @@ using UnityEngine.AI;
 using  StealthDemo.Nodes;
 using Photon.Pun;
 using StealthLib;
+using StealthLib.BehaviourNodes;
 
 namespace StealthDemo
 {
-    public class EnemyAI : MonoBehaviourPun
+    public class EnemyAI : EnemyAIBase
     {
-        [SerializeField] private PhotonView pv;
         [SerializeField] private EnemyShootingHandler shootingHandler;
-        [Header("WalkingPath")]
-        [SerializeField] private List<Transform> movePositionsPose;
         [Header("Base Stats")]
-        [SerializeField] private float startinghealth;
         [SerializeField] private float speedToRotate;
         [SerializeField] private float speedToRotateIfSeen;
         [SerializeField] private float timeToSearch;
@@ -27,40 +24,33 @@ namespace StealthDemo
         [Header("SoundDetection")]
         [SerializeField] private SoundDetector soundDetector;
 
-        private List<Vector3> movePositions = new List<Vector3>();
         private GameObject _player;
         private Vector3 _lastSeenPlayerPosition;
         private float _currentHealth;
         private NavMeshAgent agent;
-        private Selector topNode;
 
-        public PhotonView photonV
+        protected override void Start()
         {
-            get { return pv; }
-        }
-
-        private void Start()
-        {
-            _currentHealth = startinghealth;
+            _currentHealth = health;
             if (movePositionsPose.Count == 0) return;
             foreach (Transform pose in movePositionsPose)
             {
                 movePositions.Add(pose.position);
             }
-            BuildBehaviour();
+            base.Start();
         }
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
         }
 
-        private void BuildBehaviour()
+        protected override Node BuildTopNode()
         {
             CurrentlyDamagedNode checkCurrentlyDamaged = new CurrentlyDamagedNode(_currentHealth, this);
 
             //SequenzNode
             CheckSomthingHeardNode somethingHeared = new CheckSomthingHeardNode(this, soundDetector);
-            CheckPlayerSeenNode checkPlayer = new CheckPlayerSeenNode(this, flashLigth, viewDistance,playerTag);
+            CheckPlayerSeenNode checkPlayer = new CheckPlayerSeenNode(this, flashLigth, viewDistance, playerTag);
             MoveToDestinationNode moveToDestination = new MoveToDestinationNode(agent, movePositions, speedToRotate);
             CheckShootingRangeNode shootingRange = new CheckShootingRangeNode(this);
             ShootingNode shooting = new ShootingNode(this, shootingHandler, speedToRotateIfSeen);
@@ -85,20 +75,15 @@ namespace StealthDemo
 
             topNode = new Selector(new List<Node> { search, move, shoot, chase });
 
+            return topNode;
         }
 
-        private void Update()
+        protected override void Update()
         {
             if (topNode == null) return;
-            topNode.Evaluate();
+            base.Update();
         }
 
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Transform child = transform.GetChild(0);
-            Gizmos.DrawRay(child.position, transform.forward * viewDistance);
-        }
 
         #region Getter&Setter
 
@@ -117,26 +102,9 @@ namespace StealthDemo
         public float CurrentHealth
         {
             get { return _currentHealth; }
-            set { _currentHealth = Mathf.Clamp(value, 0, startinghealth); }
+            set { _currentHealth = Mathf.Clamp(value, 0, health); }
         }
 
-        public List<Vector3> DefaultMovePositions
-        {
-            get { return movePositions; }
-            private set { movePositions = value; }
-        }
-
-        [PunRPC]
-        public void AddMovePositions(Vector3[] positions)
-        {
-            List<Vector3> positionList = new List<Vector3>();
-            foreach (Vector3 pose in positions)
-            {
-                positionList.Add(pose);
-            }
-            movePositions = positionList;
-            BuildBehaviour();
-        }
 
         public float GetShootingRange { get { return shootingRange; } }
         public float GetChasingRange { get { return viewDistance; } }

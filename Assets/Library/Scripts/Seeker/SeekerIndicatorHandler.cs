@@ -7,7 +7,7 @@ using Photon.Pun;
 
 namespace StealthLib
 {
-    public class SeekerIndicatorHandler : MonoBehaviourPun
+    public abstract class SeekerIndicatorHandler : MonoBehaviourPun
     {
         [SerializeField] private GameObject _placementIndicator;
         [SerializeField] private Camera _cam;
@@ -16,6 +16,24 @@ namespace StealthLib
         protected bool isPlacementValid = false;
         private List<RaycastResult> results = new List<RaycastResult>();
         public Pose PlacementPosition { get; private set; }
+
+        private static SeekerIndicatorHandler _instance = null;
+        public static SeekerIndicatorHandler Instance
+        {
+            get { return _instance; }
+        }
+
+        void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
+        }
         public Camera Cam
         {
             get { return _cam; }
@@ -92,5 +110,7 @@ namespace StealthLib
             }
             return false;
         }
+
+        public abstract GameObject SpawnObject(GameObject obj, Quaternion quaternion);
     }
 }

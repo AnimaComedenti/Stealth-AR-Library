@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663c5b31893305943bfcefc90fd59e91, type: 3}
+  m_Script: {fileID: 11500000, guid: ce9de2a1dddbe914c967d60553035706, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
   prefab: {fileID: 4426811411217573729, guid: aeca6859f87e32a4cadaa2054e4d526f, type: 3}
   sprite: {fileID: 21300000, guid: fccdbbee739c84f40b082a759f1c5a17, type: 3}
-  buildingName: StandartEnemy
+  buildingName: Enemy
+  description: 

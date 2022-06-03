@@ -16,14 +16,14 @@ namespace StealthDemo
 
         private float maxTimer;
         private float maxObjectNotSeenTimer;
-        private MyGameManager gameManager;
+        private GameManager gameManager;
 
         // Start is called before the first frame update
         void Start()
         {
             maxTimer = objectNotSeenTimer;
             maxObjectNotSeenTimer = objectSeenTimer;
-            gameManager = MyGameManager.Instance;
+            gameManager = GameManager.Instance;
         }
 
         // Update is called once per frame
