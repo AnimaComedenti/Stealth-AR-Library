@@ -17,10 +17,8 @@ namespace StealthLib
     public class ItemBehaviour : MonoBehaviour
     {
         [SerializeField] private AbillitySO abillity;
-
         [SerializeField] private float timeToDespawn = 20;
 
-        private bool hasItemTaken = false;
         private float cnt = 0;
 
         // Update is called once per frame
@@ -40,7 +38,6 @@ namespace StealthLib
         public AbillitySO Abillity
         {
             get { 
-                hasItemTaken = true;
                 return abillity;
             }
 

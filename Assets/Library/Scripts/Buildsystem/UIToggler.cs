@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StealthDemo
+namespace StealthLib
 {
+
+    /*
+     * Diese Klasse ist eine Singelton-Klasse welche die Option zur verfügung stellt zwei Objekte toggeln zu können
+     */
     public class UIToggler : MonoBehaviour
     {
         private static UIToggler _instance = null;

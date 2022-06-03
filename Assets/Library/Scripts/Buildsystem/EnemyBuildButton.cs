@@ -7,31 +7,22 @@ using StealthDemo;
 
 namespace StealthLib
 {
-    public class EnemyBuildButton : MonoBehaviour
+    /*
+     * Eigenständige Klasse welches sich auf das bauen der Gegnerobjekte befasst
+     * 
+     * enemyPositionButtonsToToggle: Die EnemyPosition buttons auf die weitergeleitet wird
+     * buttonsToToggle: Die Buttons die getoggelt werden sollen
+     */
+    public class EnemyBuildButton : BuildButton
     {
-        [SerializeField] BuildableObjectSO _objectToBuild;
-        [SerializeField] EnemyPositionButtons enemyPositionButtonsToToggle;
-        [SerializeField] GameObject buttonsToToggle;
+        [SerializeField] private EnemyPositionButtons enemyPositionButtonsToToggle;
+        [SerializeField] private GameObject buttonsToToggle;
 
-        private void Start()
-        {
-            AddSpritesToImages();
-        }
 
-        public void OpenEnemyBuildMenu()
+        public override void BuildOnClick()
         {
-            enemyPositionButtonsToToggle.setBuildableObject = _objectToBuild;
+            enemyPositionButtonsToToggle.setBuildableObject = buildableObject;
             UIToggler.Instance.ToggelUIButtons(buttonsToToggle, enemyPositionButtonsToToggle.gameObject);
-        }
-
-        private void AddSpritesToImages()
-        {
-            Image image = transform.GetChild(1).GetComponent<Image>();
-
-            if (_objectToBuild.Sprite != null)
-            {
-                image.sprite = _objectToBuild.Sprite;
-            }
         }
     }
 }

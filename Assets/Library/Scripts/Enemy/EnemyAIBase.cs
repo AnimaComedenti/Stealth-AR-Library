@@ -6,6 +6,15 @@ using UnityEngine;
 
 namespace StealthLib
 {
+    /*
+     * Basisklasse für die Gegner.
+     * Hauptgedanke dieser Klasse ist es, diese als Dependencies-Injector-Klasse zu benutzen.
+     * Diese Klasse nimmt die Dependecies entgegen und erstellt anahnd diesen ein BehviorTree.
+     * 
+     * health: Leben des Gegners
+     * movementSpeed: Bewegungsgeschwindigkeit des Gegners
+     * movePositionsPose: Die Positionen die der Gegner ablaufen kann
+     */
     public abstract class EnemyAIBase : MonoBehaviourPun
     {
         [SerializeField] protected float health;
@@ -27,6 +36,9 @@ namespace StealthLib
             topNode.Evaluate();
         }
 
+        /*
+         * Methode welche den BehaviourTree erzeugt
+         */
         protected abstract Node BuildTopNode();
 
         public List<Vector3> DefaultMovePositions

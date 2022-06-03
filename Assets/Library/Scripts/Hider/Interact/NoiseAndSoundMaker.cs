@@ -4,6 +4,13 @@ using Photon.Pun;
 
 namespace StealthLib
 {
+    /*
+     * Klasse die von dem SoundMaker erbt und mit der Ausgabe von Lichtern erweitert.
+     * 
+     * lightRessource: Lichtquelle welche von dieser Klasse geändert werden soll
+     * timeInterval: In welchen schritten ein Licht und ein Geräusch gemacht wird
+     * soundAndLightDuration: Angabe wie Lange das Geräusch sowie das Licht aktiv sein soll
+     */
     public class NoiseAndSoundMaker : SoundMaker
     {
         [SerializeField] private Light lightRessource;
@@ -29,7 +36,13 @@ namespace StealthLib
             return false;
         }
 
-
+        /*
+         * Aktiviert und Deactiviert das Licht
+         * 
+         * shouldBeActivated: bool welcher bestimmt ob das Licht aktiviert werden soll
+         * color: das Licht welches ausgegeben werden soll als Vector3
+         * isRemote: ob das Licht über das Netzwerk sychnronisiert werden soll oder nicht
+         */
         public void ActivateLight(bool shouldBeActivated, Vector3 color, bool isRemote = true)
         {
             if (isRemote)
@@ -41,6 +54,14 @@ namespace StealthLib
             SetLightAndColor(color, shouldBeActivated);
         }
 
+
+        /*
+         * Aktiviert und Deactiviert das Licht
+         * 
+         * shouldBeActivated: bool welcher bestimmt ob das Licht aktiviert werden soll
+         * color: das Licht welches ausgegeben werden soll
+         * isRemote: ob das Licht über das Netzwerk sychnronisiert werden soll oder nicht
+         */
         public void ActivateLight(bool shouldBeActivated, Color color, bool isRemote = true)
         {
             Vector3 colorVector = new Vector3(color.r, color.g, color.b);

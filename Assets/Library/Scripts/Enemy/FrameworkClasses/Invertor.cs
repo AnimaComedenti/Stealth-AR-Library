@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace StealthLib.BehaviourNodes
 {
+
+    /*
+     * Das das Logische NOT.
+     * Bei dieser Klasse wird der Status von der jeweiligen Node umgekerht.
+     * Aus Failure --> Success, Success --> Failure
+     */
     public class Invertor : Node
     {
 

@@ -7,6 +7,13 @@ using Photon.Pun;
 
 namespace StealthLib
 {
+    /*
+     * Singelton-Klasse die für die Positionsveränderung des Zeiges des Smartphone-Spielers verantwortich ist.
+     * 
+     * _placementIndicator: Der Zeiger des Spielers
+     * _cam: Die Kamera des Spielers
+     * aRRaycastManager: Der Raycastmanager um auf AR-Objekte Raycasten zu können
+     */
     public abstract class SeekerIndicatorHandler : MonoBehaviourPun
     {
         [SerializeField] private GameObject _placementIndicator;
@@ -45,6 +52,9 @@ namespace StealthLib
             set { _placementIndicator = value; }
         }
 
+        /*
+         * Methode welche die Position anhand der Bildschirmmitte erzeugt.
+         */
         public void CursorPositionMiddleOfDisplay()
         {
             List<ARRaycastHit> hits = new List<ARRaycastHit>();
@@ -57,6 +67,10 @@ namespace StealthLib
                 PlacementPosition = hits[0].pose;
             }
         }
+
+       /*
+        * Methode welche die Position den Zeiger, nach dem Tippen auf dem Touchscreen, erzeugt.
+        */
         public void CursorPositionOnTouch()
         {
             if (!IsScreenTouched()) return;
@@ -75,6 +89,10 @@ namespace StealthLib
             isPlacementValid = false;
         }
 
+
+        /*
+         * Methode welche die ZeigerPosition aktuallisiert.
+         */
         public void UpdatePlacementIndicator()
         {
             if (isPlacementValid)
@@ -88,6 +106,11 @@ namespace StealthLib
             }
         }
 
+        /*
+         * Methode zur Überprüfung ob ein Touch-Befehl auf einem Objekt war
+         * 
+         * return: bool ob der Touch über ein UI-Objekt war
+         */
         public bool IsPointerOverUIObject()
         {
             PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
@@ -96,6 +119,12 @@ namespace StealthLib
             EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
             return results.Count > 0;
         }
+
+        /*
+         * Methode zur Überprüfung ob ein Touch-Befehl ausgeführt wurde
+         * 
+         * return: bool der angibt ob ein Touch-Befehl ausgeführt wurde
+         */
 
         public bool IsScreenTouched()
         {

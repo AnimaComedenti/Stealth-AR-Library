@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace StealthLib.BehaviourNodes
 {
+    /*
+     * Das Logische AND.
+     * Diese Klasse nimmt mehrere ChildNotes engegen, itteriert durch diese, und überprüft deren Status.
+     * Falls alle ChildNotes den Status Success zurückgeben gibt diese Klasse auch Success zurück, ansosten Failure.
+     */
     public class Sequenz : Node
     {
 

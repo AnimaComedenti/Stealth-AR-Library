@@ -635,7 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 2470490245933918285, guid: 4e3ad7ae35338484ab07e93389a29edb, type: 3}
   buildButtonsToToggle: {fileID: 0}
-  enemyPostionButtonsToToggle: {fileID: 0}
+  enemyPostionButtonsToToggle: {fileID: 6228484803861315326}
 --- !u!1 &7160362623720494530
 GameObject:
   m_ObjectHideFlags: 0

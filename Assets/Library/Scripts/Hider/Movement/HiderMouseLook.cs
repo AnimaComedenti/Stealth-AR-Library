@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace StealthLib
 {
+    /*
+     * Script welches das mitdrehen der Kamera sowie des Objektes erlaubt bei der Bewegung des Mauszeigers
+     * 
+     * mouseSensitivity: Maus Empfindlichkeit, welche die geschwindikeit der Mausbewegung bearbeitet.
+     * playerBody: Das Objekt welches sich mit der Mausbewegung mitdrehen soll
+     * 
+     * Code By Brackeys
+     * https://www.youtube.com/watch?v=_QajrabyTJc&t=1234s
+     */
     public class HiderMouseLook : MonoBehaviour
     {
 
@@ -11,13 +20,11 @@ namespace StealthLib
         public Transform playerBody;
 
         private float xRotation = 0f;
-        // Start is called before the first frame update
         void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        // Update is called once per frame
         void LookAroundPlayer()
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

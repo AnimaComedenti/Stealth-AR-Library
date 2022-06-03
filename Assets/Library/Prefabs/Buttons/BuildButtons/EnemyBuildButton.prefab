@@ -347,7 +347,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3973055544369367140}
         m_TargetAssemblyTypeName: StealthLib.EnemyBuildButton, Assembly-CSharp
-        m_MethodName: OpenEnemyBuildMenu
+        m_MethodName: BuildOnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -369,7 +369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8442a73a062a6f74d883c9ae353f8c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectToBuild: {fileID: 0}
+  buildableObject: {fileID: 0}
+  ImageObject: {fileID: 160852939370248817}
   enemyPositionButtonsToToggle: {fileID: 604050230025392527}
   buttonsToToggle: {fileID: 8362776441129023222}
 --- !u!1001 &19513822026280571

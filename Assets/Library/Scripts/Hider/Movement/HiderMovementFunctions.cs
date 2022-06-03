@@ -4,6 +4,19 @@ using Photon.Pun;
 
 namespace StealthLib
 {
+    /*
+     * Grundlegende Bewegungsoptionen für den Spieler
+     * 
+     * characterController: Der CharacterController welcher für das Bewegen aufgerufen wird
+     * jumpHeight: Springhöhe, die bestimmt wie hoch der Spieler springen kann
+     * groundCheck: Wird genutzt umm zu erkennen ob der Spieler sich auf dem Boden befindet
+     * checkRaduis: Der Radius für die Bodenerkennung
+     * groundmask: LayerMask für die Bodenerkennung
+     * gravity: Gravitation zum berechnen des Springens
+     * 
+     * Code Inspired by Brackeys
+     * https://www.youtube.com/watch?v=_QajrabyTJc&t=1234s
+     */
     public class HiderMovementFunctions : MonoBehaviourPun
     {
 
@@ -24,7 +37,7 @@ namespace StealthLib
         protected Vector3 velocity;
         protected bool isHiderOnGround = true;
 
-
+        //Mothode die das Bewegen bestimmt
         public virtual void Move(float speed)
         {
             float x = Input.GetAxis("Horizontal");
@@ -34,6 +47,7 @@ namespace StealthLib
             characterController.Move(moveDirection * speed * Time.deltaTime);
         }
 
+        //Methode die das Springen ermöglicht
         public virtual void Jump()
         {
             if (isHiderOnGround)
@@ -44,6 +58,11 @@ namespace StealthLib
         }
 
 
+        /*
+         * Methode zur berechnung der Gravitation
+         * 
+         * currentVelocity: Die Geschwindigkeit welche im Moment auf dem SPieler wirkt
+         */
         public virtual void HandleGravity(Vector3 currentVelocity)
         {
             isHiderOnGround = Physics.CheckSphere(groundCheck.position, checkRaduis,groundmask);
@@ -56,6 +75,10 @@ namespace StealthLib
             velocity.y += gravity * Time.deltaTime;
         }
 
+
+        /*
+         * Methode welche den Spieler es ermöglich mit Sachen zu interagieren
+         */
         protected virtual void Interact()
         {
             RaycastHit hit;

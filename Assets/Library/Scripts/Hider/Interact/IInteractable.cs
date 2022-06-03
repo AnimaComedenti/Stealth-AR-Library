@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace StealthLib
 {
+    /*
+     * Interface welche für das Interagieren mit dem Hider implementiert werden kann
+     */
     interface IInteractable
     {
         public void OnInteract();

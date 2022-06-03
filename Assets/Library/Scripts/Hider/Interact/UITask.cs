@@ -4,6 +4,12 @@ using Photon.Pun;
 
 namespace StealthLib
 {
+    /*
+     * BasisKlasse für eine Task welches über ein UI verfügt
+     * 
+     * ui: Das UI welches bei Nutzung angezeigt werden soll
+     * closeUIButton: Der Button welcher für das Schließen der UI genutzt wird
+     */
     public abstract class UITask : MonoBehaviourPun, IInteractable
     {
         [SerializeField] protected GameObject ui;
@@ -19,6 +25,9 @@ namespace StealthLib
             OpenUI();
         }
 
+        /*
+         * Öffnet das UI
+         */
         public void OpenUI()
         {
             if (ui.activeSelf) return;
@@ -26,6 +35,9 @@ namespace StealthLib
             ui.SetActive(true);
         }
 
+        /*
+         * Schließt das UI
+         */
         public void CloseUI()
         {
             if (Input.GetKey(closeUIButton))

@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace StealthLib.BehaviourNodes
 {
+    /*
+     * Das Logische OR
+     * Diese Klasse nimmt mehrere ChildNotes engegen, itteriert durch diese, und überprüft deren Status.
+     * Die Note selber gibt, falls eine ChildNote Success zurück gibt, auch Success zurück.
+     */
     public class Selector : Node
     {
         protected List<Node> childNodes = new List<Node>();

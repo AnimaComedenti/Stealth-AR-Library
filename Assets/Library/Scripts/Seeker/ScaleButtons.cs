@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 namespace StealthLib
-{
+{   
+    /*
+     * Skalierungs-Buttons zum anpassen der Scene des Seekers
+     */
     public class ScaleButtons : MonoBehaviour
     {
         private Transform arSession;
@@ -13,6 +16,10 @@ namespace StealthLib
         {
             arSession = FindObjectOfType<ARSessionOrigin>().transform;
         }
+
+        /*
+         * Methode welche die Skalliewrung der Scene per Methodenaufruf schrittweise erhöht
+         */
         public void ScaleUp()
         {
             Vector3 originalScale = arSession.localScale;
@@ -20,6 +27,9 @@ namespace StealthLib
             arSession.transform.localScale = newScale;
         }
 
+       /*
+        * Methode welche die Skalliewrung der Scene per Methodenaufruf schrittweise verringert
+        */
         public void ScaleDown()
         {
             Vector3 originalScale = arSession.localScale;

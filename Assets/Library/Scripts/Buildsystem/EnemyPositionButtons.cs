@@ -10,7 +10,11 @@ using StealthDemo;
 namespace StealthLib
 {
     /*
-     * Bei dieser Klasse handelt es sich um einem Buttonscript welche das Setzten und Löschen von Positionen sowie das Spawnen des Gegners verarbeitet,
+     * Bei dieser Klasse handelt es sich um einem Buttonscript welche das Setzten und Löschen von Positionen sowie das Spawnen des Gegners verarbeitet.
+     * 
+     * pointPrefab: Das Prefab zum darstellen der makierten Positionen 
+     * buildButtonsToToggle: Gameobject auf das getoggelt werden soll 
+     * enemyPostionButtonsToToggle: Gameobject auf das getoggelt werden soll
      */
     public class EnemyPositionButtons : MonoBehaviour
     {
@@ -35,6 +39,10 @@ namespace StealthLib
             set { buildableObject = value; }
         }
 
+        /*
+         * Setzt anhand des Indicators die Position indem diese in die Liste geschrieben wird.
+         * Zudem wird auf der Position ein Point gespawnt welcher zur Orientierung des Nutzers dient
+         */
         public void SetAiPositions()
         {
             Pose position = seekerIndicatorHandler.PlacementPosition;
@@ -43,6 +51,10 @@ namespace StealthLib
             points.Add(circle);
         }
 
+       /*
+        * Löscht die letzte Position in der Liste sowie entfernt die letzte Point-Makierung.
+        * Falls keine Position nach abruf der Methode in der Liste existieren, wird wieder zu den buildButtonsToToggle gewechselt
+        */
         public void ResetLastPosition()
         {
             //if removing while no positions, close UI
@@ -60,6 +72,10 @@ namespace StealthLib
 
         }
 
+       /*
+        * Diese Methode übergibt die gespeicherten Positionen in der Liste dem Gegner und Spawnt diesen.
+        * NAchdem dieser erzeugt wurde werden alle Werte in diesem Script resetet und auf die buildButtonsToToggle zurück gewechselt.
+        */
         public void ConfirmAIBuild()
         {
             //Spawn enemy

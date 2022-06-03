@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace StealthLib
 {
+    /*
+     * Klasse die für die Erkennung des Spielers im Sichtwinkel des Gegenspielers zuständig ist
+     */
     public class ObjectDetection : MonoBehaviour
     {
         public bool IsObjectSeen { get; private set; } = false;
@@ -27,6 +30,10 @@ namespace StealthLib
         }
 
         #region ObjectDetection
+
+        /*
+         * Methode welche überprüft ob das gesuchte Objekt im blickwinkel der Kamera ist
+         */
         private void IsInCameraSigth()
         {
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
@@ -49,6 +56,10 @@ namespace StealthLib
             }
         }
 
+
+        /*
+         * Methode welche überprüft ob das gesuchte Objekt über das gesuchte Layer verfügt
+         */
         private void CheckRendererInSigth(Vector3 objectPosition)
         {
             RaycastHit hit;

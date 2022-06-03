@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 108632216774007425}
   - component: {fileID: 8961727826142115424}
-  - component: {fileID: 892738302894721438}
+  - component: {fileID: 1903118909352587099}
   m_Layer: 5
   m_Name: BuildButton
   m_TagString: Untagged
@@ -234,8 +234,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 892738302894721438}
-        m_TargetAssemblyTypeName: StealthLib.BuildButton, Assembly-CSharp
+      - m_Target: {fileID: 1903118909352587099}
+        m_TargetAssemblyTypeName: StealthLib.StandartBuildButton, Assembly-CSharp
         m_MethodName: BuildOnClick
         m_Mode: 1
         m_Arguments:
@@ -246,7 +246,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &892738302894721438
+--- !u!114 &1903118909352587099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,12 +255,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8453076836856313092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa22125bdfcf35468567c54c099d203, type: 3}
+  m_Script: {fileID: 11500000, guid: b4d3be4ce1ab3094b8e01d988912ab2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectToBuild: {fileID: 0}
-  rotationButtonsToToggle: {fileID: 0}
-  BuildButtonsToToggle: {fileID: 0}
+  buildableObject: {fileID: 0}
+  ImageObject: {fileID: 8360891877793922724}
 --- !u!1 &8733774969389040154
 GameObject:
   m_ObjectHideFlags: 0
