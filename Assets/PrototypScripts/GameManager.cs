@@ -10,7 +10,6 @@ namespace StealthDemo
     public class GameManager : MonoBehaviourPun
     {
         [SerializeField] private GameObject endGameUI;
-        [SerializeField] private Text endGameMessage;
         [SerializeField] private Text winMassage;
 
         public static GameManager Instance
@@ -49,14 +48,6 @@ namespace StealthDemo
                 photonView.RPC("HiderWon", RpcTarget.All);
             }
         }
-
-        /*
-        private void CheckLivingHiders()
-        {
-            HiderPlayerController[] hiders = FindObjectsOfType<HiderPlayerController>();
-
-            if (hiders.Length <= 0 && SeekerPlacementIndicator.Instance.isLevelPlaced && PhotonNetwork.PlayerList.Length >= 2) hasHiderWon = true; 
-        }*/
 
         [PunRPC]
         private void HiderWon()

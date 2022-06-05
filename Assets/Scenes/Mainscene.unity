@@ -261,9 +261,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 184914621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db3d64f7e14b8dc4fb8bceef54ac6d31, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &235284501
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,8 +637,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 847708181}
-  - component: {fileID: 847708182}
   - component: {fileID: 847708183}
+  - component: {fileID: 847708182}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -659,12 +669,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 847708180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe2223b3c2c521c40b3835e39e93f727, type: 3}
+  m_Script: {fileID: 11500000, guid: efc4baca2fea8b948a136d567503d101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pvCache: {fileID: 0}
   endGameUI: {fileID: 303897225}
-  endGameMessage: {fileID: 235284503}
   winMassage: {fileID: 760563716}
   hasSeekerWon: 0
   hasHiderWon: 0
@@ -778,8 +786,8 @@ GameObject:
   - component: {fileID: 1064870947}
   - component: {fileID: 1064870946}
   - component: {fileID: 1064870945}
-  - component: {fileID: 1064870951}
   - component: {fileID: 1064870950}
+  - component: {fileID: 1064870951}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -889,7 +897,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1064870944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d48628e7265ed2e4da4d8be9d1578ad7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9aaeada0b75868a4a8fc3c3230e14ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   origin: {fileID: 1064870948}
