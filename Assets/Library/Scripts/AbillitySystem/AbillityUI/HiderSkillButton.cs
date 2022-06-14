@@ -9,7 +9,7 @@ namespace StealthLib
      * 
      * Key: Die Taste welche für die Aktivierung gedrückt werden soll
      */
-    public class HiderSkillButton : SkillButton
+    public class HiderSkillButton : SkillButtonWithCooldownText
     {
 
         [SerializeField] private KeyCode key;
@@ -19,12 +19,8 @@ namespace StealthLib
 
             if (Input.GetKey(key))
             {
+                if (skillToActivate == null) return;
                 abillityHandler.OnActivate();
-
-                if (abillityHandler.CanBeRemoved())
-                {
-                    abillityHandler.Abillity = null;
-                }
             }
 
             base.Update();

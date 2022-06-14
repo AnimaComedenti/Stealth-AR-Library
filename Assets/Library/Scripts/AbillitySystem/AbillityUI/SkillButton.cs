@@ -17,9 +17,8 @@ namespace StealthLib
     {
         [SerializeField] protected AbillityHandler abillityHandler;
         [SerializeField] protected Image imageGameObject;
-        [SerializeField] protected Text cooldownTextfield;
 
-        private AbillitySO skillToActivate;
+        protected AbillitySO skillToActivate;
 
         protected virtual void Start()
         {
@@ -28,29 +27,8 @@ namespace StealthLib
         protected virtual void Update()
         {
             SetSkillToActivate(abillityHandler.Abillity);
-            HandleCooldowntextField();
         }
 
-        //Verarbeitung und Darstellung des Cooldown-Textes
-        protected void HandleCooldowntextField()
-        {
-            if (skillToActivate == null)
-            {
-                cooldownTextfield.gameObject.SetActive(false);
-                return;
-            }
-
-            if (!abillityHandler.HasBeenActivated)
-            {
-                cooldownTextfield.gameObject.SetActive(false);
-                return;
-            }
-            else
-            {
-                cooldownTextfield.gameObject.SetActive(true);
-                cooldownTextfield.text = abillityHandler.Cooldown + "s";
-            }
-        }
 
         public void SetSkillToActivate(AbillitySO skill)
         {
@@ -68,7 +46,6 @@ namespace StealthLib
         #region Getter & Setter
 
         public Image Image { get => imageGameObject; set => imageGameObject = value; }
-        public Text CooldownText { get => cooldownTextfield; set => cooldownTextfield = value; }
         public AbillityHandler AbillityHandler { get => abillityHandler; set => abillityHandler = value; }
         public AbillitySO SkillToActivate{ get => skillToActivate; set => skillToActivate = value; }
 

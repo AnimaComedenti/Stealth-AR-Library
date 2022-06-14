@@ -35,6 +35,11 @@ namespace StealthLib
                 return;
             }
 
+            if(activationLeft <= 0)
+            {
+                abillitySO = null;
+            }
+
             //Wenn die Fähigkeit aktiviert wurde, beginne mit dem ru7nterzählen der Abklingszeit
             if (HasBeenActivated)
             {
@@ -86,7 +91,7 @@ namespace StealthLib
         public bool CanBeRemoved()
         {
             if (abillitySO == null) return false;
-            return abillitySO.ActivationCount <= 0;
+            return activationLeft <= 0;
         }
 
         #region Getter & Setter
