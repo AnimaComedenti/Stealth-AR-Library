@@ -13,15 +13,9 @@ namespace StealthLib
         //Methode welche den Skill oder das Item ausführt. 
         public void OnClick()
         {
+            if (skillToActivate == null) return;
             abillityHandler.OnActivate();
 
-           /*
-            * Abfrage ob die Abillity, welche auf dem Handler sowie auf dem Button sitzt, entfernt werden kann.
-            */
-            if (abillityHandler.CanBeRemoved())
-            {
-                abillityHandler.Abillity = null;
-            }
         }
     }
 }

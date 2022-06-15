@@ -10,7 +10,7 @@ using Photon.Pun;
 
 namespace StealthDemo
 {
-    public class NetworkManager : MonoBehaviourPunCallbacks
+    public class PlayerSpawner : MonoBehaviourPunCallbacks
     {
         
         [SerializeField]

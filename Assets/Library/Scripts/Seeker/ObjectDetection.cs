@@ -12,7 +12,9 @@ namespace StealthLib
         public bool IsObjectSeen { get; private set; } = false;
 
         [SerializeField] private Camera cam;
+        //Layermask des gesuchten Objektes
         [SerializeField] private int objectLayer = 6;
+        //Tag des gesuchten Objektes
         [SerializeField] private string objectTag = "Player";
 
         private GameObject[] objectsFound = new GameObject[0];

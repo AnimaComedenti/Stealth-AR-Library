@@ -41,12 +41,16 @@ namespace StealthLib
         private static SoundHolder _instance = null;
         public static SoundHolder Instance
         {
-            get { return _instance; }
+            get {
+                if (_instance == null) Debug.LogError("Singelton instance of SoundHolderClass is null");
+                return _instance; 
+            }
         }
         private void Awake()
         {
             if (_instance != null && _instance != this)
             {
+                Debug.Log("SoundHolder already exists");
                 Destroy(this.gameObject);
             }
             else

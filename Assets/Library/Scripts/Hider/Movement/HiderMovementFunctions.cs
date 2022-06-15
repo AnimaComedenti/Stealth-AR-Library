@@ -61,7 +61,7 @@ namespace StealthLib
         /*
          * Methode zur berechnung der Gravitation
          * 
-         * currentVelocity: Die Geschwindigkeit welche im Moment auf dem SPieler wirkt
+         * currentVelocity: Die Geschwindigkeit welche im Moment auf dem Spieler wirkt
          */
         public virtual void HandleGravity(Vector3 currentVelocity)
         {

@@ -89,10 +89,9 @@ namespace StealthLib
         #region NetworkingSoundPlaying
 
         /*
-         * Um hörbare Geräusche Remote hörbar zu machen, können diese Klassen genutzt werden.
+         * Um hörbare Geräusche Remote hörbar zu machen, können diese Methoden genutzt werden.
          * Für offline Spiele reichen die Oberen Methoden "SetAudioCLipAudio" und "SetSoundSOAudio" aus
          */
-
 
         [PunRPC]
         public void SetAudioRemoteSoundSO(string soundname)

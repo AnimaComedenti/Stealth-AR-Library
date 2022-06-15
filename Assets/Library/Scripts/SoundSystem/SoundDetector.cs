@@ -9,7 +9,7 @@ namespace StealthLib
     /*
      * Diese Klasse ist für das Hören von Objecten zuständig.
      * Diese Klasse gibt bei dem errreichen des Schwellwertes 1 das gehörte Objekt zurück.
-     * Zudem berechnet diese Klasse auch den Abfall und Zuwags der Lautstärke je weiter das Object sich befindet.
+     * Zudem berechnet diese Klasse auch den Abfall und Zuwags der Lautstärke je weiter das Object sich von diesem befindet.
      * Beachte: Das Object welches belauscht werden soll muss die SoundMakerKlasse implementieren
      * 
      * @maxHearDistance: Die maximale Hördistanz.
@@ -68,7 +68,7 @@ namespace StealthLib
          * Bsp. Lautstärke von 0.2 ist bei einer Distanz von 0 genau 0.2 Laut, ist die Distanz größer als 0 so ist die Lautstärke < 0.2.
          * @return: Die berechnete Lautstärke
          */
-        private float VolumePerDistance(float distance, float volume)
+        public float VolumePerDistance(float distance, float volume)
         {
             return  volume * (maxHearDistance - distance) / maxHearDistance;
         }
@@ -77,9 +77,9 @@ namespace StealthLib
          * Überprüft ob das GameoObjekt gehört werden kann und ob dieses schon in der Liste existiert.
          * Falls das Object in der Liste existiert und nicht gehört werden kann wird es entfernt.
          */
-        private void AddHearedObjectToList(GameObject gameObject)
+        public void AddHearedObjectToList(GameObject gameObject)
         {
-            if(CurrentHearingObjects.Count < 0)
+            if(objectVolume >= soundLevelToHear && CurrentHearingObjects.Count < 0)
             {
                 CurrentHearingObjects.Add(gameObject);
                 return;

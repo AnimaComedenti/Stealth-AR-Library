@@ -26,9 +26,10 @@ namespace StealthLib
         {
             if (itemCollector.Items.Count <=  itemSlot) return;
 
-            if (abillitySO == null)
+            if (Abillity == null)
             {
                 Abillity = itemCollector.Items[itemSlot];
+                itemCollector.RemoveItemFromList(Abillity);
             }
 
             base.FixedUpdate();
@@ -37,7 +38,7 @@ namespace StealthLib
         {
             base.ResetDefault();
 
-            if (abillitySO == null && itemCollector.Items.Count > itemSlot) itemCollector.Items.Remove(itemCollector.Items[itemSlot]);
+            if (abillitySO == null && itemCollector.Items.Count > itemSlot) itemCollector.RemoveItemFromList(itemCollector.Items[itemSlot]);
         }
 
         //Falls ein Duplicate gefunden wurde wird das Item wieder Gesetzt.

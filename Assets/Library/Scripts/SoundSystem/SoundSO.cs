@@ -30,6 +30,7 @@ namespace StealthLib
 
         public AudioClip GetRandomeAudio()
         {
+            if (audio.Length == 1) return audio[0];
             int randomeNumber = 0;
             while (randomeNumber == lastNumber)
             {

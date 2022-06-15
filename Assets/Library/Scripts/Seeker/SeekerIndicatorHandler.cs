@@ -27,13 +27,17 @@ namespace StealthLib
         private static SeekerIndicatorHandler _instance = null;
         public static SeekerIndicatorHandler Instance
         {
-            get { return _instance; }
+            get {
+                if (_instance == null) Debug.LogError("Singelton instance of SeekerIndicatorHandler is null");
+                return _instance; 
+            }
         }
 
         void Awake()
         {
             if (_instance != null && _instance != this)
             {
+                Debug.Log("SeekerIndicatorHandler already exists");
                 Destroy(this.gameObject);
             }
             else

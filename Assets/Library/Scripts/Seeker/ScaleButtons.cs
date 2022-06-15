@@ -24,7 +24,7 @@ namespace StealthLib
         {
             Vector3 originalScale = arSession.localScale;
             Vector3 newScale = originalScale * 0.9f;
-            arSession.transform.localScale = newScale;
+            arSession.localScale = newScale;
         }
 
        /*
@@ -34,7 +34,7 @@ namespace StealthLib
         {
             Vector3 originalScale = arSession.localScale;
             Vector3 newScale = originalScale * 1.1f;
-            arSession.transform.localScale = newScale;
+            arSession.localScale = newScale;
         }
     }
 }
