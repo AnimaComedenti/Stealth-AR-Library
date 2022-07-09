@@ -247,11 +247,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 687481232e6b7b8468af3bd8a0ecac88, type: 2}
   - {fileID: 11400000, guid: f5a81a84831a44f42be66dc90b578b52, type: 2}
   - {fileID: 11400000, guid: 8580bfdefec03f3498eae23e736f88e9, type: 2}
-  audioClips:
-  - audio: {fileID: 0}
-    name: 
-  - audio: {fileID: 0}
-    name: 
+  audioClips: []
 --- !u!114 &184914624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -837,7 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlanePrefab: {fileID: 5427026598831097408, guid: d720e1048c7fa6c4c8f9e6e8bf9d85d1, type: 3}
+  m_PlanePrefab: {fileID: 0}
   m_DetectionMode: -1
 --- !u!114 &1064870948
 MonoBehaviour:

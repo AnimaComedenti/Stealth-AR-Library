@@ -28,7 +28,7 @@ namespace StealthLib
                 SearchObject();
                 return;
             }
-            IsInCameraSigth();
+            IsInCameraSight();
         }
 
         #region ObjectDetection
@@ -36,7 +36,7 @@ namespace StealthLib
         /*
          * Methode welche überprüft ob das gesuchte Objekt im blickwinkel der Kamera ist
          */
-        private void IsInCameraSigth()
+        private void IsInCameraSight()
         {
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
 
@@ -53,7 +53,7 @@ namespace StealthLib
                     }
                 }
 
-                CheckRendererInSigth(searchedObject.transform.position);
+                CheckObjectInSight(searchedObject.transform.position);
                 if (IsObjectSeen) return;
             }
         }
@@ -62,7 +62,7 @@ namespace StealthLib
         /*
          * Methode welche überprüft ob das gesuchte Objekt über das gesuchte Layer verfügt
          */
-        private void CheckRendererInSigth(Vector3 objectPosition)
+        private void CheckObjectInSight(Vector3 objectPosition)
         {
             RaycastHit hit;
             if (Physics.Linecast(cam.transform.position, objectPosition, out hit))

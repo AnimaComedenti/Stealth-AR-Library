@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 8978481308677297360}
   - component: {fileID: 7114148393855825868}
   m_Layer: 8
-  m_Name: RhythmTask
+  m_Name: ReactionTask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,6 +154,7 @@ MonoBehaviour:
   buttonToPressImage: {fileID: 2547819518907676109}
   noiseAndSoundMaker: {fileID: 7114148393855825868}
   soundname: Running
+  reaktionTime: 2
 --- !u!33 &4842348426711770280
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -357,14 +358,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4842348426711770287}
     m_Modifications:
+    - target: {fileID: 605660439502463816, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_Text
+      value: F
+      objectReference: {fileID: 0}
     - target: {fileID: 1865125783412033693, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_Name
       value: RhythmTaskUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865125783412033693, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1902558795114195479, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2709991496279614447}
+    - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -750
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -2486
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 272.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030750311932886948, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 190.99988
+      objectReference: {fileID: 0}
     - target: {fileID: 4764970928618587934, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -448,6 +489,10 @@ PrefabInstance:
     - target: {fileID: 4764970928618587934, guid: 29b54ed0e571060438f6f12051926190, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8296782834488918662, guid: 29b54ed0e571060438f6f12051926190, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29b54ed0e571060438f6f12051926190, type: 3}

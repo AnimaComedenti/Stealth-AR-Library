@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 47974608245834025}
   - component: {fileID: 1044333200595586967}
   m_Layer: 0
-  m_Name: AR Camera
+  m_Name: Seeker
   m_TagString: Seeker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -505,6 +505,10 @@ PrefabInstance:
       propertyPath: itemCollector
       value: 
       objectReference: {fileID: 1044333200595586967}
+    - target: {fileID: 1491609748069046332, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3700154357581854966, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: itemCollector
       value: 
@@ -536,6 +540,10 @@ PrefabInstance:
     - target: {fileID: 7595853889355567396, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: m_Name
       value: AR UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595853889355567396, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7595853889355567397, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
       propertyPath: m_Pivot.x
@@ -625,6 +633,10 @@ PrefabInstance:
       propertyPath: buildButtonsToToggle
       value: 
       objectReference: {fileID: 4894830965309181055}
+    - target: {fileID: 9058503397265705480, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a9375a4e35213f46ace691f16738f6f, type: 3}
 --- !u!1 &2890687262188883825 stripped

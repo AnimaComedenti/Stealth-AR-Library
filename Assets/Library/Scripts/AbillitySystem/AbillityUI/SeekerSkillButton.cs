@@ -15,7 +15,6 @@ namespace StealthLib
         {
             if (skillToActivate == null) return;
             abillityHandler.OnActivate();
-
         }
     }
 }

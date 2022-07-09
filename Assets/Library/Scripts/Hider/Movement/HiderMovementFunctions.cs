@@ -15,7 +15,7 @@ namespace StealthLib
      * gravity: Gravitation zum berechnen des Springens
      * 
      * Code Inspired by Brackeys
-     * https://www.youtube.com/watch?v=_QajrabyTJc&t=1234s
+     * https://www.youtube.com/watch?v=_QajrabyTJc
      */
     public class HiderMovementFunctions : MonoBehaviourPun
     {

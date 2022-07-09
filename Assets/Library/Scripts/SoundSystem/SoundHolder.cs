@@ -17,8 +17,8 @@ namespace StealthLib
         [System.Serializable]
         public class AudioClipHolder
         {
-            public AudioClip audio;
-            public string name;
+            private AudioClip audio;
+            private string name;
 
             public AudioClipHolder(AudioClip audio, string name)
             {

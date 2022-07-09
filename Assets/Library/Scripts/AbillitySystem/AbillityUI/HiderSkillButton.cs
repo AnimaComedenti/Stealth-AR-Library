@@ -14,7 +14,7 @@ namespace StealthLib
 
         [SerializeField] private KeyCode key;
 
-        protected override void Update()
+        protected override void FixedUpdate()
         {
 
             if (Input.GetKey(key))
@@ -23,7 +23,7 @@ namespace StealthLib
                 abillityHandler.OnActivate();
             }
 
-            base.Update();
+            base.FixedUpdate();
         }
 
         #region Getter & Setter

@@ -30,7 +30,6 @@ namespace StealthLib
             topNode = BuildTopNode();
         }
 
-        // Update is called once per frame
         protected virtual void Update()
         {
             topNode.Evaluate();

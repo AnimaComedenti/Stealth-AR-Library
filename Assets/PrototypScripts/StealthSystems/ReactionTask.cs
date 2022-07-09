@@ -181,6 +181,7 @@ namespace StealthDemo
         {
             timeTickMultiply = Random.Range(1, 10);
             timeToClick = Random.Range(5, 15);
+            isTimerStarted = false;
         }
 
         private void CountHealthUp()

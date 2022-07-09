@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9de2a1dddbe914c967d60553035706, type: 3}
   m_Name: Level
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6560087167108000413, guid: 6e3fd3c0ea50a6140bf2e628557b0c82, type: 3}
+  prefab: {fileID: 5621555707530423443, guid: 7dea506b078bddf45928f5afd84af5f7, type: 3}
   sprite: {fileID: 21300000, guid: a52513818b99c924097a193d7a36fa0e, type: 3}
   buildingName: Level
   description: 

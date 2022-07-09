@@ -33,7 +33,7 @@ namespace StealthLib
         }
 
         /*
-         * DetectHearingObject ist die Methode welche für das Suchen des Objectes welche Laute macht.
+         * DetectHearingObject ist die Methode welche für das Hören eines Objektes zuständig ist.
          * @return: Gibt das GameObject zurück welches ein Laut gemacht hat.
          */
         private void DetectHearingObject()
@@ -43,7 +43,7 @@ namespace StealthLib
             {
                 foreach (Collider collider in colliders)
                 {
-                    //Wenn er sich selbst hört, return
+                    //Wenn er sich selbst hört, continue
                     if (collider.gameObject.Equals(this.gameObject)) continue;
 
                     //Überprüfung ob das Gehörte Object über die SoundMaker Klasse verfügt
@@ -53,7 +53,7 @@ namespace StealthLib
                         Vector3 makerPosition = soundMaker.transform.position;
                         distance = Vector3.Distance(makerPosition, transform.position);
 
-                        //Distance je nach Reichweite errechnen
+                        //Sound je nach Reichweite errechnen
                         objectVolume = VolumePerDistance(distance, soundMaker.Volume);
 
                         AddHearedObjectToList(collider.gameObject);
@@ -77,7 +77,7 @@ namespace StealthLib
          * Überprüft ob das GameoObjekt gehört werden kann und ob dieses schon in der Liste existiert.
          * Falls das Object in der Liste existiert und nicht gehört werden kann wird es entfernt.
          */
-        public void AddHearedObjectToList(GameObject gameObject)
+        private void AddHearedObjectToList(GameObject gameObject)
         {
             if(objectVolume >= soundLevelToHear && CurrentHearingObjects.Count < 0)
             {

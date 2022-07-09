@@ -30,23 +30,24 @@ namespace StealthLib
 
         protected virtual void FixedUpdate()
         {
-            if (abillitySO == null)
+
+            if (Abillity == null)
             {
                 return;
             }
 
-            if(activationLeft <= 0)
+            if (activationLeft <= 0)
             {
                 abillitySO = null;
             }
 
-            //Wenn die Fähigkeit aktiviert wurde, beginne mit dem ru7nterzählen der Abklingszeit
+            //Wenn die Fähigkeit aktiviert wurde, beginne mit dem runterzählen der Abklingszeit
             if (HasBeenActivated)
             {
                 cnt -= Time.deltaTime;
                 if (cnt <= 0)
                 {
-                    cnt = abillitySO.Cooldown;
+                    cnt = Abillity.Cooldown;
                     HasBeenActivated = false;
                 }
                 Cooldown = (int)cnt;
@@ -61,8 +62,8 @@ namespace StealthLib
             //Falls die Abklingszeit noch läuft und die Fähigkeit nochmal aktiviert wurde, return
             if (HasBeenActivated || activatableAbillity == null) return;
 
-            //Falls es sich bei der Abillity um ein Item handelt, zähl deren Aktivierung runter.
-            if (abillitySO.IsItem) activationLeft--;
+            //Falls es sich bei der Abillity um ein Item handelt, zähl die Aktivierung runter.
+            if (Abillity.IsItem) activationLeft--;
 
             activatableAbillity.Activate();
             HasBeenActivated = true;
@@ -72,27 +73,18 @@ namespace StealthLib
         //Das Reseten der Werte zum Default
         protected virtual void ResetDefault()
         {
-            if (abillitySO != null)
+            if (Abillity != null)
             {
-                cnt = abillitySO.Cooldown;
-                activationLeft = abillitySO.ActivationCount;
+                cnt = Abillity.Cooldown;
+                activationLeft = Abillity.ActivationCount;
                 HasBeenActivated = false;
 
                 //Casten in die möglichen Fähigkeitstypen.
-                skillUpdateable = abillitySO as IUpdateableAbillity;
-                activatableAbillity = abillitySO as IActivatableAbillity;
+                skillUpdateable = Abillity as IUpdateableAbillity;
+                activatableAbillity = Abillity as IActivatableAbillity;
             }
         }
 
-        /*
-         * Abfrage für Externe Scripts ob die Fähigkeit von dieser Klasse in Laufzeit entfert werden kann.
-         * Hierbei wird geprüft ob die maximale Aktivierungen überschritten worden sind und gibt true zurück fall der Wert unter dem default Wert liegt.
-         */
-        public bool CanBeRemoved()
-        {
-            if (abillitySO == null) return false;
-            return activationLeft <= 0;
-        }
 
         #region Getter & Setter
 
@@ -106,7 +98,7 @@ namespace StealthLib
             get { return abillitySO; }
             set
             {
-                if(abillitySO == value)
+                if(abillitySO != null && abillitySO == value)
                 {
                     activationLeft++;
                     return;

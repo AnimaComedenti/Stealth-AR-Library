@@ -24,7 +24,7 @@ namespace StealthLib
         {
             SetSkillToActivate(abillityHandler.Abillity);
         }
-        protected virtual void Update()
+        protected virtual void FixedUpdate()
         {
             SetSkillToActivate(abillityHandler.Abillity);
         }

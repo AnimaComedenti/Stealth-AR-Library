@@ -32,7 +32,7 @@ namespace StealthDemo
         private GameObject[] spawns;
         private bool _isHiderSpawned = false;
 
-        public void Start()
+        private void Start()
         {
             if (PhotonNetwork.IsMasterClient)
             {

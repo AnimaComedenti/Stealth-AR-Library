@@ -24,6 +24,8 @@ namespace StealthLib
 
         protected override void FixedUpdate()
         {
+            base.FixedUpdate();
+
             if (itemCollector.Items.Count <=  itemSlot) return;
 
             if (Abillity == null)
@@ -31,14 +33,6 @@ namespace StealthLib
                 Abillity = itemCollector.Items[itemSlot];
                 itemCollector.RemoveItemFromList(Abillity);
             }
-
-            base.FixedUpdate();
-        }
-        protected override void ResetDefault()
-        {
-            base.ResetDefault();
-
-            if (abillitySO == null && itemCollector.Items.Count > itemSlot) itemCollector.RemoveItemFromList(itemCollector.Items[itemSlot]);
         }
 
         //Falls ein Duplicate gefunden wurde wird das Item wieder Gesetzt.
